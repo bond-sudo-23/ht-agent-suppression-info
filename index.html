@@ -3,2167 +3,1105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hệ thống Tri thức Kỹ thuật & Tính toán Chữa cháy Khí IG-100 | PCCC Pro</title>
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <title>Tra Cứu & Tính Toán Chữa Cháy Khí (IG-100 / Clean Agent)</title>
+  <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=S3yZ-WIMgftlRlPPZyI0VOQHQCVbEMAw4g7rBE2ddZ4GLT-OYJQ25Nnb9Okx1F_5KMwYF7q8zARv2zvny1iUc_SOK3LaoBpct-xhu_MP0fmDA72VfL-3iUXwGIMWrxnJDRXtLO_c-YxDIzPD_ki9gvpeQEAbR3jupnlSDicTMgVvTvyDM6XkJ7rtSUIoRlpBTCBhQKltAi5sYuH0fAdFO0mhjTRUhJS9Y2jwVJgjsXaOUuHLOrOQv50WeldH5KA0K-4OkCF3KpND26jjJy60gtlBth6P7NPhUpOu48yxkEOqq_I5u-GaOdvURzOe-hxW" charset="UTF-8"></script><script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            navy: {
-              950: '#070E1A',
-              900: '#0B172A',
-              800: '#132440',
-              700: '#1D3557',
-            },
-            fire: {
-              500: '#EF4444',
-              600: '#DC2626',
-              700: '#B91C1C',
-            }
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Custom scrollbar & Print utilities */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #f1f5f9;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 9999px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
+    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    mark { background-color: #fef08a; color: #854d0e; padding: 0 2px; border-radius: 2px; }
     @media print {
-      body * {
-        visibility: hidden;
-      }
-      #printable-report, #printable-report * {
-        visibility: visible;
-      }
-      #printable-report {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        background: white !important;
-        color: black !important;
-        box-shadow: none !important;
-        border: none !important;
-        padding: 0 !important;
-      }
-      .no-print {
-        display: none !important;
-      }
+      .no-print { display: none !important; }
+      body { background: white !important; }
+      .print-card { box-shadow: none !important; border: 1px solid #cbd5e1 !important; }
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
 
-  <!-- Toast Notification Container -->
-  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
-
-  <!-- Custom Confirm Modal (Replaces window.confirm) -->
-  <div id="confirm-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
-    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 border border-slate-200 animate-fade-in">
-      <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center shrink-0">
-          <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+  <!-- Header -->
+  <header class="bg-slate-900 text-white shadow-md no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-red-600 flex items-center justify-center font-bold text-lg shadow">
+          IG
         </div>
-        <div class="flex-1">
-          <h3 id="confirm-title" class="text-lg font-bold text-slate-900">Xác nhận thao tác</h3>
-          <p id="confirm-message" class="text-sm text-slate-600 mt-1">Bạn có chắc chắn muốn thực hiện thao tác này?</p>
-        </div>
-      </div>
-      <div class="mt-6 flex justify-end gap-3">
-        <button id="confirm-cancel-btn" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 transition">Hủy bỏ</button>
-        <button id="confirm-ok-btn" class="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-fire-600 hover:bg-fire-700 transition shadow-sm">Đồng ý</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Top Engineering Header -->
-  <header class="bg-navy-900 text-white border-b border-navy-700 sticky top-0 z-30 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col md:flex-row md:items-center md:justify-between py-3.5 gap-3">
-        <!-- Brand & Title -->
-        <div class="flex items-center gap-3.5">
-          <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-fire-500 to-amber-600 flex items-center justify-center shadow-lg shadow-fire-600/30 shrink-0">
-            <i data-lucide="flame-kindling" class="w-6 h-6 text-white"></i>
-          </div>
-          <div>
-            <div class="flex items-center gap-2 flex-wrap">
-              <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-white">
-                IG-100 & CLEAN AGENT <span class="text-amber-400">ENGINEERING SUITE</span>
-              </h1>
-              <span class="text-[11px] font-mono font-semibold px-2 py-0.5 rounded-md bg-navy-800 text-sky-300 border border-navy-700">
-                TCVN 7161-13 | UL 2127 | NFPA 2001
-              </span>
-            </div>
-            <p class="text-xs text-slate-300 mt-0.5">
-              Hệ thống Quản lý Tri thức Kỹ thuật, Ma trận So sánh Thiết bị & Tính toán Thiết kế Chữa cháy Khí Sạch
-            </p>
-          </div>
-        </div>
-
-        <!-- Quick Actions: Backup / Restore / Reset -->
-        <div class="flex items-center gap-2 flex-wrap">
-          <button onclick="exportDataJSON()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-navy-800 hover:bg-navy-700 text-slate-200 border border-navy-700 transition" title="Xuất toàn bộ dữ liệu hãng ra file JSON">
-            <i data-lucide="download" class="w-3.5 h-3.5 text-emerald-400"></i>
-            <span>Xuất JSON</span>
-          </button>
-          <button onclick="exportDataCSV()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-navy-800 hover:bg-navy-700 text-slate-200 border border-navy-700 transition" title="Xuất bảng so sánh ra CSV (Excel)">
-            <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-sky-400"></i>
-            <span>Xuất CSV</span>
-          </button>
-          <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-navy-800 hover:bg-navy-700 text-slate-200 border border-navy-700 transition cursor-pointer" title="Nhập dữ liệu từ file JSON">
-            <i data-lucide="upload" class="w-3.5 h-3.5 text-amber-400"></i>
-            <span>Nhập JSON</span>
-            <input type="file" id="import-json-input" accept=".json" class="hidden" onchange="importDataJSON(event)" />
-          </label>
-          <button onclick="confirmResetDefault()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium bg-navy-800 hover:bg-fire-900/50 text-slate-300 hover:text-fire-300 border border-navy-700 transition" title="Khôi phục dữ liệu gốc SRI & NAFFCO">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-            <span class="hidden sm:inline">Dữ liệu gốc</span>
-          </button>
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold tracking-tight">Hệ Thống Tra Cứu & Thiết Kế Chữa Cháy Khí</h1>
+          <p class="text-xs text-slate-400">Spec Matrix &amp; Hydraulic/Agent Calculator • Dữ liệu chuẩn SRI Inertec &amp; NAFFCOInert®</p>
         </div>
       </div>
 
       <!-- Navigation Tabs -->
-      <nav class="flex space-x-1 sm:space-x-2 overflow-x-auto pb-0 pt-1 border-t border-navy-800/80" aria-label="Tabs">
-        <button id="tab-btn-matrix" onclick="switchTab('matrix')" class="tab-btn group inline-flex items-center gap-2 px-4 py-3 text-sm font-semibold border-b-2 border-amber-400 text-amber-400 whitespace-nowrap transition">
-          <i data-lucide="table-properties" class="w-4 h-4"></i>
-          <span>1. Bảng So Sánh & Tra Cứu (Spec Matrix)</span>
-          <span id="brand-count-badge" class="ml-1 px-2 py-0.5 text-[11px] font-mono rounded-full bg-amber-400/20 text-amber-300">2</span>
+      <nav class="flex bg-slate-800 p-1 rounded-lg self-start md:self-auto">
+        <button onclick="switchTab('matrix')" id="tab-btn-matrix" class="tab-btn px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium bg-red-600 text-white transition">
+          1. Bảng Thông Số Hãng
         </button>
-        <button id="tab-btn-manage" onclick="switchTab('manage')" class="tab-btn group inline-flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-slate-300 hover:text-white hover:border-slate-500 whitespace-nowrap transition">
-          <i data-lucide="database-zap" class="w-4 h-4"></i>
-          <span>2. Quản Lý & Cập Nhật Dữ Liệu Hãng</span>
+        <button onclick="switchTab('limits')" id="tab-btn-limits" class="tab-btn px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium text-slate-300 hover:text-white transition">
+          2. Giới Hạn Đầu Phun &amp; Ống
         </button>
-        <button id="tab-btn-calc" onclick="switchTab('calc')" class="tab-btn group inline-flex items-center gap-2 px-4 py-3 text-sm font-medium border-b-2 border-transparent text-slate-300 hover:text-white hover:border-slate-500 whitespace-nowrap transition">
-          <i data-lucide="calculator" class="w-4 h-4"></i>
-          <span>3. Tính Nhanh Lượng Khí & Số Bình (Calculator)</span>
+        <button onclick="switchTab('calc')" id="tab-btn-calc" class="tab-btn px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium text-slate-300 hover:text-white transition">
+          3. Tính Toán Khí (kg / m³)
+        </button>
+        <button onclick="switchTab('manage')" id="tab-btn-manage" class="tab-btn px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium text-slate-300 hover:text-white transition">
+          4. Quản Lý Dữ Liệu
         </button>
       </nav>
     </div>
   </header>
 
-  <!-- Main Workspace -->
+  <!-- Main Content -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
-    <!-- =====================================================================
-         TAB 1: SPEC MATRIX & PARAMETER LOOKUP
-    ====================================================================== -->
-    <section id="tab-matrix" class="space-y-6">
-      <!-- Filter & Search Control Bar -->
-      <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 items-end">
-          <!-- Keyword Search -->
-          <div class="md:col-span-4">
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">
-              Tìm kiếm nhanh thông số / từ khóa
-            </label>
-            <div class="relative">
-              <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-              <input type="text" id="filter-search" oninput="renderMatrix()" placeholder="VD: đầu phun, 405, 67, NOAEL, 13.6, 1.3m, Tee..."
-                class="w-full pl-10 pr-8 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 focus:border-navy-700 outline-none transition" />
-              <button onclick="document.getElementById('filter-search').value=''; renderMatrix();" id="clear-search-btn" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
-                <i data-lucide="x-circle" class="w-4 h-4"></i>
+    <!-- ==================== TAB 1: SPEC MATRIX ==================== -->
+    <section id="tab-matrix" class="tab-section space-y-6">
+      <!-- Filter Bar -->
+      <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        <div class="lg:col-span-2">
+          <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Tìm kiếm nhanh thông số</label>
+          <input type="text" id="searchInput" oninput="renderMatrix()" placeholder="VD: 405 bar, 98.4, 140L, đĩa nổ, NOAEL, VdS..." class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Hãng sản xuất</label>
+          <select id="filterBrand" onchange="renderMatrix()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+            <option value="ALL">Tất cả hãng</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Loại khí</label>
+          <select id="filterAgent" onchange="renderMatrix()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+            <option value="ALL">Tất cả loại khí</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 uppercase mb-1">Áp suất nạp</label>
+          <select id="filterPressure" onchange="renderMatrix()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white">
+            <option value="ALL">Tất cả áp suất</option>
+            <option value="300">300 bar</option>
+            <option value="200">200 bar</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Comparison Cards / Table -->
+      <div id="matrixContainer" class="space-y-6"></div>
+    </section>
+
+    <!-- ==================== TAB 2: NOZZLE & PIPE LIMITS ==================== -->
+    <section id="tab-limits" class="tab-section hidden space-y-6">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-slate-200">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Giới Hạn Thiết Kế Đầu Phun &amp; Đường Ống (Manual SRI Inertec)</h2>
+            <p class="text-xs text-slate-500">Trích xuất từ Manual SPS-UL-IG-MNL Rev 0 (Mục 2.18, 3.5, 3.6, 3.7 &amp; 4.4 — Trang 31, 60–66, 80–82)</p>
+          </div>
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+            UL 2127 / FM 5600 / VdS Approved
+          </span>
+        </div>
+
+        <!-- 3 Columns Key Limits -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+          <!-- Card A: Nozzle Limits -->
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/50">
+            <h3 class="font-bold text-sm text-red-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-red-600"></span> A. Giới Hạn Bố Trí Đầu Phun
+            </h3>
+            <ul class="space-y-2.5 text-sm text-slate-700">
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Chủng loại góc phun:</span>
+                <span class="font-semibold text-right">360° (giữa trần) &amp; 180° (sát tường)</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Cao độ 1 lớp đầu phun:</span>
+                <span class="font-bold text-red-600 mono">≤ 4.7 m (15.42 ft)</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Độ phủ tối đa / 1 đầu phun:</span>
+                <span class="font-bold text-red-600 mono">≤ 98.4 m² (1059 ft²)</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">K/c max giữa 2 đầu phun:</span>
+                <span class="font-bold mono">≤ 10.22 m (33.5 ft)</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">K/c max đầu phun → tường:</span>
+                <span class="font-bold mono text-right">7.02 m (360°) / 10.4 m (180°)</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Áp suất min tại đầu phun:</span>
+                <span class="font-bold text-blue-700 mono text-right">≥ 13.6 bar (360°) / ≥ 14.3 bar (180°)</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-slate-500">Trần giả / Sàn nâng:</span>
+                <span class="font-medium text-right">Trần giả &gt; 300 mm &amp; mọi sàn nâng</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card B: Hydraulic & VdS Limits -->
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/50">
+            <h3 class="font-bold text-sm text-blue-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-blue-600"></span> B. Giới Hạn Thủy Lực VdS (Bảng 3-11)
+            </h3>
+            <ul class="space-y-2.5 text-sm text-slate-700">
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Thời gian phun xả:</span>
+                <span class="font-bold text-blue-700 mono">52 – 139 giây</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Từ đầu ra van → Tê đầu tiên:</span>
+                <span class="font-bold mono">Min 1.3 m</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Chênh cao độ mạng ống:</span>
+                <span class="font-bold mono">Max 6.6 m</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Tỷ lệ V_ống / V_bình:</span>
+                <span class="font-bold mono">Max 130%</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Tỷ lệ V_ống trước Tê đầu tiên:</span>
+                <span class="font-bold mono">Min 9%</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Tỷ lệ tiết diện lỗ Orifice / Ống:</span>
+                <span class="font-bold mono">1% – 58%</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Chiều dài ống tới hạn:</span>
+                <span class="font-bold mono">Min 6 × D (đường kính ống)</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-slate-500">Chênh lệch áp giữa các đầu phun:</span>
+                <span class="font-bold mono">Max 4.9 bar</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Card C: Tee Splits & Piping Spec -->
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/50">
+            <h3 class="font-bold text-sm text-emerald-700 uppercase tracking-wide mb-3 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-600"></span> C. Tỷ Lệ Chia Tê &amp; Tiêu Chuẩn Ống
+            </h3>
+            <ul class="space-y-2.5 text-sm text-slate-700">
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Bull Tee (chia 2 nhánh):</span>
+                <span class="font-bold text-emerald-700 mono">50%:50% đến 85%:15%</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Side Tee (đi thẳng + rẽ):</span>
+                <span class="font-bold text-emerald-700 mono">90%:10% đến 60%:40%</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Hướng lắp Tê cấm:</span>
+                <span class="font-medium text-right text-red-600">Không chia nhánh đứng lên/xuống</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Ống phân phối sau điều áp:</span>
+                <span class="font-semibold text-right">ASTM A106B / A53B Sch.40 (≥1000 psi)</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Ống góp (Manifold):</span>
+                <span class="font-semibold text-right">Sch.80 (Regulator) / Sch.160 (PRU)</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-200 pb-1.5">
+                <span class="text-slate-500">Đoạn ống thẳng sau PRU:</span>
+                <span class="font-bold mono">Min 300 mm trước cút/chuyển hướng</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-slate-500">Phụ kiện nối ống:</span>
+                <span class="font-medium text-right">Class 300 (≤3") / Class 2000 / Bích 600</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Nozzle Orifice & Pipe Estimation Tables -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+          <!-- Table 2-3: Nozzle Sizes -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <div class="bg-slate-800 text-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider">
+              Bảng 2-3: Kích Thước Đầu Phun &amp; Đường Kính Lỗ Orifice Cho Phép (SRI)
+            </div>
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <tr>
+                  <th class="px-3 py-2">Cỡ ren (BSP)</th>
+                  <th class="px-3 py-2">DN</th>
+                  <th class="px-3 py-2">Mã đầu phun (360° / 180°)</th>
+                  <th class="px-3 py-2">Lỗ Orifice (mm)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 mono">
+                <tr><td class="px-3 py-2 font-semibold">1/2"</td><td class="px-3 py-2">DN15</td><td class="px-3 py-2">IG-009/010-BR-360/180-DN15</td><td class="px-3 py-2 font-bold text-blue-700">3 – 12 mm</td></tr>
+                <tr><td class="px-3 py-2 font-semibold">3/4"</td><td class="px-3 py-2">DN20</td><td class="px-3 py-2">IG-009/010-BR-360/180-DN20</td><td class="px-3 py-2 font-bold text-blue-700">4 – 16 mm</td></tr>
+                <tr><td class="px-3 py-2 font-semibold">1"</td><td class="px-3 py-2">DN25</td><td class="px-3 py-2">IG-009/010-BR-360/180-DN25</td><td class="px-3 py-2 font-bold text-blue-700">6 – 20 mm</td></tr>
+                <tr><td class="px-3 py-2 font-semibold">1-1/4"</td><td class="px-3 py-2">DN32</td><td class="px-3 py-2">IG-009/010-BR-360/180-DN32</td><td class="px-3 py-2 font-bold text-blue-700">8 – 25 mm</td></tr>
+                <tr><td class="px-3 py-2 font-semibold">1-1/2"</td><td class="px-3 py-2">DN40</td><td class="px-3 py-2">IG-009/010-BR-360/180-DN40</td><td class="px-3 py-2 font-bold text-blue-700">10 – 32 mm</td></tr>
+                <tr><td class="px-3 py-2 font-semibold">2"</td><td class="px-3 py-2">DN50</td><td class="px-3 py-2">IG-009/010-BR-360/180-DN50</td><td class="px-3 py-2 font-bold text-blue-700">12 – 40 mm</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table 3-10: Pipe Size Estimation -->
+          <div class="border border-slate-200 rounded-xl overflow-hidden">
+            <div class="bg-slate-800 text-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider">
+              Bảng 3-10: Ước Tính Cỡ Ống Sch. 40 Theo Lưu Lượng Khí (kg/s)
+            </div>
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                <tr>
+                  <th class="px-3 py-2">DN (mm)</th>
+                  <th class="px-3 py-2">Inch</th>
+                  <th class="px-3 py-2">Lưu lượng Min (kg/s)</th>
+                  <th class="px-3 py-2">Lưu lượng Max (kg/s)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 mono">
+                <tr><td class="px-3 py-1.5 font-semibold">DN15</td><td class="px-3 py-1.5">1/2"</td><td class="px-3 py-1.5">0.454</td><td class="px-3 py-1.5 font-bold">1.361</td></tr>
+                <tr><td class="px-3 py-1.5 font-semibold">DN20</td><td class="px-3 py-1.5">3/4"</td><td class="px-3 py-1.5">0.907</td><td class="px-3 py-1.5 font-bold">2.495</td></tr>
+                <tr><td class="px-3 py-1.5 font-semibold">DN25</td><td class="px-3 py-1.5">1"</td><td class="px-3 py-1.5">1.588</td><td class="px-3 py-1.5 font-bold">3.855</td></tr>
+                <tr><td class="px-3 py-1.5 font-semibold">DN32</td><td class="px-3 py-1.5">1-1/4"</td><td class="px-3 py-1.5">2.722</td><td class="px-3 py-1.5 font-bold">5.670</td></tr>
+                <tr><td class="px-3 py-1.5 font-semibold">DN40</td><td class="px-3 py-1.5">1-1/2"</td><td class="px-3 py-1.5">4.082</td><td class="px-3 py-1.5 font-bold">9.072</td></tr>
+                <tr><td class="px-3 py-1.5 font-semibold">DN50</td><td class="px-3 py-1.5">2"</td><td class="px-3 py-1.5">6.350</td><td class="px-3 py-1.5 font-bold">13.61</td></tr>
+                <tr><td class="px-3 py-1.5 font-semibold">DN65</td><td class="px-3 py-1.5">2-1/2"</td><td class="px-3 py-1.5">9.072</td><td class="px-3 py-1.5 font-bold">24.95</td></tr>
+                <tr><td class="px-3 py-1.5 font-semibold">DN80</td><td class="px-3 py-1.5">3"</td><td class="px-3 py-1.5">13.61</td><td class="px-3 py-1.5 font-bold">40.82</td></tr>
+                <tr><td class="px-3 py-1.5 font-semibold">DN100</td><td class="px-3 py-1.5">4"</td><td class="px-3 py-1.5">24.95</td><td class="px-3 py-1.5 font-bold">56.70</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: QUICK CALCULATOR (KG & M3) ==================== -->
+    <section id="tab-calc" class="tab-section hidden space-y-6">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 print-card">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Bảng Tính Nhanh Lượng Khí &amp; Số Bình IG-100 (Quy đổi linh hoạt kg ↔ m³)</h2>
+            <p class="text-xs text-slate-500">Tham chiếu công thức Excel mẫu &amp; Manual SRI Inertec (Mục 3.3 – 3.5, TCVN 7161-13 / NFPA 2001)</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 no-print">
+            <!-- Unit Toggle Switch -->
+            <div class="inline-flex rounded-lg border border-slate-300 bg-slate-100 p-0.5">
+              <button type="button" id="unit-btn-m3" onclick="setDisplayUnit('m3')" class="px-3 py-1.5 rounded-md text-xs font-bold bg-blue-600 text-white transition">
+                Hiển thị chính: m³
+              </button>
+              <button type="button" id="unit-btn-kg" onclick="setDisplayUnit('kg')" class="px-3 py-1.5 rounded-md text-xs font-bold text-slate-700 hover:text-slate-900 transition">
+                Hiển thị chính: kg
               </button>
             </div>
-          </div>
-
-          <!-- Filter by Gas Type -->
-          <div class="md:col-span-2">
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Loại khí</label>
-            <select id="filter-gas" onchange="renderMatrix()" class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none">
-              <option value="ALL">Tất cả loại khí</option>
-              <option value="IG-100">IG-100 (N2 100%)</option>
-              <option value="IG-541">IG-541 (Inergen)</option>
-              <option value="IG-55">IG-55 (Argonite)</option>
-              <option value="IG-01">IG-01 (Argon)</option>
-            </select>
-          </div>
-
-          <!-- Filter by Working Pressure -->
-          <div class="md:col-span-2">
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Áp suất bình</label>
-            <select id="filter-pressure" onchange="renderMatrix()" class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none">
-              <option value="ALL">200 & 300 bar</option>
-              <option value="200">200 bar</option>
-              <option value="300">300 bar</option>
-            </select>
-          </div>
-
-          <!-- Filter by Standard -->
-          <div class="md:col-span-2">
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Tiêu chuẩn</label>
-            <select id="filter-standard" onchange="renderMatrix()" class="w-full px-3 py-2.5 text-sm bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none">
-              <option value="ALL">Tất cả tiêu chuẩn</option>
-              <option value="TCVN">TCVN 7161-13</option>
-              <option value="UL">UL Listed</option>
-              <option value="FM">FM Approved</option>
-              <option value="NFPA">NFPA 2001</option>
-              <option value="VdS">VdS Software</option>
-            </select>
-          </div>
-
-          <!-- Brand Visibility Checkboxes Trigger / Quick Add -->
-          <div class="md:col-span-2 flex gap-2">
-            <button onclick="openAddNewBrand()" class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-sm font-semibold text-white bg-navy-800 hover:bg-navy-900 transition shadow-sm">
-              <i data-lucide="plus-circle" class="w-4 h-4 text-amber-400"></i>
-              <span>Thêm hãng</span>
+            <button onclick="exportCalcCSV()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg transition">
+              Xuất Bảng Tính (CSV)
+            </button>
+            <button onclick="window.print()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-800 text-white text-xs font-semibold rounded-lg transition">
+              In / Lưu PDF
             </button>
           </div>
         </div>
 
-        <!-- Brand Selection Chips & Quick Keyword Tags -->
-        <div class="mt-4 pt-3.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div class="flex items-center gap-2 flex-wrap" id="brand-filter-chips">
-            <!-- Populated by JS -->
-          </div>
-          <div class="flex items-center gap-1.5 flex-wrap text-xs">
-            <span class="text-slate-400 font-medium">Gợi ý tra nhanh:</span>
-            <button onclick="quickSearch('405')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono transition">Đĩa nổ 405</button>
-            <button onclick="quickSearch('đầu phun')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Đầu phun</button>
-            <button onclick="quickSearch('NOAEL')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 font-mono transition">NOAEL</button>
-            <button onclick="quickSearch('điều áp')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 transition">Điều áp</button>
-            <button onclick="quickSearch('16 bộ phận')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 transition">16 bộ phận</button>
-          </div>
-        </div>
-      </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6">
+          <!-- Left Inputs (5 cols) -->
+          <div class="lg:col-span-5 space-y-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <h3 class="font-bold text-sm text-slate-800 uppercase tracking-wide">1. Thông Số Phòng &amp; Thiết Kế</h3>
 
-      <!-- Technical Reference Formula & Gas Physical Banner (IG-100 Core Reference) -->
-      <div class="bg-gradient-to-r from-navy-900 via-navy-800 to-navy-900 text-white rounded-2xl p-4 sm:p-5 shadow-sm border border-navy-700">
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 text-xs font-mono font-bold border border-amber-400/30">IG-100 (NITROGEN 100%)</span>
-              <span class="text-xs text-slate-300">Đặc tính vật lý & Công thức nền tảng (TCVN 7161-13 / UL 2127)</span>
-            </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs">
-              <div class="bg-navy-950/60 px-3 py-2 rounded-xl border border-navy-700/80">
-                <span class="text-slate-400 block">Khối lượng phân tử (MW)</span>
-                <span class="font-mono font-bold text-sm text-white">28.02 g/mol</span>
-              </div>
-              <div class="bg-navy-950/60 px-3 py-2 rounded-xl border border-navy-700/80">
-                <span class="text-slate-400 block">Điểm sôi / Điểm đông đặc</span>
-                <span class="font-mono font-bold text-sm text-sky-300">-195.8°C / -210°C</span>
-              </div>
-              <div class="bg-navy-950/60 px-3 py-2 rounded-xl border border-navy-700/80">
-                <span class="text-slate-400 block">Thể tích riêng S₀</span>
-                <span class="font-mono font-bold text-sm text-emerald-300">0.858 <span class="text-[11px] font-normal text-slate-400">@20°C</span> | 0.8612 <span class="text-[11px] font-normal text-slate-400">@21°C</span></span>
-              </div>
-              <div class="bg-navy-950/60 px-3 py-2 rounded-xl border border-navy-700/80">
-                <span class="text-slate-400 block">Ngưỡng an toàn sinh học</span>
-                <span class="font-mono font-bold text-sm text-amber-300">NOAEL 43% | LOAEL 52%</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-navy-950/80 p-3.5 rounded-xl border border-navy-700 shrink-0 lg:max-w-sm">
-            <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-1">Công thức tính lượng khí (TCVN / ISO 14520)</div>
-            <div class="font-mono text-xs sm:text-sm text-amber-300 font-semibold">
-              Q = (V / S) × ln(100 / (100 - C))
-            </div>
-            <div class="font-mono text-[11px] text-slate-300 mt-1">
-              S = 0.7997 + 0.00293 × T (°C) &nbsp;|&nbsp; V<sub>khí</sub> = Q × S₀
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Comparison Matrix Table Container -->
-      <div id="matrix-container" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-        <!-- Populated dynamically by renderMatrix() -->
-      </div>
-    </section>
-
-    <!-- =====================================================================
-         TAB 2: DATA MANAGEMENT & BRAND EDITOR
-    ====================================================================== -->
-    <section id="tab-manage" class="hidden space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Left Sidebar: Brand List -->
-        <div class="lg:col-span-4 space-y-4">
-          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
-            <div class="flex items-center justify-between mb-3">
-              <div>
-                <h2 class="text-base font-bold text-slate-900">Danh sách Hãng & Manual</h2>
-                <p class="text-xs text-slate-500">Chọn hãng để chỉnh sửa hoặc nhân bản</p>
-              </div>
-              <button onclick="openAddNewBrand()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-white bg-fire-600 hover:bg-fire-700 transition shadow-sm">
-                <i data-lucide="plus" class="w-4 h-4"></i>
-                <span>Thêm hãng mới</span>
-              </button>
-            </div>
-
-            <div id="manage-brand-list" class="space-y-2.5 mt-4">
-              <!-- Populated by JS -->
-            </div>
-          </div>
-
-          <!-- Guide Box -->
-          <div class="bg-sky-50 border border-sky-200 rounded-2xl p-4 text-xs text-sky-900 space-y-2">
-            <div class="flex items-center gap-2 font-bold text-sky-950">
-              <i data-lucide="info" class="w-4 h-4 text-sky-600"></i>
-              <span>Hướng dẫn mở rộng dữ liệu</span>
-            </div>
-            <p class="leading-relaxed">
-              • Mọi chỉnh sửa được lưu tự động vào <strong>LocalStorage</strong> của trình duyệt này.
-            </p>
-            <p class="leading-relaxed">
-              • Bạn có thể dùng nút <strong>Nhân bản (Duplicate)</strong> từ hãng <em>SRI</em> hoặc <em>NAFFCO</em> để tạo nhanh dữ liệu cho <strong>Kidde, Fike, Siemens, Wagner...</strong> mà không phải nhập lại từ đầu.
-            </p>
-            <p class="leading-relaxed">
-              • Sử dụng <strong>Xuất JSON</strong> trên thanh công cụ để gửi file cấu hình cho đồng nghiệp trong phòng thiết kế.
-            </p>
-          </div>
-        </div>
-
-        <!-- Right Main Form: Brand Technical Editor -->
-        <div class="lg:col-span-8">
-          <form id="brand-editor-form" onsubmit="saveBrandForm(event)" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <!-- Form Header -->
-            <div class="bg-navy-900 text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <span id="form-mode-badge" class="inline-block px-2 py-0.5 text-[11px] font-mono font-semibold rounded bg-amber-400/20 text-amber-300 border border-amber-400/30 mb-1">
-                  CHỈNH SỬA DỮ LIỆU
-                </span>
-                <h3 id="form-title" class="text-lg font-bold">Cập nhật thông số kỹ thuật hãng</h3>
-              </div>
-              <div class="flex items-center gap-2">
-                <button type="button" onclick="duplicateCurrentBrand()" id="btn-duplicate-brand" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-navy-800 hover:bg-navy-700 text-sky-300 border border-navy-700 transition">
-                  <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                  <span>Nhân bản hãng này</span>
-                </button>
-                <button type="submit" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow transition">
-                  <i data-lucide="save" class="w-4 h-4"></i>
-                  <span>Lưu thay đổi</span>
-                </button>
-              </div>
-            </div>
-
-            <input type="hidden" id="edit-brand-id" />
-
-            <div class="p-6 space-y-6">
-              <!-- Group 1: General Info -->
-              <div class="space-y-4">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-navy-800 border-b border-slate-200 pb-2 flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-lg bg-navy-100 text-navy-800 flex items-center justify-center text-xs font-mono">01</span>
-                  <span>Thông tin chung & Tài liệu tham chiếu (Manual)</span>
-                </h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Tên Hãng sản xuất *</label>
-                    <input type="text" id="field-name" required placeholder="VD: SRI, NAFFCO, Kidde..." class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Tên Dòng sản phẩm / Hệ thống *</label>
-                    <input type="text" id="field-systemName" required placeholder="VD: Inertec Fire Suppression System" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Mã tài liệu (Manual / Brochure Part No.)</label>
-                    <input type="text" id="field-manualCode" placeholder="VD: SPS-UL-IG-MNL Rev 0" class="w-full px-3.5 py-2 text-sm font-mono border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Phần mềm tính toán thủy lực</label>
-                    <input type="text" id="field-software" placeholder="VD: VdS Approved Calculation Software" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Chứng nhận & Tiêu chuẩn (Certifications)</label>
-                    <input type="text" id="field-certifications" placeholder="VD: UL Listed EX27164, FM Approved, TCVN 7161-13" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Các loại khí hỗ trợ (cách nhau dấu phẩy)</label>
-                    <input type="text" id="field-gases" placeholder="VD: IG-100, IG-541, IG-55, IG-01" class="w-full px-3.5 py-2 text-sm font-mono border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Group 2: Cylinders & Pressure -->
-              <div class="space-y-4">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-navy-800 border-b border-slate-200 pb-2 flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-lg bg-navy-100 text-navy-800 flex items-center justify-center text-xs font-mono">02</span>
-                  <span>Thông số Bình chứa & Áp suất làm việc</span>
-                </h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Áp suất làm việc chuẩn (bar @21°C)</label>
-                    <input type="text" id="field-workingPressure" placeholder="VD: 200 bar hoặc 300 bar @ 21°C" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Áp suất sau điều áp (Regulator / PRU)</label>
-                    <input type="text" id="field-regulatedPressure" placeholder="VD: < 60 bar (hoặc 40 - 60 bar)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Đĩa nổ an toàn (Burst Disc)</label>
-                    <input type="text" id="field-burstDisc" placeholder="VD: 270 bar (bình 200) / 405 bar (bình 300)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Công tắc giám sát áp thấp (Low Pressure Switch)</label>
-                    <input type="text" id="field-lowPressureSwitch" placeholder="VD: 180±8 bar (200) / 250±12 bar (300)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Số bình tối đa trên 1 hệ thống / Manifold</label>
-                    <input type="text" id="field-maxCylinders" placeholder="VD: Tối đa 51 bình (1 master + 50 slave)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Tham chiếu trang Manual (Bình & Van)</label>
-                    <input type="text" id="field-pageRefCylinder" placeholder="VD: Manual tr. 12-28" class="w-full px-3.5 py-2 text-sm font-mono border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                </div>
-
-                <!-- Dynamic Cylinder Sizes List (Used by Calculator too!) -->
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
-                  <div class="flex items-center justify-between">
-                    <div>
-                      <span class="text-xs font-bold text-slate-800">Danh mục cấu hình bình chứa (Đồng bộ sang Công cụ tính toán)</span>
-                      <p class="text-[11px] text-slate-500">Nhập lượng khí nạp (m³ @21°C) để công cụ tính nhanh số lượng bình tự động</p>
-                    </div>
-                    <button type="button" onclick="addCylinderRow()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-navy-800 text-white hover:bg-navy-900 transition">
-                      <i data-lucide="plus" class="w-3.5 h-3.5"></i>
-                      <span>Thêm loại bình</span>
-                    </button>
-                  </div>
-                  <div id="cylinder-rows-container" class="space-y-2">
-                    <!-- Dynamic cylinder rows -->
-                  </div>
-                </div>
-              </div>
-
-              <!-- Group 3: Design Concentrations & Constants -->
-              <div class="space-y-4">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-navy-800 border-b border-slate-200 pb-2 flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-lg bg-navy-100 text-navy-800 flex items-center justify-center text-xs font-mono">03</span>
-                  <span>Nồng độ thiết kế, An toàn & Hằng số khí</span>
-                </h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nồng độ thiết kế theo TCVN 7161-13</label>
-                    <input type="text" id="field-concTCVN" placeholder="VD: Lớp A = 40.3%, Lớp A+ = 41.5%, Lớp B = 43.7%" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Nồng độ thiết kế theo UL / FM / NFPA</label>
-                    <input type="text" id="field-concULFM" placeholder="VD: Lớp A = 37.1%, Lớp B = 42.4%, Lớp C = 41.7%" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Ngưỡng an toàn NOAEL / LOAEL</label>
-                    <input type="text" id="field-noaelLoael" placeholder="VD: NOAEL: 43% (O2 ≥ 12%) | LOAEL: 52% (O2 ≥ 10%)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Hệ số K1, K2 & Thể tích riêng S₀</label>
-                    <input type="text" id="field-constantsK" placeholder="VD: K1 = 0.7997, K2 = 0.00293 | S₀ = 0.858 (@20°C)" class="w-full px-3.5 py-2 text-sm font-mono border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Group 4: Nozzles & Piping Limits -->
-              <div class="space-y-4">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-navy-800 border-b border-slate-200 pb-2 flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-lg bg-navy-100 text-navy-800 flex items-center justify-center text-xs font-mono">04</span>
-                  <span>Giới hạn Đầu phun (Nozzle) & Thủy lực Đường ống</span>
-                </h4>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Kích thước & Chủng loại đầu phun</label>
-                    <input type="text" id="field-nozzleSizes" placeholder="VD: 1/2&quot; - 2&quot; (DN15-DN50), ren BSP, lỗ 3-40mm, 360° & 180°" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Diện tích bao phủ tối đa 1 đầu phun (m²)</label>
-                    <input type="text" id="field-maxCoverageArea" placeholder="VD: ≤ 98.4 m²" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Cao độ tối đa 1 lớp đầu phun (m)</label>
-                    <input type="text" id="field-maxHeight" placeholder="VD: ≤ 4.7 m (cao hơn phải bố trí thêm lớp)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Khoảng cách đầu phun (giữa 2 đầu / đến tường)</label>
-                    <input type="text" id="field-nozzleSpacing" placeholder="VD: Giữa 2 đầu ≤ 10.22m; Đến tường: 7.02m (360°) / 10.4m (180°)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Áp suất tối thiểu tại đầu phun & Chênh lệch</label>
-                    <input type="text" id="field-minNozzlePressure" placeholder="VD: 360° ≥ 13.6 bar; 180° ≥ 14.3 bar (chênh lệch ≤ 4.9 bar)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Thời gian phun xả (Discharge Time)</label>
-                    <input type="text" id="field-dischargeTime" placeholder="VD: 52 - 139 giây (VdS) / ≤ 60 giây (NFPA 2001)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Giới hạn đường ống (Chênh cao & Khoảng cách Tee)</label>
-                    <input type="text" id="field-pipingLimits" placeholder="VD: Chênh cao max 6.6m; Từ van bình đến Tee đầu tiên ≥ 1.3m" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Tỷ lệ chia lưu lượng tại Tee (Bull / Side)</label>
-                    <input type="text" id="field-teeSplit" placeholder="VD: Bull Tee (50:50 - 85:15), Side Tee (90:10 - 60:40)" class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Group 5: Components & Technical Notes -->
-              <div class="space-y-4">
-                <h4 class="text-sm font-bold uppercase tracking-wider text-navy-800 border-b border-slate-200 pb-2 flex items-center gap-2">
-                  <span class="w-6 h-6 rounded-lg bg-navy-100 text-navy-800 flex items-center justify-center text-xs font-mono">05</span>
-                  <span>Cấu tạo cụm thiết bị, Số trang tham chiếu & Lưu ý kỹ thuật</span>
-                </h4>
-                <div class="grid grid-cols-1 gap-4">
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 mb-1">Danh mục cấu tạo cụm thiết bị chuẩn (Components)</label>
-                    <textarea id="field-components" rows="2" placeholder="Liệt kê các bộ phận chính trong cụm bình & ống góp..." class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none"></textarea>
-                  </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label class="block text-xs font-semibold text-slate-700 mb-1">Tham chiếu số trang Manual tổng hợp (Page Ref)</label>
-                      <input type="text" id="field-pageRefGeneral" placeholder="VD: Manual tr. 52 (Nồng độ), tr. 60-66 (Đầu phun & Ống)" class="w-full px-3.5 py-2 text-sm font-mono border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                    </div>
-                    <div>
-                      <label class="block text-xs font-semibold text-slate-700 mb-1">Ghi chú & Khuyến cáo kỹ thuật (Engineering Notes)</label>
-                      <input type="text" id="field-notes" placeholder="Lưu ý đặc biệt khi thiết kế hoặc thiếu dữ liệu manual..." class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Form Bottom Actions -->
-              <div class="pt-4 border-t border-slate-200 flex items-center justify-between gap-3">
-                <button type="button" id="btn-delete-brand" onclick="deleteCurrentBrand()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-fire-600 bg-fire-50 hover:bg-fire-100 border border-fire-200 transition">
-                  <i data-lucide="trash-2" class="w-4 h-4"></i>
-                  <span>Xóa hãng này</span>
-                </button>
-                <div class="flex items-center gap-3">
-                  <button type="button" onclick="switchTab('matrix')" class="px-4 py-2 rounded-xl text-sm font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 transition">
-                    Về bảng so sánh
-                  </button>
-                  <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white bg-navy-800 hover:bg-navy-900 shadow-md transition">
-                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
-                    <span>Lưu thông số kỹ thuật</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- =====================================================================
-         TAB 3: QUICK IG-100 CALCULATOR & ENGINEERING REPORT
-    ====================================================================== -->
-    <section id="tab-calc" class="hidden space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Left Input Panel -->
-        <div class="lg:col-span-5 space-y-5 no-print">
-          <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 space-y-5">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div class="flex items-center gap-2.5">
-                <div class="w-9 h-9 rounded-xl bg-navy-900 text-amber-400 flex items-center justify-center">
-                  <i data-lucide="sliders" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <h2 class="text-base font-bold text-slate-900">Thông số đầu vào thiết kế</h2>
-                  <p class="text-xs text-slate-500">Tính toán theo TCVN 7161-13 / UL 2127</p>
-                </div>
-              </div>
-              <button onclick="resetCalcSample()" class="text-xs font-medium text-navy-700 hover:underline">Mẫu phòng Server</button>
-            </div>
-
-            <!-- Room Name -->
             <div>
-              <label class="block text-xs font-semibold text-slate-700 mb-1">Tên khu vực / Phòng bảo vệ</label>
-              <input type="text" id="calc-room-name" value="Phòng Server & Trung tâm Dữ liệu (Data Center)" oninput="runCalculation()"
-                class="w-full px-3.5 py-2 text-sm border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Tên khu vực / Phòng bảo vệ</label>
+              <input type="text" id="calcRoomName" value="Phòng Server / Data Center" oninput="runCalculation()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white" />
             </div>
 
-            <!-- Room Geometry Mode -->
-            <div class="space-y-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-slate-800">1. Kích thước hình học không gian bảo vệ</span>
-                <div class="inline-flex rounded-lg bg-slate-200 p-0.5 text-[11px] font-semibold">
-                  <button type="button" id="mode-dim-btn" onclick="setVolumeMode('dim')" class="px-2.5 py-1 rounded-md bg-white text-navy-900 shadow-sm transition">Dài × Rộng × Cao</button>
-                  <button type="button" id="mode-vol-btn" onclick="setVolumeMode('vol')" class="px-2.5 py-1 rounded-md text-slate-600 hover:text-slate-900 transition">Nhập Thể tích V</button>
-                </div>
-              </div>
-
-              <!-- D x R x C inputs -->
-              <div id="calc-dim-inputs" class="grid grid-cols-3 gap-2.5">
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Dài L (m)</label>
-                  <input type="number" id="calc-length" value="12" min="0.1" step="0.1" oninput="runCalculation()"
-                    class="w-full px-3 py-2 text-sm font-mono bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                </div>
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Rộng W (m)</label>
-                  <input type="number" id="calc-width" value="8" min="0.1" step="0.1" oninput="runCalculation()"
-                    class="w-full px-3 py-2 text-sm font-mono bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                </div>
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Cao H (m)</label>
-                  <input type="number" id="calc-height" value="3.6" min="0.1" step="0.1" oninput="runCalculation()"
-                    class="w-full px-3 py-2 text-sm font-mono bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                </div>
-              </div>
-
-              <!-- Direct Volume input -->
-              <div id="calc-vol-inputs" class="hidden grid grid-cols-2 gap-2.5">
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Thể tích phòng V (m³)</label>
-                  <input type="number" id="calc-direct-vol" value="345.6" min="1" step="0.1" oninput="runCalculation()"
-                    class="w-full px-3 py-2 text-sm font-mono bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                </div>
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Diện tích sàn A (m²)</label>
-                  <input type="number" id="calc-direct-area" value="96" min="1" step="0.1" oninput="runCalculation()"
-                    class="w-full px-3 py-2 text-sm font-mono bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                </div>
-              </div>
-
-              <!-- Volume deduction (optional) -->
-              <div class="grid grid-cols-2 gap-2.5 pt-1">
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Thể tích trừ vật chiếm chỗ (m³)</label>
-                  <input type="number" id="calc-deduct-vol" value="0" min="0" step="0.1" oninput="runCalculation()"
-                    class="w-full px-3 py-1.5 text-xs font-mono bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-700 outline-none" />
-                </div>
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Nhiệt độ thiết kế T (°C)</label>
-                  <input type="number" id="calc-temp" value="20" min="-20" max="60" step="0.5" oninput="runCalculation()"
-                    class="w-full px-3 py-1.5 text-xs font-mono bg-white border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-700 outline-none" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Design Standard & Concentration -->
-            <div class="space-y-3">
-              <label class="block text-xs font-bold text-slate-800">2. Tiêu chuẩn & Nồng độ thiết kế C (%)</label>
-              <select id="calc-standard-preset" onchange="onStandardPresetChange()"
-                class="w-full px-3.5 py-2.5 text-sm bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none">
-                <option value="40.3">TCVN 7161-13 (Bảng 4) — Đám cháy Lớp A (40.3%)</option>
-                <option value="41.5">TCVN 7161-13 (Bảng 4) — Đám cháy Lớp A+ / Nhựa (41.5%)</option>
-                <option value="43.7">TCVN 7161-13 (Bảng 4) — Đám cháy Lớp B (43.7%)</option>
-                <option value="37.1">UL 2127 / FM 5600 (Manual tr.52) — Lớp A (37.1%)</option>
-                <option value="42.4">UL 2127 / FM 5600 (Manual tr.52) — Lớp B (42.4%)</option>
-                <option value="41.7">UL 2127 / FM 5600 (Manual tr.52) — Lớp C (41.7%)</option>
-                <option value="custom">Tùy chỉnh nồng độ thiết kế (%)</option>
-              </select>
-
-              <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Nồng độ thiết kế C (%)</label>
-                  <input type="number" id="calc-conc" value="40.3" min="10" max="70" step="0.1" oninput="runCalculation()"
-                    class="w-full px-3 py-2 text-sm font-mono font-bold text-navy-900 bg-amber-50/60 border border-amber-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                </div>
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Hệ số dự phòng (%) <span class="text-slate-400">(Nếu có)</span></label>
-                  <input type="number" id="calc-safety-factor" value="0" min="0" max="50" step="1" oninput="runCalculation()"
-                    class="w-full px-3 py-2 text-sm font-mono bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Cylinder Selection -->
-            <div class="space-y-3">
-              <label class="block text-xs font-bold text-slate-800">3. Lựa chọn Hãng & Cấu hình bình IG-100</label>
-              <select id="calc-cylinder-select" onchange="onCylinderSelectChange()"
-                class="w-full px-3.5 py-2.5 text-sm bg-white border border-slate-300 rounded-xl focus:ring-2 focus:ring-navy-700 outline-none">
-                <!-- Populated dynamically from brand database -->
-              </select>
-
-              <div id="calc-custom-cyl-box" class="hidden grid grid-cols-2 gap-3 bg-slate-50 p-3 rounded-xl border border-slate-200">
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Dung tích bình (Lít)</label>
-                  <input type="number" id="calc-custom-liters" value="80" min="10" step="1" oninput="runCalculation()"
-                    class="w-full px-3 py-1.5 text-sm font-mono bg-white border border-slate-300 rounded-lg" />
-                </div>
-                <div>
-                  <label class="block text-[11px] font-medium text-slate-600 mb-1">Lượng khí nạp 1 bình (m³)</label>
-                  <input type="number" id="calc-custom-gas-m3" value="20.8" min="1" step="0.1" oninput="runCalculation()"
-                    class="w-full px-3 py-1.5 text-sm font-mono bg-white border border-slate-300 rounded-lg" />
-                </div>
-              </div>
-
-              <!-- Optional manual override of cylinder count -->
-              <div class="flex items-center justify-between bg-slate-50 px-3.5 py-2.5 rounded-xl border border-slate-200">
-                <div>
-                  <span class="text-xs font-semibold text-slate-700">Số lượng bình bố trí thực tế</span>
-                  <p class="text-[11px] text-slate-500">Mặc định tự động làm tròn lên (Auto)</p>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button type="button" onclick="adjustManualCylinders(-1)" class="w-7 h-7 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 font-bold text-slate-700">-</button>
-                  <input type="number" id="calc-cyl-count" min="1" oninput="onManualCylInput()"
-                    class="w-16 text-center py-1 text-sm font-mono font-bold bg-white border border-slate-300 rounded-lg" />
-                  <button type="button" onclick="adjustManualCylinders(1)" class="w-7 h-7 rounded-lg bg-white border border-slate-300 hover:bg-slate-100 font-bold text-slate-700">+</button>
-                  <button type="button" onclick="resetAutoCylinders()" title="Tự động tính lại số bình tối thiểu" class="text-[11px] px-2 py-1 rounded bg-navy-100 text-navy-800 font-semibold hover:bg-navy-200">Auto</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Output Report Panel -->
-        <div class="lg:col-span-7">
-          <div id="printable-report" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <!-- Report Header -->
-            <div class="bg-navy-900 text-white px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="grid grid-cols-3 gap-2">
               <div>
-                <div class="flex items-center gap-2">
-                  <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[11px] font-mono font-bold border border-emerald-400/30">
-                    BẢNG TÍNH THIẾT KẾ IG-100
-                  </span>
-                  <span id="rep-date" class="text-xs text-slate-400 font-mono"></span>
-                </div>
-                <h3 id="rep-room-title" class="text-lg font-bold mt-1">Phòng Server & Trung tâm Dữ liệu</h3>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Dài L (m)</label>
+                <input type="number" id="calcL" value="8" step="0.1" min="0" oninput="runCalculation()" class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm bg-white mono" />
               </div>
-              <div class="flex items-center gap-2 no-print">
-                <button onclick="copyCalculationSummary()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-navy-800 hover:bg-navy-700 text-slate-200 border border-navy-700 transition">
-                  <i data-lucide="copy" class="w-3.5 h-3.5 text-sky-400"></i>
-                  <span>Copy kết quả</span>
-                </button>
-                <button onclick="window.print()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-navy-950 shadow transition">
-                  <i data-lucide="printer" class="w-4 h-4"></i>
-                  <span>In / Xuất PDF</span>
-                </button>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Rộng W (m)</label>
+                <input type="number" id="calcW" value="6" step="0.1" min="0" oninput="runCalculation()" class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm bg-white mono" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Cao H (m)</label>
+                <input type="number" id="calcH" value="3.0" step="0.1" min="0" oninput="runCalculation()" class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm bg-white mono" />
               </div>
             </div>
 
-            <div class="p-6 space-y-6">
-              <!-- Safety Concentration Alert Banner -->
-              <div id="rep-safety-banner" class="p-4 rounded-xl border flex items-start gap-3">
-                <!-- Populated dynamically -->
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">V sàn nâng (m³)</label>
+                <input type="number" id="calcVFloor" value="0" step="0.1" min="0" oninput="runCalculation()" class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm bg-white mono" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">V trần giả (m³)</label>
+                <input type="number" id="calcVCeiling" value="0" step="0.1" min="0" oninput="runCalculation()" class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm bg-white mono" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">V trừ kết cấu (m³)</label>
+                <input type="number" id="calcVDeduct" value="0" step="0.1" min="0" oninput="runCalculation()" class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-sm bg-white mono" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Nhiệt độ T_min (°C)</label>
+                <input type="number" id="calcTmin" value="20" step="1" oninput="runCalculation()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white mono" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Nhiệt độ T_max (°C)</label>
+                <input type="number" id="calcTmax" value="35" step="1" oninput="runCalculation()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white mono" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Nồng độ thiết kế C (%)</label>
+                <select id="calcConcSelect" onchange="onConcPresetChange()" class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-xs bg-white mb-1.5">
+                  <option value="40.3">40.3% — TCVN 7161-13 (Class A)</option>
+                  <option value="41.5">41.5% — TCVN 7161-13 (Class A+)</option>
+                  <option value="43.7">43.7% — TCVN 7161-13 (Class B)</option>
+                  <option value="37.1">37.1% — UL/FM SRI (Class A)</option>
+                  <option value="41.7">41.7% — UL/FM SRI (Class C)</option>
+                  <option value="42.4">42.4% — UL/FM SRI (Class B)</option>
+                  <option value="custom">Tự nhập nồng độ khác...</option>
+                </select>
+                <input type="number" id="calcC" value="40.3" step="0.1" min="1" max="80" oninput="runCalculation()" class="w-full px-3 py-1.5 border border-slate-300 rounded-lg text-sm bg-white mono font-bold text-red-700" />
               </div>
 
-              <!-- Key KPI Summary Cards -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-                <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
-                  <span class="text-[11px] font-semibold uppercase text-slate-500 block">Thể tích tính toán V</span>
-                  <span id="kpi-volume" class="text-xl font-mono font-extrabold text-navy-900 mt-1 block">345.60 m³</span>
-                  <span id="kpi-area" class="text-[11px] text-slate-500 font-mono">Sàn: 96.0 m²</span>
-                </div>
-
-                <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
-                  <span class="text-[11px] font-semibold uppercase text-slate-500 block">Lượng khí yêu cầu</span>
-                  <span id="kpi-gas-kg" class="text-xl font-mono font-extrabold text-navy-900 mt-1 block">207.75 kg</span>
-                  <span id="kpi-gas-m3" class="text-[11px] text-sky-700 font-mono font-semibold">≈ 178.25 m³ @20°C</span>
-                </div>
-
-                <div class="bg-navy-900 text-white rounded-xl p-3.5 shadow-sm">
-                  <span class="text-[11px] font-semibold uppercase text-amber-300 block">Số bình IG-100</span>
-                  <span id="kpi-cyl-count" class="text-2xl font-mono font-extrabold text-white mt-0.5 block">9 bình</span>
-                  <span id="kpi-cyl-spec" class="text-[11px] text-slate-300 font-mono truncate block">SRI 80L - 300 bar</span>
-                </div>
-
-                <div class="bg-slate-50 border border-slate-200 rounded-xl p-3.5">
-                  <span class="text-[11px] font-semibold uppercase text-slate-500 block">Nồng độ thực tế</span>
-                  <span id="kpi-actual-conc" class="text-xl font-mono font-extrabold text-emerald-700 mt-1 block">41.82 %</span>
-                  <span id="kpi-o2-remain" class="text-[11px] text-slate-600 font-mono">O₂ còn lại: ~12.19%</span>
-                </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-600 mb-1">Hệ số độ cao F_alt</label>
+                <select id="calcAlt" onchange="runCalculation()" class="w-full px-2.5 py-2 border border-slate-300 rounded-lg text-xs bg-white">
+                  <option value="1.00">0 m (Mực nước biển) — 1.00</option>
+                  <option value="0.96">300 m (1,000 ft) — 0.96</option>
+                  <option value="0.93">610 m (2,000 ft) — 0.93</option>
+                  <option value="0.89">915 m (3,000 ft) — 0.89</option>
+                  <option value="0.86">1,220 m (4,000 ft) — 0.86</option>
+                  <option value="0.82">1,520 m (5,000 ft) — 0.82</option>
+                </select>
+                <label class="block text-xs font-semibold text-slate-600 mt-2 mb-1">S₀ quy đổi bình (@21°C)</label>
+                <select id="calcS0" onchange="runCalculation()" class="w-full px-2.5 py-1.5 border border-slate-300 rounded-lg text-xs bg-white mono">
+                  <option value="0.8612">0.8612 m³/kg (Excel chuẩn @21°C)</option>
+                  <option value="0.858">0.8580 m³/kg (Manual Mục 3.3.1)</option>
+                </select>
               </div>
+            </div>
 
-              <!-- Detailed Calculation Step-by-Step Engineering Table -->
-              <div class="border border-slate-200 rounded-xl overflow-hidden">
-                <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
-                  <span class="text-xs font-bold uppercase tracking-wider text-slate-700">Chi tiết diễn giải tính toán kỹ thuật (Step-by-Step)</span>
-                  <span class="text-[11px] font-mono text-slate-500">TCVN 7161-13 / ISO 14520</span>
-                </div>
-                <table class="w-full text-sm">
-                  <tbody id="rep-detail-table" class="divide-y divide-slate-100">
-                    <!-- Populated dynamically -->
-                  </tbody>
-                </table>
-              </div>
-
-              <!-- Nozzle & Layout Engineering Check (Based on SRI Manual tr. 60-66) -->
-              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                  <h4 class="text-xs font-bold uppercase tracking-wider text-navy-900 flex items-center gap-2">
-                    <i data-lucide="compass" class="w-4 h-4 text-fire-600"></i>
-                    <span>Kiểm tra sơ bộ bố trí đầu phun & đường ống (Tham chiếu Manual SRI tr. 60-66)</span>
-                  </h4>
-                </div>
-                <div id="rep-nozzle-check" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                  <!-- Populated dynamically -->
-                </div>
-              </div>
-
-              <!-- Footer Note -->
-              <div class="text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-slate-100">
-                <span>* Lưu ý: Kết quả tính lượng khí & số bình theo công thức chuẩn TCVN 7161-13 / UL 2127. Kích thước ống & lỗ tiết lưu đầu phun cần chạy kiểm tra trên phần mềm thủy lực VdS của hãng.</span>
-              </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">Chọn cấu hình bình chứa (Hãng / Dung tích / Áp suất)</label>
+              <select id="calcCylinderSelect" onchange="runCalculation()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white font-medium"></select>
             </div>
           </div>
+
+          <!-- Right Results (7 cols) -->
+          <div class="lg:col-span-7 space-y-4">
+            <h3 class="font-bold text-sm text-slate-800 uppercase tracking-wide">2. Kết Quả Tính Toán &amp; Kiểm Tra An Toàn</h3>
+
+            <!-- Highlight Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                <div class="text-xs font-semibold text-blue-700 uppercase">Lượng khí yêu cầu tối thiểu</div>
+                <div id="resPrimaryReq" class="text-2xl font-bold text-blue-900 mono mt-1">0.00 m³</div>
+                <div id="resSecondaryReq" class="text-xs text-blue-700 mono mt-0.5">≈ 0.00 kg</div>
+              </div>
+
+              <div class="bg-red-50 border border-red-200 rounded-xl p-4">
+                <div class="text-xs font-semibold text-red-700 uppercase">Số lượng bình chọn (ROUNDUP)</div>
+                <div id="resCylCount" class="text-2xl font-bold text-red-900 mono mt-1">0 Bình</div>
+                <div id="resCylSpec" class="text-xs text-red-700 mt-0.5">80L - 300 bar</div>
+              </div>
+
+              <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+                <div class="text-xs font-semibold text-emerald-700 uppercase">Tổng lượng khí cung cấp</div>
+                <div id="resPrimarySup" class="text-2xl font-bold text-emerald-900 mono mt-1">0.00 m³</div>
+                <div id="resSecondarySup" class="text-xs text-emerald-700 mono mt-0.5">≈ 0.00 kg</div>
+              </div>
+            </div>
+
+            <!-- Detailed Step-by-Step Table -->
+            <div class="border border-slate-200 rounded-xl overflow-hidden">
+              <table class="w-full text-sm">
+                <thead class="bg-slate-100 text-slate-700 text-xs uppercase border-b border-slate-200">
+                  <tr>
+                    <th class="px-4 py-2.5 text-left">Hạng mục tính toán</th>
+                    <th class="px-4 py-2.5 text-left">Công thức / Tham chiếu</th>
+                    <th class="px-4 py-2.5 text-right">Giá trị</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200" id="calcDetailBody"></tbody>
+              </table>
+            </div>
+
+            <!-- Safety & Nozzle Check Alerts -->
+            <div id="calcAlerts" class="space-y-2"></div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: DATA MANAGEMENT ==================== -->
+    <section id="tab-manage" class="tab-section hidden space-y-6">
+      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+          <div>
+            <h2 class="text-lg font-bold text-slate-900">Quản Lý &amp; Cập Nhật Dữ Liệu Các Hãng Chữa Cháy Khí</h2>
+            <p class="text-xs text-slate-500">Thêm mới, nhân bản hoặc chỉnh sửa thông số từ Manual PDF • Dữ liệu lưu tự động trên trình duyệt</p>
+          </div>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="openEntryModal()" class="px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-lg transition">
+              + Thêm Cấu Hình Mới
+            </button>
+            <button onclick="exportJSON()" class="px-3 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-semibold rounded-lg transition">
+              Xuất JSON (Backup)
+            </button>
+            <label class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition cursor-pointer">
+              Nhập JSON
+              <input type="file" accept=".json" onchange="importJSON(event)" class="hidden" />
+            </label>
+            <button onclick="resetDefaultData()" class="px-3 py-2 bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-semibold rounded-lg transition">
+              Khôi phục mặc định
+            </button>
+          </div>
+        </div>
+
+        <div id="manageList" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </div>
     </section>
 
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-white border-t border-slate-200 py-4 mt-10 no-print">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
-      <div>
-        <strong class="text-slate-700">IG-100 & Clean Agent Engineering Suite</strong> — Công cụ tra cứu & tính toán thiết kế PCCC chuyên dụng.
+  <!-- Modal Add/Edit Spec -->
+  <div id="entryModal" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-xl">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+        <h3 id="modalTitle" class="text-lg font-bold text-slate-900">Thêm / Cập Nhật Thông Số Hãng</h3>
+        <button onclick="closeEntryModal()" class="text-slate-400 hover:text-slate-700 text-xl font-bold">&times;</button>
       </div>
-      <div class="font-mono text-[11px]">
-        Dữ liệu gốc: SRI (SPS-UL-IG-MNL Rev 0) & NAFFCO (U1218C) | Lưu trữ cục bộ (LocalStorage)
-      </div>
+      <form id="entryForm" onsubmit="saveEntry(event)" class="space-y-4 mt-4 text-sm">
+        <input type="hidden" id="editId" />
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Hãng sản xuất *</label>
+            <input type="text" id="fBrand" required placeholder="VD: SRI, NAFFCO, Kidde..." class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Tên hệ thống *</label>
+            <input type="text" id="fSystem" required placeholder="VD: INERTEC IG-100" class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Loại khí *</label>
+            <input type="text" id="fAgent" required placeholder="VD: IG-100 (100% N2)" class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Áp suất làm việc (bar)</label>
+            <input type="text" id="fPressure" placeholder="VD: 300 bar @ 21°C" class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Chứng nhận / Tiêu chuẩn</label>
+            <input type="text" id="fStandards" placeholder="VD: UL, FM, NFPA 2001, TCVN 7161-13" class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Nguồn tài liệu (Manual/Rev)</label>
+            <input type="text" id="fSource" placeholder="VD: SPS-UL-IG-MNL Rev 0" class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Đĩa nổ &amp; Công tắc áp thấp</label>
+            <input type="text" id="fSafety" placeholder="VD: Đĩa nổ 405 bar; CT áp thấp 250±12 bar" class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Công nghệ giảm áp &amp; Thời gian xả</label>
+            <input type="text" id="fRegulator" placeholder="VD: Regulator < 60 bar; Xả 52-139s" class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Nồng độ thiết kế &amp; NOAEL/LOAEL</label>
+            <input type="text" id="fConcentration" placeholder="VD: TCVN A:40.3%, B:43.7% | NOAEL 43%" class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Giới hạn đầu phun &amp; đường ống</label>
+            <input type="text" id="fNozzleLimits" placeholder="VD: Cao ≤4.7m, Phủ ≤98.4m², K/c ≤10.22m" class="w-full px-3 py-2 border border-slate-300 rounded-lg" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">
+            Danh sách bình chứa (Mỗi dòng 1 cỡ bình theo cú pháp: <span class="mono text-red-600">Tên bình | Áp suất (bar) | Thể tích khí (m³) | Khối lượng (kg) | Kích thước</span>)
+          </label>
+          <textarea id="fCylinders" rows="4" placeholder="80L - 300 bar | 300 | 20.8 | 24.15 | Ø279 x 1750 mm&#10;140L - 300 bar | 300 | 36.3 | 42.15 | Ø356 x 1925 mm" class="w-full px-3 py-2 border border-slate-300 rounded-lg mono text-xs"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Ghi chú kỹ thuật &amp; Trang tham chiếu Manual</label>
+          <textarea id="fNotes" rows="3" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-200">
+          <button type="button" onclick="closeEntryModal()" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-lg font-medium">Hủy</button>
+          <button type="submit" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold">Lưu Thông Số</button>
+        </div>
+      </form>
     </div>
-  </footer>
+  </div>
 
-  <!-- =======================================================================
-       APPLICATION LOGIC (JAVASCRIPT)
-  ======================================================================== -->
   <script>
-    const STORAGE_KEY = 'pccc_ig100_knowledge_base_v1';
-
-    // 1. DEFAULT PRE-LOADED MANUFACTURER DATA (SRI & NAFFCO)
-    const DEFAULT_BRANDS = [
+    // ==================== DEFAULT DATABASE (SRI & NAFFCO) ====================
+    const DEFAULT_DATA = [
       {
-        id: 'sri-inertec',
-        name: 'SRI',
-        systemName: 'Inertec Fire Suppression System',
-        manualCode: 'SPS-UL-IG-MNL Rev 0',
-        software: 'VdS Approved Calculation Software',
-        certifications: 'UL Listed (EX27164), FM Approved, VdS, TCVN 7161-13',
-        gases: ['IG-100'],
-        workingPressure: '200 bar hoặc 300 bar @ 21°C',
-        regulatedPressure: '< 60 bar (Qua van điều áp Regulator / PRU)',
-        burstDisc: '270 bar (bình 200 bar) / 405 bar (bình 300 bar)',
-        lowPressureSwitch: '180 ± 8 bar (bình 200 bar) / 250 ± 12 bar (bình 300 bar; loại 050-PS là 270 ± 7 bar)',
-        maxCylinders: 'Tối đa 51 bình / hệ thống (1 master + 50 slave); tối đa 19 bình/hàng đơn hoặc 38 bình/hàng đôi',
+        id: 'sri-ig100-300',
+        brand: 'SRI (Steel Recon Industries)',
+        system: 'INERTEC Fire Suppression System (Regulator & PRU)',
+        agent: 'IG-100 (100% Nitrogen - N₂)',
+        pressure: '300 bar @ 21°C (Có tùy chọn 200 bar)',
+        standards: 'UL Listed (EX27164), FM Approved, VdS, NFPA 2001, TCVN 7161-13',
+        source: 'Manual_UL-FM_Inertec_XQ.pdf (Part No: SPS-UL-IG-MNL Rev 0, 07-02-25)',
+        safety: 'Đĩa nổ (Burst Disc): 405 bar (bình 300 bar) / 270 bar (bình 200 bar). Công tắc áp thấp: 250 ± 12 bar (hoặc 270 ± 7 bar loại 50mm).',
+        regulator: 'Constant Pressure Regulator (< 60 bar) gắn đầu bình hoặc PRU (orifice 3–35 mm) trên ống góp. Thời gian xả VdS: 52 – 139 giây.',
+        concentration: 'TCVN 7161-13 Bảng 4: Class A = 40.3%, A+ = 41.5%, B = 43.7% | UL/FM (tr.52): Class A = 37.1%, C = 41.7%, B = 42.4% | NOAEL = 43%, LOAEL = 52%.',
+        nozzleLimits: 'Cỡ đầu phun DN15–DN50 (360° & 180°). Cao độ 1 lớp ≤ 4.7 m; Độ phủ ≤ 98.4 m²; K/c giữa 2 đầu ≤ 10.22 m; K/c tường: 7.02 m (360°) / 10.4 m (180°). Áp đầu phun min: 13.6 bar (360°) / 14.3 bar (180°).',
         cylinders: [
-          {
-            id: 'sri-80-200',
-            label: '80 Lít - 200 bar',
-            liters: 80,
-            pressure: 200,
-            dimensions: 'Ø279 × cao 1700 mm (thân 1650 mm)',
-            gasVolumeM3: 15.0,
-            gasMassKg: 17.42
-          },
-          {
-            id: 'sri-140-200',
-            label: '140 Lít - 200 bar',
-            liters: 140,
-            pressure: 200,
-            dimensions: 'Ø356 × cao 1875 mm (thân 1825 mm)',
-            gasVolumeM3: 26.2,
-            gasMassKg: 30.42
-          },
-          {
-            id: 'sri-80-300',
-            label: '80 Lít - 300 bar',
-            liters: 80,
-            pressure: 300,
-            dimensions: 'Ø279 × cao 1750 mm (thân 1700 mm)',
-            gasVolumeM3: 20.8,
-            gasMassKg: 24.15
-          },
-          {
-            id: 'sri-140-300',
-            label: '140 Lít - 300 bar',
-            liters: 140,
-            pressure: 300,
-            dimensions: 'Ø356 × cao 1925 mm (thân 1875 mm)',
-            gasVolumeM3: 36.3,
-            gasMassKg: 42.15
-          }
+          { label: 'SRI 80L - 300 bar', pressureBar: 300, volM3: 20.8, massKg: 24.15, dim: 'Ø279 × 1750 mm (B=1700)' },
+          { label: 'SRI 140L - 300 bar', pressureBar: 300, volM3: 36.3, massKg: 42.15, dim: 'Ø356 × 1925 mm (B=1875)' },
+          { label: 'SRI 80L - 200 bar', pressureBar: 200, volM3: 15.0, massKg: 17.42, dim: 'Ø279 × 1700 mm (B=1650)' },
+          { label: 'SRI 140L - 200 bar', pressureBar: 200, volM3: 26.2, massKg: 30.42, dim: 'Ø356 × 1875 mm (B=1825)' }
         ],
-        concTCVN: 'TCVN 7161-13 Bảng 4: Lớp A = 40.3%, Lớp A+ (nhựa/bề mặt cao hơn) = 41.5%, Lớp B = 43.7%',
-        concULFM: 'UL 2127 / FM 5600 (Manual tr. 52): Lớp A = 37.1%, Lớp B = 42.4%, Lớp C = 41.7%',
-        noaelLoael: 'NOAEL: 43% (O₂ tối thiểu 12%) | LOAEL: 52% (O₂ tối thiểu 10%)',
-        constantsK: 'S = 0.7997 + 0.00293 × T (°C) | S₀ = 0.858 m³/kg (@20°C) | S₀ = 0.8612 m³/kg (@21°C)',
-        nozzleSizes: '1/2" - 2" (DN15, DN20, DN25, DN32, DN40, DN50), ren BSP, lỗ tiết lưu 3 - 40 mm. Hai loại 360° và 180°',
-        maxCoverageArea: '≤ 98.4 m² / đầu phun',
-        maxHeight: '≤ 4.7 m cho 1 lớp đầu phun (cao hơn 4.7 m phải bố trí thêm lớp)',
-        nozzleSpacing: 'Giữa 2 đầu phun ≤ 10.22 m (khung tối đa 9.63m × 10.22m). Đến tường: 7.02 m (loại 360°); 10.4 m (loại 180°)',
-        minNozzlePressure: 'Loại 360° ≥ 13.6 bar; Loại 180° ≥ 14.3 bar. Chênh lệch áp suất giữa các đầu phun ≤ 4.9 bar',
-        dischargeTime: '52 - 139 giây (theo phần mềm tính toán thủy lực VdS)',
-        pipingLimits: 'Chênh lệch cao độ đường ống tối đa: 6.6 m. Khoảng cách từ van đầu bình đến Tee đầu tiên: tối thiểu 1.3 m',
-        teeSplit: 'Bull Tee: 50:50 đến 85:15 | Side Tee: 90:10 đến 60:40',
-        components: 'Cụm bình chứa khí IG-100, Van đầu bình (Cylinder Valve), Van điều áp (Regulator / PRU < 60 bar), Công tắc áp thấp (050-PS), Đĩa nổ an toàn, Ống góp (Manifold), Đầu phun 360°/180°.',
-        pageRefCylinder: 'Manual SPS-UL-IG-MNL Rev 0 (Thông số bình & áp suất)',
-        pageRefGeneral: 'Manual tr. 52 (Nồng độ UL/FM); Manual tr. 60-66 (Giới hạn đầu phun & đường ống)',
-        notes: 'Hệ thống áp suất cao 200/300 bar được điều áp xuống < 60 bar sau van PRU. Lưu ý giới hạn cao độ 4.7m và khoảng cách tối thiểu 1.3m từ van bình đến Tee đầu tiên.'
+        notes: 'Công thức: Q = (V/S)·ln(100/(100-C)); S = 0.7997 + 0.00293·T (S(20°C)=0.8583; S₀(21°C)=0.8612). Chia Tê: Bull Tee 50:50–85:15, Side Tee 90:10–60:40. Từ van đến Tê đầu tiên ≥ 1.3m; Chênh cao max 6.6m; V_ống/V_bình ≤ 130%. (Tham chiếu tr. 6, 7, 11, 21, 31, 52–66).'
       },
       {
-        id: 'naffco-inert',
-        name: 'NAFFCO',
-        systemName: 'NAFFCOInert® Clean Agent Fire Suppression System',
-        manualCode: 'Brochure U1218C',
-        software: 'VdS Approved Calculation Software',
-        certifications: 'UL Listed, FM Approved, BSI, CE, Global-Mark Approved, NFPA 2001',
-        gases: ['IG-100', 'IG-541', 'IG-55', 'IG-01'],
-        workingPressure: '200 bar hoặc 300 bar',
-        regulatedPressure: '40 - 60 bar (Constant Low Pressure - Công nghệ điều áp xả ổn định)',
-        burstDisc: 'Theo tiêu chuẩn van bình 200/300 bar (Cập nhật chi tiết khi có Design Manual)',
-        lowPressureSwitch: 'Đồng hồ giám sát áp suất tích hợp tiếp điểm cảnh báo áp thấp (Pressure Gauge)',
-        maxCylinders: 'Hỗ trợ hệ thống đa bình kết nối qua ống góp (Manifold) & khung giá treo tường (Wall Mounting Rail)',
+        id: 'naffco-ig100',
+        brand: 'NAFFCO',
+        system: 'NAFFCOInert® Fire Suppression System',
+        agent: 'IG-100 (100% Nitrogen - N₂)',
+        pressure: '200 / 300 bar',
+        standards: 'UL Listed, FM Approved, BSI, CE 0086, Global-Mark, NFPA 2001',
+        source: 'NAFFCO Inert_Brochure U1218C.pdf (NF-CA-IGB-U0418B-P1218C-DXB)',
+        safety: 'Trang bị đồng hồ áp suất (Pressure Gauge), van xả khí dư (Bleed Valve) và van một chiều (Check Valve) trên ống góp.',
+        regulator: 'Công nghệ Pressure Regulator điều áp đầu ra ổn định 40 – 60 bar, xả đạt nồng độ thiết kế trong ≤ 60 giây. Phần mềm tính thủy lực VdS Approved.',
+        concentration: 'Áp dụng cho cháy Class A, Class B, Class C theo NFPA 2001. Không gây sương mù, không để lại cặn, ODP = 0, GWP = 0.',
+        nozzleLimits: 'Cung cấp nhiều cỡ đầu phun phủ rộng, dùng ống hạ áp giúp giảm chi phí đường ống và giảm diện tích cửa xả áp (Pressure Venting). Hỗ trợ van chọn vùng (Multi-zone actuation).',
         cylinders: [
-          {
-            id: 'naffco-67',
-            label: '67 Lít (200 / 300 bar - Tham khảo)',
-            liters: 67,
-            pressure: 300,
-            dimensions: 'Chưa nêu kích thước Ø×H trong Brochure U1218C',
-            gasVolumeM3: 17.4,
-            gasMassKg: 20.2
-          },
-          {
-            id: 'naffco-80',
-            label: '80 Lít (200 / 300 bar - Tham khảo)',
-            liters: 80,
-            pressure: 300,
-            dimensions: 'Chưa nêu kích thước Ø×H trong Brochure U1218C',
-            gasVolumeM3: 20.8,
-            gasMassKg: 24.15
-          },
-          {
-            id: 'naffco-140',
-            label: '140 Lít (200 / 300 bar - Tham khảo)',
-            liters: 140,
-            pressure: 300,
-            dimensions: 'Chưa nêu kích thước Ø×H trong Brochure U1218C',
-            gasVolumeM3: 36.3,
-            gasMassKg: 42.15
-          }
+          { label: 'NAFFCO 67L - 300 bar (Tham chiếu)', pressureBar: 300, volM3: 17.4, massKg: 20.20, dim: 'Theo Catalogue bình 67L' },
+          { label: 'NAFFCO 80L - 300 bar (Tham chiếu)', pressureBar: 300, volM3: 20.8, massKg: 24.15, dim: 'Theo Catalogue bình 80L' },
+          { label: 'NAFFCO 140L - 300 bar (Tham chiếu)', pressureBar: 300, volM3: 36.3, massKg: 42.15, dim: 'Theo Catalogue bình 140L' },
+          { label: 'NAFFCO 80L - 200 bar (Tham chiếu)', pressureBar: 200, volM3: 15.0, massKg: 17.42, dim: 'Theo Catalogue bình 80L' }
         ],
-        concTCVN: 'Áp dụng TCVN 7161-13 (IG-100: Lớp A = 40.3%, Lớp A+ = 41.5%, Lớp B = 43.7%)',
-        concULFM: 'Theo tiêu chuẩn NFPA 2001 / UL / FM cho từng loại khí (IG01, IG100, IG55, IG541)',
-        noaelLoael: 'IG-100: NOAEL 43% (O₂ ≥ 12%) | LOAEL 52% (O₂ ≥ 10%)',
-        constantsK: 'IG-100: S = 0.7997 + 0.00293 × T (°C) | S₀ = 0.858 m³/kg (@20°C)',
-        nozzleSizes: 'Đầu phun chuyên dụng NAFFCOInert® (Cập nhật bảng size & lỗ tiết lưu từ Design Manual)',
-        maxCoverageArea: 'Theo phần mềm VdS & Design Manual NAFFCO',
-        maxHeight: 'Theo phần mềm VdS & Design Manual NAFFCO',
-        nozzleSpacing: 'Theo phần mềm VdS & Design Manual NAFFCO',
-        minNozzlePressure: 'Hạ áp ổn định 40 - 60 bar giúp giảm xung lực đầu phun & tránh đóng băng đường ống',
-        dischargeTime: '≤ 60 giây (theo tiêu chuẩn NFPA 2001)',
-        pipingLimits: 'Sử dụng đường ống hạ áp chuẩn Schedule 40 nhờ van điều áp 40 - 60 bar; giảm diện tích cửa xả áp (Pressure Relief Venting)',
-        teeSplit: 'Tính toán cân bằng lưu lượng qua phần mềm VdS Approved Software',
-        components: '16 bộ phận chuẩn (Brochure tr. 4-5): (1) Cylinder, (2) Valve, (3) Pressure Regulator, (4) Pressure Gauge, (5) Electromagnetic Release Device, (6) Manual/Pneumatic Release Device, (7) Pneumatic Release Device, (8) Bleed Valve, (9) Pilot Hose, (10) Discharge Hose, (11) Check Valve, (12) Manifold, (13) Manifold Mounting Rail, (14) Nozzle, (15) Clamp for Cylinder, (16) Cylinder Wall Mounting Rail.',
-        pageRefCylinder: 'Brochure U1218C tr. 2-3 (Dung tích 67L/80L/140L & Áp suất 40-60 bar)',
-        pageRefGeneral: 'Brochure U1218C tr. 4-5 (Sơ đồ 16 bộ phận cấu thành hệ thống)',
-        notes: 'LƯU Ý QUAN TRỌNG: Brochure U1218C chỉ nêu dung tích bình (67L, 80L, 140L), áp suất điều tiết 40-60 bar và thời gian xả ≤ 60s (NFPA 2001); chưa có bảng kích thước chi tiết bình (Ø×H) và giới hạn độ phủ đầu phun như Design Manual. Kỹ sư có thể cập nhật bổ sung khi có Design Manual của NAFFCO.'
+        notes: 'Cấu tạo chuẩn 16 bộ phận (tr.4–5): (1) Cylinder 67/80/140L, (2) Valve, (3) Pressure Regulator 40-60 bar, (4) Pressure Gauge, (5) Electromagnetic Release, (6) Manual/Pneumatic Release, (7) Pneumatic Release, (8) Bleed Valve, (9) Pilot Hose, (10) Discharge Hose, (11) Check Valve, (12) Manifold, (13) Manifold Rail, (14) Nozzle, (15) Cylinder Clamp, (16) Wall Mounting Rail.'
       }
     ];
 
-    // State Management
-    let brandsData = [];
-    let selectedBrandIds = new Set();
-    let activeTab = 'matrix';
-    let volumeMode = 'dim'; // 'dim' or 'vol'
-    let manualCylinderOverride = null; // null = auto rounded up
+    let specData = [];
+    let displayUnit = 'm3'; // 'm3' or 'kg'
 
-    // Initialize App
+    // ==================== INITIALIZATION ====================
     function initApp() {
-      loadFromStorage();
-      selectedBrandIds = new Set(brandsData.map(b => b.id));
-      updateBrandCountBadge();
-      renderBrandChips();
-      renderMatrix();
-      renderManageBrandList();
-      if (brandsData.length > 0) {
-        loadBrandIntoForm(brandsData[0].id);
-      }
-      populateCalculatorCylinders();
-      document.getElementById('rep-date').textContent = new Date().toLocaleDateString('vi-VN');
-      runCalculation();
-      lucide.createIcons();
-    }
-
-    // Load & Save LocalStorage
-    function loadFromStorage() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) {
-          const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            brandsData = parsed;
-            return;
-          }
+      const saved = localStorage.getItem('ig100_spec_db_v2');
+      if (saved) {
+        try {
+          specData = JSON.parse(saved);
+        } catch (e) {
+          specData = JSON.parse(JSON.stringify(DEFAULT_DATA));
         }
-      } catch (e) {
-        console.error('Lỗi đọc LocalStorage:', e);
-      }
-      brandsData = JSON.parse(JSON.stringify(DEFAULT_BRANDS));
-      saveToStorage();
-    }
-
-    function saveToStorage() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(brandsData));
-        updateBrandCountBadge();
-      } catch (e) {
-        showToast('Không thể lưu vào bộ nhớ trình duyệt!', 'error');
-      }
-    }
-
-    function updateBrandCountBadge() {
-      const badge = document.getElementById('brand-count-badge');
-      if (badge) badge.textContent = brandsData.length;
-    }
-
-    // Tab Navigation
-    function switchTab(tabName) {
-      activeTab = tabName;
-      ['matrix', 'manage', 'calc'].forEach(t => {
-        const sec = document.getElementById(`tab-${t}`);
-        const btn = document.getElementById(`tab-btn-${t}`);
-        if (t === tabName) {
-          sec.classList.remove('hidden');
-          btn.classList.remove('border-transparent', 'text-slate-300', 'font-medium');
-          btn.classList.add('border-amber-400', 'text-amber-400', 'font-semibold');
-        } else {
-          sec.classList.add('hidden');
-          btn.classList.add('border-transparent', 'text-slate-300', 'font-medium');
-          btn.classList.remove('border-amber-400', 'text-amber-400', 'font-semibold');
-        }
-      });
-
-      if (tabName === 'matrix') {
-        renderBrandChips();
-        renderMatrix();
-      } else if (tabName === 'manage') {
-        renderManageBrandList();
-      } else if (tabName === 'calc') {
-        populateCalculatorCylinders();
-        runCalculation();
-      }
-      lucide.createIcons();
-    }
-
-    // =========================================================================
-    // TAB 1: SPEC MATRIX RENDERING & FILTERING
-    // =========================================================================
-    function quickSearch(term) {
-      const input = document.getElementById('filter-search');
-      input.value = term;
-      renderMatrix();
-    }
-
-    function toggleBrandVisibility(brandId) {
-      if (selectedBrandIds.has(brandId)) {
-        if (selectedBrandIds.size === 1) {
-          showToast('Cần hiển thị ít nhất 1 hãng để tra cứu.', 'warning');
-          return;
-        }
-        selectedBrandIds.delete(brandId);
       } else {
-        selectedBrandIds.add(brandId);
+        specData = JSON.parse(JSON.stringify(DEFAULT_DATA));
       }
-      renderBrandChips();
+      populateFilters();
+      populateCylinderDropdown();
       renderMatrix();
+      renderManageList();
+      runCalculation();
     }
 
-    function renderBrandChips() {
-      const container = document.getElementById('brand-filter-chips');
-      if (!container) return;
-      container.innerHTML = `<span class="text-xs font-semibold text-slate-500 mr-1">So sánh hãng:</span>` +
-        brandsData.map(b => {
-          const active = selectedBrandIds.has(b.id);
-          return `
-            <button onclick="toggleBrandVisibility('${b.id}')"
-              class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border transition ${
-                active
-                  ? 'bg-navy-800 text-white border-navy-800 shadow-sm'
-                  : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
-              }">
-              <span class="w-2 h-2 rounded-full ${active ? 'bg-amber-400' : 'bg-slate-400'}"></span>
-              <span>${escapeHTML(b.name)}</span>
-            </button>
-          `;
-        }).join('');
+    function saveDataToStorage() {
+      localStorage.setItem('ig100_spec_db_v2', JSON.stringify(specData));
+      populateFilters();
+      populateCylinderDropdown();
+      renderMatrix();
+      renderManageList();
+      runCalculation();
     }
 
-    function highlightText(text, keyword) {
-      if (!text) return '<span class="text-slate-400 italic">Chưa cập nhật</span>';
-      const safe = escapeHTML(String(text));
-      if (!keyword) return safe;
-      const escapedKw = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`(${escapedKw})`, 'gi');
-      return safe.replace(regex, '<mark class="bg-amber-200 text-navy-950 px-0.5 rounded font-semibold">$1</mark>');
+    // ==================== TAB NAVIGATION ====================
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-section').forEach(el => el.classList.add('hidden'));
+      document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-red-600', 'text-white');
+        btn.classList.add('text-slate-300');
+      });
+      const activeBtn = document.getElementById('tab-btn-' + tabId);
+      activeBtn.classList.add('bg-red-600', 'text-white');
+      activeBtn.classList.remove('text-slate-300');
+    }
+
+    // ==================== TAB 1: MATRIX RENDER ====================
+    function populateFilters() {
+      const brandSel = document.getElementById('filterBrand');
+      const agentSel = document.getElementById('filterAgent');
+      const curBrand = brandSel.value;
+      const curAgent = agentSel.value;
+
+      const brands = [...new Set(specData.map(d => d.brand))];
+      const agents = [...new Set(specData.map(d => d.agent))];
+
+      brandSel.innerHTML = '<option value="ALL">Tất cả hãng (' + brands.length + ')</option>' +
+        brands.map(b => `<option value="${b}">${b}</option>`).join('');
+      agentSel.innerHTML = '<option value="ALL">Tất cả loại khí (' + agents.length + ')</option>' +
+        agents.map(a => `<option value="${a}">${a}</option>`).join('');
+
+      if (brands.includes(curBrand)) brandSel.value = curBrand;
+      if (agents.includes(curAgent)) agentSel.value = curAgent;
+    }
+
+    function highlightText(text, query) {
+      if (!query) return text;
+      const escaped = query.replace(/[.*+?^${}()|[\]\]/g, '\$&');
+      return String(text).replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
     }
 
     function renderMatrix() {
-      const container = document.getElementById('matrix-container');
-      const searchInput = document.getElementById('filter-search');
-      const clearBtn = document.getElementById('clear-search-btn');
-      const keyword = searchInput.value.trim();
-      if (keyword) clearBtn.classList.remove('hidden');
-      else clearBtn.classList.add('hidden');
+      const q = document.getElementById('searchInput').value.trim();
+      const fBrand = document.getElementById('filterBrand').value;
+      const fAgent = document.getElementById('filterAgent').value;
+      const fPress = document.getElementById('filterPressure').value;
 
-      const gasFilter = document.getElementById('filter-gas').value;
-      const pressureFilter = document.getElementById('filter-pressure').value;
-      const standardFilter = document.getElementById('filter-standard').value;
-
-      // Filter brands
-      const visibleBrands = brandsData.filter(b => {
-        if (!selectedBrandIds.has(b.id)) return false;
-        if (gasFilter !== 'ALL') {
-          const gasesStr = (b.gases || []).join(' ').toUpperCase();
-          if (!gasesStr.includes(gasFilter.toUpperCase())) return false;
-        }
-        if (pressureFilter !== 'ALL') {
-          const pStr = `${b.workingPressure} ${(b.cylinders || []).map(c => c.pressure).join(' ')}`;
-          if (!pStr.includes(pressureFilter)) return false;
-        }
-        if (standardFilter !== 'ALL') {
-          const stdStr = `${b.certifications} ${b.concTCVN} ${b.concULFM} ${b.software} ${b.dischargeTime}`.toUpperCase();
-          if (!stdStr.includes(standardFilter.toUpperCase())) return false;
+      const filtered = specData.filter(item => {
+        if (fBrand !== 'ALL' && item.brand !== fBrand) return false;
+        if (fAgent !== 'ALL' && item.agent !== fAgent) return false;
+        if (fPress !== 'ALL' && !item.pressure.includes(fPress)) return false;
+        if (q) {
+          const blob = JSON.stringify(item).toLowerCase();
+          if (!blob.includes(q.toLowerCase())) return false;
         }
         return true;
       });
 
-      if (visibleBrands.length === 0) {
-        container.innerHTML = `
-          <div class="p-12 text-center space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
-              <i data-lucide="search-x" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-base font-bold text-slate-800">Không tìm thấy hãng phù hợp bộ lọc</h3>
-            <p class="text-sm text-slate-500">Thử thay đổi bộ lọc Loại khí, Áp suất hoặc Tiêu chuẩn phía trên.</p>
-            <button onclick="resetFilters()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-navy-800 text-white hover:bg-navy-900">Đặt lại bộ lọc</button>
-          </div>
-        `;
-        lucide.createIcons();
+      const container = document.getElementById('matrixContainer');
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="bg-white p-8 rounded-xl border border-slate-200 text-center text-slate-500">Không tìm thấy thông số phù hợp với từ khóa "${q}".</div>`;
         return;
       }
 
-      // Define Comparison Rows grouped logically
-      const specGroups = [
-        {
-          groupTitle: 'I. THÔNG TIN CHUNG & CHỨNG NHẬN TIÊU CHUẨN',
-          rows: [
-            { label: 'Dòng sản phẩm / Hệ thống', getValue: b => b.systemName, bold: true },
-            { label: 'Tài liệu gốc (Manual / Brochure)', getValue: b => b.manualCode, mono: true },
-            { label: 'Chứng nhận & Tiêu chuẩn', getValue: b => b.certifications },
-            { label: 'Phần mềm tính thủy lực', getValue: b => b.software },
-            { label: 'Các loại khí hỗ trợ', getValue: b => (b.gases || []).join(', '), mono: true }
-          ]
-        },
-        {
-          groupTitle: 'II. THÔNG SỐ BÌNH CHỨA, ÁP SUẤT & VAN ĐIỀU ÁP',
-          rows: [
-            { label: 'Áp suất làm việc chuẩn', getValue: b => b.workingPressure, bold: true },
-            { label: 'Áp suất sau điều áp (Regulator / PRU)', getValue: b => b.regulatedPressure, highlightBox: true },
-            { label: 'Đĩa nổ an toàn (Burst Disc)', getValue: b => b.burstDisc },
-            { label: 'Công tắc giám sát áp thấp', getValue: b => b.lowPressureSwitch },
-            {
-              label: 'Dung tích, Kích thước & Lượng nạp bình',
-              isCylinderList: true
-            },
-            { label: 'Số lượng bình tối đa / hệ thống', getValue: b => b.maxCylinders }
-          ]
-        },
-        {
-          groupTitle: 'III. NỒNG ĐỘ THIẾT KẾ & NGƯỠNG AN TOÀN SINH HỌC',
-          rows: [
-            { label: 'Nồng độ theo TCVN 7161-13', getValue: b => b.concTCVN },
-            { label: 'Nồng độ theo UL 2127 / FM / NFPA', getValue: b => b.concULFM },
-            { label: 'Ngưỡng an toàn NOAEL / LOAEL', getValue: b => b.noaelLoael },
-            { label: 'Hằng số khí & Thể tích riêng S', getValue: b => b.constantsK, mono: true }
-          ]
-        },
-        {
-          groupTitle: 'IV. GIỚI HẠN ĐẦU PHUN (NOZZLE) & ĐƯỜNG ỐNG',
-          rows: [
-            { label: 'Kích thước & Góc phun đầu phun', getValue: b => b.nozzleSizes },
-            { label: 'Diện tích bao phủ tối đa / đầu phun', getValue: b => b.maxCoverageArea, bold: true },
-            { label: 'Cao độ tối đa 1 lớp đầu phun', getValue: b => b.maxHeight, bold: true },
-            { label: 'Khoảng cách đầu phun (giữa 2 đầu / tường)', getValue: b => b.nozzleSpacing },
-            { label: 'Áp suất tối thiểu tại đầu phun', getValue: b => b.minNozzlePressure },
-            { label: 'Thời gian phun xả (Discharge Time)', getValue: b => b.dischargeTime },
-            { label: 'Giới hạn cao độ ống & Khoảng cách Tee', getValue: b => b.pipingLimits },
-            { label: 'Tỷ lệ chia lưu lượng tại Tee', getValue: b => b.teeSplit }
-          ]
-        },
-        {
-          groupTitle: 'V. CẤU TẠO THIẾT BỊ, THAM CHIẾU TRANG & LƯU Ý KỸ THUẬT',
-          rows: [
-            { label: 'Cấu tạo cụm thiết bị chuẩn', getValue: b => b.components },
-            { label: 'Tham chiếu trang Manual (Page Ref)', getValue: b => `${b.pageRefCylinder || ''} | ${b.pageRefGeneral || ''}`, mono: true },
-            { label: 'Ghi chú & Khuyến cáo kỹ thuật', getValue: b => b.notes, isNote: true }
-          ]
-        }
-      ];
-
-      let matchCount = 0;
-
-      // Build Table Header
-      let html = `
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse min-w-[760px]">
-            <thead>
-              <tr class="bg-navy-900 text-white border-b border-navy-700">
-                <th class="py-4 px-5 text-xs font-bold uppercase tracking-wider w-64 sticky left-0 bg-navy-900 z-10 border-r border-navy-800">
-                  Hạng mục thông số kỹ thuật
-                </th>
-                ${visibleBrands.map(b => `
-                  <th class="py-4 px-5 align-top border-r border-navy-800 last:border-r-0 min-w-[300px]">
-                    <div class="flex items-start justify-between gap-2">
-                      <div>
-                        <div class="flex items-center gap-2">
-                          <span class="text-base font-extrabold text-amber-400 tracking-tight">${escapeHTML(b.name)}</span>
-                          <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-navy-800 text-slate-300 border border-navy-700">${escapeHTML(b.manualCode || 'Manual')}</span>
-                        </div>
-                        <p class="text-xs text-slate-300 font-normal mt-1">${escapeHTML(b.systemName)}</p>
-                      </div>
-                      <button onclick="editBrandFromMatrix('${b.id}')" class="p-1.5 rounded-lg bg-navy-800 hover:bg-navy-700 text-slate-300 hover:text-white transition shrink-0" title="Chỉnh sửa thông số hãng ${escapeHTML(b.name)}">
-                        <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                      </button>
-                    </div>
-                  </th>
-                `).join('')}
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-slate-200 text-sm">
-      `;
-
-      specGroups.forEach(group => {
-        // Filter rows inside group if search keyword is active
-        const filteredRows = group.rows.filter(row => {
-          if (!keyword) return true;
-          const kwLower = keyword.toLowerCase();
-          if (row.label.toLowerCase().includes(kwLower)) return true;
-          return visibleBrands.some(b => {
-            if (row.isCylinderList) {
-              const cylStr = (b.cylinders || []).map(c => `${c.label} ${c.dimensions} ${c.gasVolumeM3}m3 ${c.gasMassKg}kg`).join(' ').toLowerCase();
-              return cylStr.includes(kwLower);
-            }
-            const val = String(row.getValue(b) || '').toLowerCase();
-            return val.includes(kwLower);
-          });
-        });
-
-        if (filteredRows.length === 0) return;
-        matchCount += filteredRows.length;
-
-        // Group Header Row
-        html += `
-          <tr class="bg-slate-100/90">
-            <td colspan="${visibleBrands.length + 1}" class="py-2.5 px-5 text-xs font-extrabold tracking-wider text-navy-900 uppercase border-y border-slate-200">
-              ${group.groupTitle}
-            </td>
+      container.innerHTML = filtered.map(item => {
+        const cylRows = (item.cylinders || []).map(c => `
+          <tr class="border-t border-slate-100">
+            <td class="py-1.5 px-2 font-semibold text-slate-800">${highlightText(c.label, q)}</td>
+            <td class="py-1.5 px-2 mono text-blue-700 font-bold">${c.volM3} m³</td>
+            <td class="py-1.5 px-2 mono text-emerald-700 font-bold">${c.massKg} kg</td>
+            <td class="py-1.5 px-2 mono text-slate-600">${highlightText(c.dim || '-', q)}</td>
           </tr>
-        `;
+        `).join('');
 
-        filteredRows.forEach(row => {
-          html += `
-            <tr class="hover:bg-sky-50/40 transition-colors">
-              <td class="py-3.5 px-5 text-xs font-semibold text-slate-700 bg-slate-50/70 sticky left-0 z-10 border-r border-slate-200 align-top">
-                ${highlightText(row.label, keyword)}
-              </td>
-              ${visibleBrands.map(b => {
-                if (row.isCylinderList) {
-                  const cyls = b.cylinders || [];
-                  if (cyls.length === 0) {
-                    return `<td class="py-3.5 px-5 text-xs text-slate-400 italic border-r border-slate-100 last:border-r-0 align-top">Chưa có danh sách bình</td>`;
-                  }
-                  return `
-                    <td class="py-3.5 px-5 border-r border-slate-100 last:border-r-0 align-top">
-                      <div class="space-y-2">
-                        ${cyls.map(c => `
-                          <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200/90 text-xs">
-                            <div class="flex items-center justify-between gap-2 font-bold text-navy-900">
-                              <span>${highlightText(c.label, keyword)}</span>
-                              <span class="font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                                ${highlightText(`${c.gasVolumeM3} m³`, keyword)} ${c.gasMassKg ? `(~${c.gasMassKg} kg)` : ''}
-                              </span>
-                            </div>
-                            <div class="text-[11px] text-slate-600 font-mono mt-1">
-                              Kích thước: ${highlightText(c.dimensions, keyword)}
-                            </div>
-                          </div>
-                        `).join('')}
-                      </div>
-                    </td>
-                  `;
-                }
-
-                const rawVal = row.getValue(b);
-                let cellClasses = 'py-3.5 px-5 text-xs leading-relaxed border-r border-slate-100 last:border-r-0 align-top ';
-                if (row.bold) cellClasses += 'font-semibold text-slate-900 ';
-                else cellClasses += 'text-slate-700 ';
-                if (row.mono) cellClasses += 'font-mono ';
-
-                if (row.isNote) {
-                  return `
-                    <td class="py-3.5 px-5 border-r border-slate-100 last:border-r-0 align-top">
-                      <div class="p-3 rounded-xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-950 leading-relaxed">
-                        ${highlightText(rawVal, keyword)}
-                      </div>
-                    </td>
-                  `;
-                }
-
-                if (row.highlightBox) {
-                  return `
-                    <td class="py-3.5 px-5 border-r border-slate-100 last:border-r-0 align-top">
-                      <span class="inline-block px-2.5 py-1 rounded-lg bg-sky-50 text-sky-900 font-semibold border border-sky-200 text-xs">
-                        ${highlightText(rawVal, keyword)}
-                      </span>
-                    </td>
-                  `;
-                }
-
-                return `<td class="${cellClasses}">${highlightText(rawVal, keyword)}</td>`;
-              }).join('')}
-            </tr>
-          `;
-        });
-      });
-
-      if (matchCount === 0) {
-        container.innerHTML = `
-          <div class="p-12 text-center space-y-3">
-            <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center mx-auto">
-              <i data-lucide="search" class="w-6 h-6"></i>
-            </div>
-            <h3 class="text-base font-bold text-slate-800">Không có thông số nào khớp từ khóa "${escapeHTML(keyword)}"</h3>
-            <button onclick="document.getElementById('filter-search').value=''; renderMatrix();" class="px-4 py-2 rounded-xl text-xs font-semibold bg-navy-800 text-white hover:bg-navy-900">Xóa từ khóa tìm kiếm</button>
-          </div>
-        `;
-        lucide.createIcons();
-        return;
-      }
-
-      html += `</tbody></table></div>`;
-      container.innerHTML = html;
-      lucide.createIcons();
-    }
-
-    function resetFilters() {
-      document.getElementById('filter-search').value = '';
-      document.getElementById('filter-gas').value = 'ALL';
-      document.getElementById('filter-pressure').value = 'ALL';
-      document.getElementById('filter-standard').value = 'ALL';
-      selectedBrandIds = new Set(brandsData.map(b => b.id));
-      renderBrandChips();
-      renderMatrix();
-    }
-
-    function editBrandFromMatrix(brandId) {
-      switchTab('manage');
-      loadBrandIntoForm(brandId);
-    }
-
-    // =========================================================================
-    // TAB 2: BRAND MANAGEMENT & EDITOR
-    // =========================================================================
-    function renderManageBrandList() {
-      const container = document.getElementById('manage-brand-list');
-      const currentId = document.getElementById('edit-brand-id').value;
-
-      container.innerHTML = brandsData.map(b => {
-        const isSelected = b.id === currentId;
         return `
-          <div onclick="loadBrandIntoForm('${b.id}')"
-            class="p-3.5 rounded-xl border cursor-pointer transition flex items-center justify-between gap-3 ${
-              isSelected
-                ? 'bg-navy-900 text-white border-navy-900 shadow-md'
-                : 'bg-slate-50 hover:bg-slate-100 text-slate-800 border-slate-200'
-            }">
-            <div class="min-w-0">
-              <div class="flex items-center gap-2">
-                <span class="font-bold text-sm truncate">${escapeHTML(b.name)}</span>
-                <span class="text-[10px] font-mono px-1.5 py-0.5 rounded ${isSelected ? 'bg-amber-400/20 text-amber-300' : 'bg-slate-200 text-slate-600'}">
-                  ${(b.gases || []).join('/')}
-                </span>
+          <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-slate-900 text-white px-5 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2 py-0.5 bg-red-600 text-white text-xs font-bold rounded">${highlightText(item.brand, q)}</span>
+                  <h3 class="font-bold text-base">${highlightText(item.system, q)}</h3>
+                </div>
+                <p class="text-xs text-slate-300 mt-0.5">Chất chữa cháy: <strong class="text-amber-300">${highlightText(item.agent, q)}</strong> • Nguồn: ${highlightText(item.source, q)}</p>
               </div>
-              <p class="text-xs truncate mt-0.5 ${isSelected ? 'text-slate-300' : 'text-slate-500'}">${escapeHTML(b.systemName)}</p>
-              <p class="text-[11px] font-mono mt-1 ${isSelected ? 'text-sky-300' : 'text-slate-400'}">${escapeHTML(b.manualCode || '')}</p>
+              <span class="text-xs font-mono bg-slate-800 border border-slate-700 px-3 py-1 rounded-lg text-emerald-300 self-start sm:self-auto">
+                ${highlightText(item.pressure, q)}
+              </span>
             </div>
-            <i data-lucide="chevron-right" class="w-4 h-4 shrink-0 ${isSelected ? 'text-amber-400' : 'text-slate-400'}"></i>
+
+            <div class="p-5 grid grid-cols-1 lg:grid-cols-12 gap-5 text-sm">
+              <!-- Specs Grid -->
+              <div class="lg:col-span-7 space-y-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                    <div class="text-[11px] font-bold uppercase text-slate-400">Tiêu chuẩn &amp; Chứng nhận</div>
+                    <div class="font-medium text-slate-800 mt-1">${highlightText(item.standards, q)}</div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                    <div class="text-[11px] font-bold uppercase text-slate-400">An toàn áp suất (Đĩa nổ / Switch)</div>
+                    <div class="font-medium text-slate-800 mt-1">${highlightText(item.safety, q)}</div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                    <div class="text-[11px] font-bold uppercase text-slate-400">Điều áp &amp; Thời gian phun xả</div>
+                    <div class="font-medium text-slate-800 mt-1">${highlightText(item.regulator, q)}</div>
+                  </div>
+                  <div class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                    <div class="text-[11px] font-bold uppercase text-slate-400">Nồng độ thiết kế &amp; NOAEL/LOAEL</div>
+                    <div class="font-medium text-slate-800 mt-1">${highlightText(item.concentration, q)}</div>
+                  </div>
+                </div>
+
+                <div class="p-3 rounded-lg bg-blue-50/60 border border-blue-200">
+                  <div class="text-[11px] font-bold uppercase text-blue-700">Giới hạn đầu phun &amp; Đường ống</div>
+                  <div class="text-slate-800 mt-1">${highlightText(item.nozzleLimits, q)}</div>
+                </div>
+
+                <div class="p-3 rounded-lg bg-amber-50/60 border border-amber-200 text-xs text-slate-700">
+                  <strong class="text-amber-800">Ghi chú kỹ thuật:</strong> ${highlightText(item.notes, q)}
+                </div>
+              </div>
+
+              <!-- Cylinders Table -->
+              <div class="lg:col-span-5">
+                <div class="border border-slate-200 rounded-xl overflow-hidden">
+                  <div class="bg-slate-100 px-3 py-2 text-xs font-bold uppercase text-slate-700 border-b border-slate-200">
+                    Danh Mục Bình Chứa &amp; Lượng Khí Nạp (@21°C)
+                  </div>
+                  <table class="w-full text-xs text-left">
+                    <thead class="bg-slate-50 text-slate-500">
+                      <tr>
+                        <th class="py-1.5 px-2">Loại bình</th>
+                        <th class="py-1.5 px-2">Thể tích (m³)</th>
+                        <th class="py-1.5 px-2">Khối lượng (kg)</th>
+                        <th class="py-1.5 px-2">Kích thước</th>
+                      </tr>
+                    </thead>
+                    <tbody>${cylRows}</tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         `;
       }).join('');
-      lucide.createIcons();
     }
 
-    function loadBrandIntoForm(brandId) {
-      const brand = brandsData.find(b => b.id === brandId);
-      if (!brand) return;
-
-      document.getElementById('edit-brand-id').value = brand.id;
-      document.getElementById('form-mode-badge').textContent = 'CHỈNH SỬA DỮ LIỆU';
-      document.getElementById('form-title').textContent = `Cập nhật thông số: ${brand.name}`;
-      document.getElementById('btn-duplicate-brand').classList.remove('hidden');
-      document.getElementById('btn-delete-brand').classList.remove('hidden');
-
-      document.getElementById('field-name').value = brand.name || '';
-      document.getElementById('field-systemName').value = brand.systemName || '';
-      document.getElementById('field-manualCode').value = brand.manualCode || '';
-      document.getElementById('field-software').value = brand.software || '';
-      document.getElementById('field-certifications').value = brand.certifications || '';
-      document.getElementById('field-gases').value = (brand.gases || []).join(', ');
-
-      document.getElementById('field-workingPressure').value = brand.workingPressure || '';
-      document.getElementById('field-regulatedPressure').value = brand.regulatedPressure || '';
-      document.getElementById('field-burstDisc').value = brand.burstDisc || '';
-      document.getElementById('field-lowPressureSwitch').value = brand.lowPressureSwitch || '';
-      document.getElementById('field-maxCylinders').value = brand.maxCylinders || '';
-      document.getElementById('field-pageRefCylinder').value = brand.pageRefCylinder || '';
-
-      document.getElementById('field-concTCVN').value = brand.concTCVN || '';
-      document.getElementById('field-concULFM').value = brand.concULFM || '';
-      document.getElementById('field-noaelLoael').value = brand.noaelLoael || '';
-      document.getElementById('field-constantsK').value = brand.constantsK || '';
-
-      document.getElementById('field-nozzleSizes').value = brand.nozzleSizes || '';
-      document.getElementById('field-maxCoverageArea').value = brand.maxCoverageArea || '';
-      document.getElementById('field-maxHeight').value = brand.maxHeight || '';
-      document.getElementById('field-nozzleSpacing').value = brand.nozzleSpacing || '';
-      document.getElementById('field-minNozzlePressure').value = brand.minNozzlePressure || '';
-      document.getElementById('field-dischargeTime').value = brand.dischargeTime || '';
-      document.getElementById('field-pipingLimits').value = brand.pipingLimits || '';
-      document.getElementById('field-teeSplit').value = brand.teeSplit || '';
-
-      document.getElementById('field-components').value = brand.components || '';
-      document.getElementById('field-pageRefGeneral').value = brand.pageRefGeneral || '';
-      document.getElementById('field-notes').value = brand.notes || '';
-
-      renderCylinderFormRows(brand.cylinders || []);
-      renderManageBrandList();
-    }
-
-    function openAddNewBrand() {
-      switchTab('manage');
-      document.getElementById('edit-brand-id').value = '';
-      document.getElementById('form-mode-badge').textContent = 'THÊM HÃNG MỚI';
-      document.getElementById('form-title').textContent = 'Thêm mới Hãng / Hệ thống chữa cháy khí';
-      document.getElementById('btn-duplicate-brand').classList.add('hidden');
-      document.getElementById('btn-delete-brand').classList.add('hidden');
-
-      document.getElementById('brand-editor-form').reset();
-      document.getElementById('field-gases').value = 'IG-100';
-      document.getElementById('field-concTCVN').value = 'TCVN 7161-13 Bảng 4: Lớp A = 40.3%, Lớp A+ = 41.5%, Lớp B = 43.7%';
-      document.getElementById('field-noaelLoael').value = 'NOAEL: 43% (O₂ ≥ 12%) | LOAEL: 52% (O₂ ≥ 10%)';
-      document.getElementById('field-constantsK').value = 'S = 0.7997 + 0.00293 × T (°C) | S₀ = 0.858 m³/kg (@20°C)';
-
-      renderCylinderFormRows([
-        { id: 'cyl-' + Date.now(), label: '80 Lít - 300 bar', liters: 80, pressure: 300, dimensions: 'Ø279 × 1750 mm', gasVolumeM3: 20.8, gasMassKg: 24.15 }
-      ]);
-      renderManageBrandList();
-    }
-
-    function duplicateCurrentBrand() {
-      const currentId = document.getElementById('edit-brand-id').value;
-      const source = brandsData.find(b => b.id === currentId);
-      if (!source) return;
-
-      const copy = JSON.parse(JSON.stringify(source));
-      copy.id = 'brand-' + Date.now();
-      copy.name = source.name + ' (Bản sao)';
-      copy.cylinders = (copy.cylinders || []).map((c, idx) => ({
-        ...c,
-        id: 'cyl-' + Date.now() + '-' + idx
-      }));
-
-      brandsData.push(copy);
-      selectedBrandIds.add(copy.id);
-      saveToStorage();
-      loadBrandIntoForm(copy.id);
-      showToast(`Đã nhân bản thành "${copy.name}". Hãy cập nhật tên hãng mới!`, 'success');
-    }
-
-    function renderCylinderFormRows(cylinders) {
-      const container = document.getElementById('cylinder-rows-container');
-      if (!cylinders || cylinders.length === 0) {
-        container.innerHTML = `<p class="text-xs text-slate-400 italic">Chưa có cấu hình bình. Nhấn "Thêm loại bình" để bổ sung.</p>`;
-        return;
-      }
-
-      container.innerHTML = cylinders.map((c, index) => `
-        <div class="cyl-row grid grid-cols-12 gap-2 items-center bg-white p-2.5 rounded-xl border border-slate-200" data-cyl-id="${c.id || ('cyl-' + index)}">
-          <div class="col-span-12 sm:col-span-3">
-            <label class="block text-[10px] font-semibold text-slate-500">Tên cấu hình bình</label>
-            <input type="text" class="cyl-label w-full px-2.5 py-1.5 text-xs font-semibold border border-slate-300 rounded-lg" value="${escapeHTML(c.label || '')}" placeholder="80L - 300 bar" required />
-          </div>
-          <div class="col-span-4 sm:col-span-2">
-            <label class="block text-[10px] font-semibold text-slate-500">Dung tích (L)</label>
-            <input type="number" step="0.1" class="cyl-liters w-full px-2.5 py-1.5 text-xs font-mono border border-slate-300 rounded-lg" value="${c.liters || 80}" required />
-          </div>
-          <div class="col-span-4 sm:col-span-2">
-            <label class="block text-[10px] font-semibold text-slate-500">Nạp khí (m³)</label>
-            <input type="number" step="0.01" class="cyl-vol w-full px-2.5 py-1.5 text-xs font-mono font-bold text-emerald-700 border border-slate-300 rounded-lg" value="${c.gasVolumeM3 || 20.8}" required />
-          </div>
-          <div class="col-span-4 sm:col-span-2">
-            <label class="block text-[10px] font-semibold text-slate-500">Khối lượng (kg)</label>
-            <input type="number" step="0.01" class="cyl-mass w-full px-2.5 py-1.5 text-xs font-mono border border-slate-300 rounded-lg" value="${c.gasMassKg || ''}" placeholder="24.15" />
-          </div>
-          <div class="col-span-10 sm:col-span-2">
-            <label class="block text-[10px] font-semibold text-slate-500">Kích thước Ø×H</label>
-            <input type="text" class="cyl-dim w-full px-2.5 py-1.5 text-xs font-mono border border-slate-300 rounded-lg" value="${escapeHTML(c.dimensions || '')}" placeholder="Ø279×1750" />
-          </div>
-          <div class="col-span-2 sm:col-span-1 flex justify-end pt-3.5">
-            <button type="button" onclick="this.closest('.cyl-row').remove()" class="p-1.5 text-slate-400 hover:text-fire-600 rounded-lg hover:bg-fire-50 transition" title="Xóa dòng bình">
-              <i data-lucide="trash" class="w-4 h-4"></i>
-            </button>
-          </div>
-        </div>
-      `).join('');
-      lucide.createIcons();
-    }
-
-    function addCylinderRow() {
-      const container = document.getElementById('cylinder-rows-container');
-      if (container.querySelector('p')) container.innerHTML = '';
-      const div = document.createElement('div');
-      div.className = 'cyl-row grid grid-cols-12 gap-2 items-center bg-white p-2.5 rounded-xl border border-slate-200';
-      div.dataset.cylId = 'cyl-' + Date.now();
-      div.innerHTML = `
-        <div class="col-span-12 sm:col-span-3">
-          <label class="block text-[10px] font-semibold text-slate-500">Tên cấu hình bình</label>
-          <input type="text" class="cyl-label w-full px-2.5 py-1.5 text-xs font-semibold border border-slate-300 rounded-lg" placeholder="VD: 140L - 300 bar" required />
-        </div>
-        <div class="col-span-4 sm:col-span-2">
-          <label class="block text-[10px] font-semibold text-slate-500">Dung tích (L)</label>
-          <input type="number" step="0.1" class="cyl-liters w-full px-2.5 py-1.5 text-xs font-mono border border-slate-300 rounded-lg" value="140" required />
-        </div>
-        <div class="col-span-4 sm:col-span-2">
-          <label class="block text-[10px] font-semibold text-slate-500">Nạp khí (m³)</label>
-          <input type="number" step="0.01" class="cyl-vol w-full px-2.5 py-1.5 text-xs font-mono font-bold text-emerald-700 border border-slate-300 rounded-lg" value="36.3" required />
-        </div>
-        <div class="col-span-4 sm:col-span-2">
-          <label class="block text-[10px] font-semibold text-slate-500">Khối lượng (kg)</label>
-          <input type="number" step="0.01" class="cyl-mass w-full px-2.5 py-1.5 text-xs font-mono border border-slate-300 rounded-lg" value="42.15" />
-        </div>
-        <div class="col-span-10 sm:col-span-2">
-          <label class="block text-[10px] font-semibold text-slate-500">Kích thước Ø×H</label>
-          <input type="text" class="cyl-dim w-full px-2.5 py-1.5 text-xs font-mono border border-slate-300 rounded-lg" placeholder="Ø356×1925" />
-        </div>
-        <div class="col-span-2 sm:col-span-1 flex justify-end pt-3.5">
-          <button type="button" onclick="this.closest('.cyl-row').remove()" class="p-1.5 text-slate-400 hover:text-fire-600 rounded-lg hover:bg-fire-50 transition">
-            <i data-lucide="trash" class="w-4 h-4"></i>
-          </button>
-        </div>
-      `;
-      container.appendChild(div);
-      lucide.createIcons();
-    }
-
-    function saveBrandForm(event) {
-      event.preventDefault();
-      const id = document.getElementById('edit-brand-id').value;
-      const gasesRaw = document.getElementById('field-gases').value;
-      const gases = gasesRaw.split(',').map(s => s.trim()).filter(Boolean);
-
-      // Collect cylinder rows
-      const cylRows = Array.from(document.querySelectorAll('#cylinder-rows-container .cyl-row'));
-      const cylinders = cylRows.map((row, idx) => {
-        const vol = parseFloat(row.querySelector('.cyl-vol').value) || 0;
-        const massInput = parseFloat(row.querySelector('.cyl-mass').value);
-        return {
-          id: row.dataset.cylId || ('cyl-' + Date.now() + '-' + idx),
-          label: row.querySelector('.cyl-label').value.trim(),
-          liters: parseFloat(row.querySelector('.cyl-liters').value) || 0,
-          pressure: row.querySelector('.cyl-label').value.includes('200') ? 200 : 300,
-          dimensions: row.querySelector('.cyl-dim').value.trim(),
-          gasVolumeM3: vol,
-          gasMassKg: !isNaN(massInput) ? massInput : +(vol / 0.8612).toFixed(2)
-        };
+    // ==================== TAB 3: CALCULATOR (KG & M3) ====================
+    function populateCylinderDropdown() {
+      const sel = document.getElementById('calcCylinderSelect');
+      const prevVal = sel.value;
+      let options = [];
+      specData.forEach((brandItem, bIdx) => {
+        (brandItem.cylinders || []).forEach((cyl, cIdx) => {
+          const val = `${bIdx}|${cIdx}`;
+          options.push(`<option value="${val}">${cyl.label} (${cyl.volM3} m³ / ${cyl.massKg} kg)</option>`);
+        });
       });
+      sel.innerHTML = options.join('');
+      if (prevVal && [...sel.options].some(o => o.value === prevVal)) {
+        sel.value = prevVal;
+      }
+    }
 
-      const brandObj = {
-        id: id || ('brand-' + Date.now()),
-        name: document.getElementById('field-name').value.trim(),
-        systemName: document.getElementById('field-systemName').value.trim(),
-        manualCode: document.getElementById('field-manualCode').value.trim(),
-        software: document.getElementById('field-software').value.trim(),
-        certifications: document.getElementById('field-certifications').value.trim(),
-        gases: gases.length > 0 ? gases : ['IG-100'],
-        workingPressure: document.getElementById('field-workingPressure').value.trim(),
-        regulatedPressure: document.getElementById('field-regulatedPressure').value.trim(),
-        burstDisc: document.getElementById('field-burstDisc').value.trim(),
-        lowPressureSwitch: document.getElementById('field-lowPressureSwitch').value.trim(),
-        maxCylinders: document.getElementById('field-maxCylinders').value.trim(),
-        pageRefCylinder: document.getElementById('field-pageRefCylinder').value.trim(),
-        cylinders,
-        concTCVN: document.getElementById('field-concTCVN').value.trim(),
-        concULFM: document.getElementById('field-concULFM').value.trim(),
-        noaelLoael: document.getElementById('field-noaelLoael').value.trim(),
-        constantsK: document.getElementById('field-constantsK').value.trim(),
-        nozzleSizes: document.getElementById('field-nozzleSizes').value.trim(),
-        maxCoverageArea: document.getElementById('field-maxCoverageArea').value.trim(),
-        maxHeight: document.getElementById('field-maxHeight').value.trim(),
-        nozzleSpacing: document.getElementById('field-nozzleSpacing').value.trim(),
-        minNozzlePressure: document.getElementById('field-minNozzlePressure').value.trim(),
-        dischargeTime: document.getElementById('field-dischargeTime').value.trim(),
-        pipingLimits: document.getElementById('field-pipingLimits').value.trim(),
-        teeSplit: document.getElementById('field-teeSplit').value.trim(),
-        components: document.getElementById('field-components').value.trim(),
-        pageRefGeneral: document.getElementById('field-pageRefGeneral').value.trim(),
-        notes: document.getElementById('field-notes').value.trim()
-      };
-
-      if (id) {
-        const idx = brandsData.findIndex(b => b.id === id);
-        if (idx !== -1) brandsData[idx] = brandObj;
+    function setDisplayUnit(unit) {
+      displayUnit = unit;
+      const btnM3 = document.getElementById('unit-btn-m3');
+      const btnKg = document.getElementById('unit-btn-kg');
+      if (unit === 'm3') {
+        btnM3.className = 'px-3 py-1.5 rounded-md text-xs font-bold bg-blue-600 text-white transition';
+        btnKg.className = 'px-3 py-1.5 rounded-md text-xs font-bold text-slate-700 hover:text-slate-900 transition';
       } else {
-        brandsData.push(brandObj);
-        selectedBrandIds.add(brandObj.id);
-      }
-
-      saveToStorage();
-      loadBrandIntoForm(brandObj.id);
-      populateCalculatorCylinders();
-      showToast(`Đã lưu thông số kỹ thuật hãng "${brandObj.name}" thành công!`, 'success');
-    }
-
-    function deleteCurrentBrand() {
-      const id = document.getElementById('edit-brand-id').value;
-      if (!id) return;
-      if (brandsData.length <= 1) {
-        showToast('Không thể xóa hãng cuối cùng trong hệ thống!', 'error');
-        return;
-      }
-      const brand = brandsData.find(b => b.id === id);
-      openConfirmModal(
-        'Xóa dữ liệu hãng',
-        `Bạn có chắc chắn muốn xóa hãng "${brand ? brand.name : ''}" khỏi cơ sở dữ liệu?`,
-        () => {
-          brandsData = brandsData.filter(b => b.id !== id);
-          selectedBrandIds.delete(id);
-          if (selectedBrandIds.size === 0 && brandsData.length > 0) {
-            selectedBrandIds.add(brandsData[0].id);
-          }
-          saveToStorage();
-          loadBrandIntoForm(brandsData[0].id);
-          populateCalculatorCylinders();
-          showToast('Đã xóa hãng khỏi cơ sở dữ liệu.', 'info');
-        }
-      );
-    }
-
-    // =========================================================================
-    // TAB 3: QUICK IG-100 CALCULATOR
-    // =========================================================================
-    function populateCalculatorCylinders() {
-      const select = document.getElementById('calc-cylinder-select');
-      const previousVal = select.value;
-      let optionsHtml = '';
-
-      brandsData.forEach(b => {
-        if (b.cylinders && b.cylinders.length > 0) {
-          optionsHtml += `<optgroup label="Hãng ${escapeHTML(b.name)} (${escapeHTML(b.systemName)})">`;
-          b.cylinders.forEach(c => {
-            const val = `${b.id}::${c.id}`;
-            optionsHtml += `<option value="${val}">${escapeHTML(b.name)} — ${escapeHTML(c.label)} (Nạp ${c.gasVolumeM3} m³ khí)</option>`;
-          });
-          optionsHtml += `</optgroup>`;
-        }
-      });
-
-      optionsHtml += `<optgroup label="Tùy chỉnh thông số bình"><option value="custom">Nhập dung tích & lượng khí nạp tùy chỉnh...</option></optgroup>`;
-      select.innerHTML = optionsHtml;
-
-      // Default to SRI 80L - 300 bar if available
-      if (previousVal && Array.from(select.options).some(o => o.value === previousVal)) {
-        select.value = previousVal;
-      } else if (Array.from(select.options).some(o => o.value === 'sri-inertec::sri-80-300')) {
-        select.value = 'sri-inertec::sri-80-300';
-      }
-    }
-
-    function setVolumeMode(mode) {
-      volumeMode = mode;
-      const dimBox = document.getElementById('calc-dim-inputs');
-      const volBox = document.getElementById('calc-vol-inputs');
-      const dimBtn = document.getElementById('mode-dim-btn');
-      const volBtn = document.getElementById('mode-vol-btn');
-
-      if (mode === 'dim') {
-        dimBox.classList.remove('hidden');
-        volBox.classList.add('hidden');
-        dimBtn.classList.add('bg-white', 'text-navy-900', 'shadow-sm');
-        dimBtn.classList.remove('text-slate-600');
-        volBtn.classList.remove('bg-white', 'text-navy-900', 'shadow-sm');
-        volBtn.classList.add('text-slate-600');
-      } else {
-        dimBox.classList.add('hidden');
-        volBox.classList.remove('hidden');
-        volBtn.classList.add('bg-white', 'text-navy-900', 'shadow-sm');
-        volBtn.classList.remove('text-slate-600');
-        dimBtn.classList.remove('bg-white', 'text-navy-900', 'shadow-sm');
-        dimBtn.classList.add('text-slate-600');
+        btnKg.className = 'px-3 py-1.5 rounded-md text-xs font-bold bg-blue-600 text-white transition';
+        btnM3.className = 'px-3 py-1.5 rounded-md text-xs font-bold text-slate-700 hover:text-slate-900 transition';
       }
       runCalculation();
     }
 
-    function onStandardPresetChange() {
-      const val = document.getElementById('calc-standard-preset').value;
-      const concInput = document.getElementById('calc-conc');
-      if (val !== 'custom') {
-        concInput.value = val;
+    function onConcPresetChange() {
+      const preset = document.getElementById('calcConcSelect').value;
+      if (preset !== 'custom') {
+        document.getElementById('calcC').value = preset;
       }
-      manualCylinderOverride = null;
       runCalculation();
     }
 
-    function onCylinderSelectChange() {
-      const val = document.getElementById('calc-cylinder-select').value;
-      const customBox = document.getElementById('calc-custom-cyl-box');
-      if (val === 'custom') {
-        customBox.classList.remove('hidden');
-      } else {
-        customBox.classList.add('hidden');
-      }
-      manualCylinderOverride = null;
-      runCalculation();
-    }
-
-    function adjustManualCylinders(delta) {
-      const input = document.getElementById('calc-cyl-count');
-      const cur = parseInt(input.value, 10) || 1;
-      const next = Math.max(1, cur + delta);
-      manualCylinderOverride = next;
-      input.value = next;
-      runCalculation();
-    }
-
-    function onManualCylInput() {
-      const val = parseInt(document.getElementById('calc-cyl-count').value, 10);
-      if (!isNaN(val) && val >= 1) {
-        manualCylinderOverride = val;
-        runCalculation();
-      }
-    }
-
-    function resetAutoCylinders() {
-      manualCylinderOverride = null;
-      runCalculation();
-    }
-
-    function resetCalcSample() {
-      document.getElementById('calc-room-name').value = 'Phòng Server & Trung tâm Dữ liệu (Data Center)';
-      setVolumeMode('dim');
-      document.getElementById('calc-length').value = 12;
-      document.getElementById('calc-width').value = 8;
-      document.getElementById('calc-height').value = 3.6;
-      document.getElementById('calc-deduct-vol').value = 0;
-      document.getElementById('calc-temp').value = 20;
-      document.getElementById('calc-standard-preset').value = '40.3';
-      document.getElementById('calc-conc').value = 40.3;
-      document.getElementById('calc-safety-factor').value = 0;
-      manualCylinderOverride = null;
-      runCalculation();
-      showToast('Đã nạp thông số mẫu Phòng Server (12m × 8m × 3.6m).', 'info');
-    }
+    let lastCalcSnapshot = null;
 
     function runCalculation() {
-      // 1. Room Geometry
-      const roomName = document.getElementById('calc-room-name').value.trim() || 'Khu vực bảo vệ IG-100';
-      let grossVol = 0;
-      let floorArea = 0;
-      let roomHeight = 0;
-      let roomLength = 0;
-      let roomWidth = 0;
+      const roomName = document.getElementById('calcRoomName').value || 'Phòng bảo vệ';
+      const L = parseFloat(document.getElementById('calcL').value) || 0;
+      const W = parseFloat(document.getElementById('calcW').value) || 0;
+      const H = parseFloat(document.getElementById('calcH').value) || 0;
+      const vFloor = parseFloat(document.getElementById('calcVFloor').value) || 0;
+      const vCeiling = parseFloat(document.getElementById('calcVCeiling').value) || 0;
+      const vDeduct = parseFloat(document.getElementById('calcVDeduct').value) || 0;
 
-      if (volumeMode === 'dim') {
-        roomLength = Math.max(0.1, parseFloat(document.getElementById('calc-length').value) || 0);
-        roomWidth = Math.max(0.1, parseFloat(document.getElementById('calc-width').value) || 0);
-        roomHeight = Math.max(0.1, parseFloat(document.getElementById('calc-height').value) || 0);
-        floorArea = roomLength * roomWidth;
-        grossVol = floorArea * roomHeight;
+      const Tmin = parseFloat(document.getElementById('calcTmin').value);
+      const Tmax = parseFloat(document.getElementById('calcTmax').value);
+      const C = parseFloat(document.getElementById('calcC').value) || 40.3;
+      const Falt = parseFloat(document.getElementById('calcAlt').value) || 1.0;
+      const S0 = parseFloat(document.getElementById('calcS0').value) || 0.8612;
+
+      // 1. Net Hazard Volume (m3)
+      const area = L * W;
+      const vMain = area * H;
+      const V = Math.max(0, vMain + vFloor + vCeiling - vDeduct);
+
+      // 2. Specific Volume S at Tmin & Tmax (IG-100: K1 = 0.7997, K2 = 0.00293)
+      const tMinValid = isNaN(Tmin) ? 20 : Tmin;
+      const tMaxValid = isNaN(Tmax) ? 35 : Tmax;
+      const S_min = 0.7997 + 0.00293 * tMinValid;
+      const S_max = 0.7997 + 0.00293 * tMaxValid;
+
+      // 3. Required Agent Mass Q (kg) & Volume X (m3)
+      const floodingFactor = Math.log(100 / (100 - C));
+      const Q_req = (V / S_min) * floodingFactor * Falt;
+      const X_req = Q_req * S0;
+
+      // 4. Selected Cylinder
+      const cylVal = document.getElementById('calcCylinderSelect').value || '0|0';
+      const [bIdx, cIdx] = cylVal.split('|').map(Number);
+      const cyl = (specData[bIdx] && specData[bIdx].cylinders[cIdx])
+        ? specData[bIdx].cylinders[cIdx]
+        : { label: '80L - 300 bar', volM3: 20.8, massKg: 24.15 };
+
+      // Number of cylinders (based on selected unit or equivalent ratio)
+      const cylCount = displayUnit === 'm3'
+        ? Math.ceil(X_req / cyl.volM3)
+        : Math.ceil(Q_req / cyl.massKg);
+
+      const X_sup = cylCount * cyl.volM3;
+      const Q_sup = cylCount * cyl.massKg;
+
+      // 5. Actual Concentration at Tmin and Tmax
+      const C_actual_min = V > 0 ? (1 - Math.exp(-(Q_sup * S_min) / (V * Falt))) * 100 : 0;
+      const C_actual_max = V > 0 ? (1 - Math.exp(-(Q_sup * S_max) / (V * Falt))) * 100 : 0;
+
+      // Nozzle preliminary check (SRI limits: H <= 4.7m, Area <= 98.4 m2)
+      const nozzleLayers = H > 4.7 ? Math.ceil(H / 4.7) : 1;
+      const minNozzlesPerLayer = Math.max(1, Math.ceil(area / 98.4));
+      const totalMinNozzles = nozzleLayers * minNozzlesPerLayer;
+
+      // Update Highlight Cards based on displayUnit
+      if (displayUnit === 'm3') {
+        document.getElementById('resPrimaryReq').textContent = `${X_req.toFixed(2)} m³`;
+        document.getElementById('resSecondaryReq').textContent = `Tương đương: ${Q_req.toFixed(2)} kg`;
+        document.getElementById('resPrimarySup').textContent = `${X_sup.toFixed(2)} m³`;
+        document.getElementById('resSecondarySup').textContent = `Tương đương: ${Q_sup.toFixed(2)} kg`;
       } else {
-        grossVol = Math.max(0.1, parseFloat(document.getElementById('calc-direct-vol').value) || 0);
-        floorArea = Math.max(0.1, parseFloat(document.getElementById('calc-direct-area').value) || 0);
-        roomHeight = floorArea > 0 ? (grossVol / floorArea) : 3.5;
+        document.getElementById('resPrimaryReq').textContent = `${Q_req.toFixed(2)} kg`;
+        document.getElementById('resSecondaryReq').textContent = `Tương đương: ${X_req.toFixed(2)} m³`;
+        document.getElementById('resPrimarySup').textContent = `${Q_sup.toFixed(2)} kg`;
+        document.getElementById('resSecondarySup').textContent = `Tương đương: ${X_sup.toFixed(2)} m³`;
       }
 
-      const deductVol = Math.max(0, parseFloat(document.getElementById('calc-deduct-vol').value) || 0);
-      const netVol = Math.max(0.1, grossVol - deductVol);
+      document.getElementById('resCylCount').textContent = `${cylCount} Bình`;
+      document.getElementById('resCylSpec').textContent = `${cyl.label} (${cyl.volM3} m³ | ${cyl.massKg} kg/bình)`;
 
-      // 2. Temperature & Specific Volume S (TCVN 7161-13 / ISO 14520)
-      // S = 0.7997 + 0.00293 * T (°C)
-      const tempC = parseFloat(document.getElementById('calc-temp').value);
-      const T = isNaN(tempC) ? 20 : tempC;
-      const S = 0.7997 + 0.00293 * T; // At 20°C => 0.8583 m3/kg
-      const S0_20 = 0.858; // Standard reference @20°C
-      const S0_21 = 0.8612; // Standard reference @21°C (SRI Manual)
-
-      // 3. Design Concentration C (%) & Safety Factor
-      const C = Math.min(95, Math.max(1, parseFloat(document.getElementById('calc-conc').value) || 40.3));
-      const safetyPct = Math.max(0, parseFloat(document.getElementById('calc-safety-factor').value) || 0);
-
-      // Q = (V / S) * ln(100 / (100 - C))
-      const floodingFactor = (1 / S) * Math.log(100 / (100 - C)); // kg/m3
-      const baseGasKg = netVol * floodingFactor;
-      const designGasKg = baseGasKg * (1 + safetyPct / 100);
-      const designGasM3_at_T = designGasKg * S; // Volume at design temp T
-      const designGasM3_at_21 = designGasKg * S0_21; // Standard m3 @21°C (matches SRI cylinder rating)
-
-      // 4. Selected Cylinder Spec
-      const cylSelectVal = document.getElementById('calc-cylinder-select').value;
-      let cylBrandName = 'Tùy chỉnh';
-      let cylSpecLabel = 'Bình tùy chỉnh';
-      let cylGasM3 = 20.8;
-      let cylLiters = 80;
-
-      if (cylSelectVal === 'custom') {
-        cylLiters = parseFloat(document.getElementById('calc-custom-liters').value) || 80;
-        cylGasM3 = Math.max(0.1, parseFloat(document.getElementById('calc-custom-gas-m3').value) || 20.8);
-        cylSpecLabel = `${cylLiters}L (${cylGasM3} m³)`;
-      } else if (cylSelectVal.includes('::')) {
-        const [bId, cId] = cylSelectVal.split('::');
-        const brand = brandsData.find(b => b.id === bId);
-        const cyl = brand && brand.cylinders ? brand.cylinders.find(c => c.id === cId) : null;
-        if (brand && cyl) {
-          cylBrandName = brand.name;
-          cylSpecLabel = `${brand.name} ${cyl.label}`;
-          cylGasM3 = cyl.gasVolumeM3;
-          cylLiters = cyl.liters;
-        }
-      }
-
-      // Calculate minimum required cylinders (comparing standard gas m3 @21°C against cylinder rated m3 @21°C)
-      const exactCylinders = designGasM3_at_21 / cylGasM3;
-      const autoMinCylinders = Math.max(1, Math.ceil(exactCylinders));
-      const finalCylCount = manualCylinderOverride !== null ? manualCylinderOverride : autoMinCylinders;
-
-      const cylCountInput = document.getElementById('calc-cyl-count');
-      if (document.activeElement !== cylCountInput) {
-        cylCountInput.value = finalCylCount;
-      }
-
-      // 5. Actual Achieved Concentration with Final Cylinder Count
-      const totalSuppliedGasM3_21 = finalCylCount * cylGasM3;
-      const totalSuppliedGasKg = totalSuppliedGasM3_21 / S0_21;
-      // From Q_actual = (V / S) * ln(100 / (100 - C_actual)) => C_actual = 100 * (1 - exp(-(Q_actual * S) / V))
-      const actualConc = 100 * (1 - Math.exp(-(totalSuppliedGasKg * S) / netVol));
-      const remainingO2 = 20.95 * (1 - actualConc / 100);
-
-      // 6. Nozzle & Layout Check (Based on SRI Manual tr. 60-66: max 98.4 m2/nozzle, max height 4.7m)
-      const nozzleLayers = Math.max(1, Math.ceil(roomHeight / 4.7));
-      const nozzlesPerLayerByArea = Math.max(1, Math.ceil(floorArea / 98.4));
-      let nozzlesPerLayerByDim = nozzlesPerLayerByArea;
-      if (volumeMode === 'dim') {
-        const nx = Math.max(1, Math.ceil(roomLength / 10.22));
-        const ny = Math.max(1, Math.ceil(roomWidth / 10.22));
-        nozzlesPerLayerByDim = Math.max(nozzlesPerLayerByArea, nx * ny);
-      }
-      const totalNozzlesMin = nozzlesPerLayerByDim * nozzleLayers;
-
-      // Update Report UI
-      document.getElementById('rep-room-title').textContent = roomName;
-      document.getElementById('kpi-volume').textContent = `${netVol.toFixed(2)} m³`;
-      document.getElementById('kpi-area').textContent = `Sàn: ${floorArea.toFixed(1)} m² | Cao: ${roomHeight.toFixed(2)} m`;
-      document.getElementById('kpi-gas-kg').textContent = `${designGasKg.toFixed(2)} kg`;
-      document.getElementById('kpi-gas-m3').textContent = `≈ ${designGasM3_at_21.toFixed(2)} m³ (@21°C)`;
-      document.getElementById('kpi-cyl-count').textContent = `${finalCylCount} bình`;
-      document.getElementById('kpi-cyl-spec').textContent = cylSpecLabel;
-
-      const concEl = document.getElementById('kpi-actual-conc');
-      concEl.textContent = `${actualConc.toFixed(2)} %`;
-      document.getElementById('kpi-o2-remain').textContent = `O₂ còn lại: ~${remainingO2.toFixed(2)}%`;
-
-      // Safety Banner (NOAEL 43% / LOAEL 52%)
-      const banner = document.getElementById('rep-safety-banner');
-      if (actualConc < C - 0.05) {
-        concEl.className = 'text-xl font-mono font-extrabold text-fire-600 mt-1 block';
-        banner.className = 'p-4 rounded-xl border bg-fire-50 border-fire-200 text-fire-900 flex items-start gap-3';
-        banner.innerHTML = `
-          <i data-lucide="alert-octagon" class="w-5 h-5 text-fire-600 shrink-0 mt-0.5"></i>
-          <div class="text-xs leading-relaxed">
-            <strong class="font-bold text-sm block">CẢNH BÁO THIẾU NỒNG ĐỘ CHỮA CHÁY!</strong>
-            Nồng độ thực tế đạt <strong>${actualConc.toFixed(2)}%</strong> thấp hơn nồng độ thiết kế yêu cầu (<strong>${C}%</strong>). Cần tăng thêm số lượng bình (tối thiểu <strong>${autoMinCylinders} bình</strong>).
-          </div>
-        `;
-      } else if (actualConc > 52.0) {
-        concEl.className = 'text-xl font-mono font-extrabold text-fire-600 mt-1 block';
-        banner.className = 'p-4 rounded-xl border bg-fire-50 border-fire-300 text-fire-950 flex items-start gap-3';
-        banner.innerHTML = `
-          <i data-lucide="skull" class="w-5 h-5 text-fire-600 shrink-0 mt-0.5"></i>
-          <div class="text-xs leading-relaxed">
-            <strong class="font-bold text-sm block">NGUY HIỂM: VƯỢT NGƯỠNG LOAEL (52%) — O₂ CÒN ${remainingO2.toFixed(2)}% (&lt; 10%)!</strong>
-            Nồng độ thực tế <strong>${actualConc.toFixed(2)}%</strong> vượt quá giới hạn tối đa cho phép đối với khu vực có người làm việc theo TCVN 7161-13 / NFPA 2001. Cần xem xét chọn cỡ bình nhỏ hơn (VD: 80L thay vì 140L) hoặc phân chia khu vực bảo vệ.
-          </div>
-        `;
-      } else if (actualConc > 43.0) {
-        concEl.className = 'text-xl font-mono font-extrabold text-amber-600 mt-1 block';
-        banner.className = 'p-4 rounded-xl border bg-amber-50 border-amber-300 text-amber-950 flex items-start gap-3';
-        banner.innerHTML = `
-          <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
-          <div class="text-xs leading-relaxed">
-            <strong class="font-bold text-sm block">LƯU Ý AN TOÀN: VƯỢT NGƯỠNG NOAEL (43%) — VẪN DƯỚI LOAEL (52%)</strong>
-            Nồng độ thực tế đạt <strong>${actualConc.toFixed(2)}%</strong> (O₂ còn lại <strong>${remainingO2.toFixed(2)}%</strong>, nằm trong khoảng 10% – 12%). Theo TCVN 7161-13 / NFPA 2001, khu vực này yêu cầu thiết bị khóa liên động (Lock-off / Delay timer) và cảnh báo sơ tán nghiêm ngặt trước khi xả khí.
-          </div>
-        `;
-      } else {
-        concEl.className = 'text-xl font-mono font-extrabold text-emerald-700 mt-1 block';
-        banner.className = 'p-4 rounded-xl border bg-emerald-50 border-emerald-200 text-emerald-950 flex items-start gap-3';
-        banner.innerHTML = `
-          <i data-lucide="shield-check" class="w-5 h-5 text-emerald-600 shrink-0 mt-0.5"></i>
-          <div class="text-xs leading-relaxed">
-            <strong class="font-bold text-sm block">ĐẠT CHUẨN AN TOÀN SINH HỌC (≤ NOAEL 43% | O₂ ≥ 12%)</strong>
-            Nồng độ thực tế đạt <strong>${actualConc.toFixed(2)}%</strong> ≥ Nồng độ thiết kế <strong>${C}%</strong>. Nồng độ Oxy sau xả đạt <strong>${remainingO2.toFixed(2)}%</strong>, an toàn cho khu vực có người làm việc thường xuyên.
-          </div>
-        `;
-      }
-
-      // Detailed Engineering Calculation Table
+      // Update Detail Table
       const detailRows = [
-        {
-          step: '1. Thể tích phòng tính toán (V)',
-          formula: deductVol > 0 ? `V = V_tổng (${grossVol.toFixed(2)}) - V_trừ (${deductVol.toFixed(2)})` : (volumeMode === 'dim' ? `V = ${roomLength}m × ${roomWidth}m × ${roomHeight}m` : 'Nhập trực tiếp'),
-          result: `${netVol.toFixed(2)} m³`
-        },
-        {
-          step: `2. Thể tích riêng của khí IG-100 tại T = ${T}°C (S)`,
-          formula: `S = 0.7997 + 0.00293 × ${T}`,
-          result: `${S.toFixed(4)} m³/kg`
-        },
-        {
-          step: `3. Hệ số nạp khí (Flooding Factor) tại C = ${C}%`,
-          formula: `W/V = (1 / S) × ln(100 / (100 - ${C}))`,
-          result: `${floodingFactor.toFixed(4)} kg/m³`
-        },
-        {
-          step: `4. Khối lượng khí IG-100 yêu cầu tối thiểu (Q)`,
-          formula: safetyPct > 0 ? `Q = V × (W/V) × (1 + ${safetyPct}%)` : `Q = V × (W/V)`,
-          result: `${designGasKg.toFixed(2)} kg`
-        },
-        {
-          step: '5. Thể tích khí quy đổi chuẩn (@21°C / @20°C)',
-          formula: `V_khí = Q × 0.8612 (@21°C) | Q × 0.858 (@20°C)`,
-          result: `${designGasM3_at_21.toFixed(2)} m³ (@21°C) | ${(designGasKg * S0_20).toFixed(2)} m³ (@20°C)`
-        },
-        {
-          step: `6. Tính chọn số lượng bình (${cylSpecLabel})`,
-          formula: `N = ${designGasM3_at_21.toFixed(2)} m³ / ${cylGasM3} m³/bình = ${exactCylinders.toFixed(2)} bình`,
-          result: `${finalCylCount} bình (Tổng cấp: ${totalSuppliedGasM3_21.toFixed(2)} m³ / ${totalSuppliedGasKg.toFixed(2)} kg)`
-        },
-        {
-          step: '7. Kiểm tra nồng độ thực tế đạt được (C_thực tế)',
-          formula: `C_tt = 100 × [1 - exp(-(Q_cấp × S) / V)]`,
-          result: `${actualConc.toFixed(2)}% (O₂ còn lại: ${remainingO2.toFixed(2)}%)`
-        }
+        ['Diện tích mặt bằng phòng (A)', 'L × W', `${area.toFixed(2)} m²`],
+        ['Thể tích vùng bảo vệ thực (V)', 'V_phòng + V_sàn + V_trần − V_trừ', `${V.toFixed(2)} m³`],
+        ['Thể tích riêng hơi IG-100 tại T_min (' + tMinValid + '°C)', 'S = 0.7997 + 0.00293 × T_min', `${S_min.toFixed(4)} m³/kg`],
+        ['Khối lượng khí yêu cầu (Q_req)', '(V / S) × ln(100 / (100 − C)) × F_alt', `${Q_req.toFixed(2)} kg`],
+        ['Thể tích khí yêu cầu quy đổi @21°C (X_req)', 'Q_req × S₀ (' + S0 + ')', `${X_req.toFixed(2)} m³`],
+        ['Số lượng bình chứa chọn (N)', displayUnit === 'm3' ? `ROUNDUP(${X_req.toFixed(2)} / ${cyl.volM3})` : `ROUNDUP(${Q_req.toFixed(2)} / ${cyl.massKg})`, `${cylCount} bình (${cyl.label})`],
+        ['Nồng độ thực tế tại T_min (' + tMinValid + '°C)', 'Phải ≥ C_thiết kế (' + C + '%)', `${C_actual_min.toFixed(2)} %`],
+        ['Nồng độ thực tế tại T_max (' + tMaxValid + '°C)', 'Kiểm tra an toàn NOAEL ≤ 43%', `${C_actual_max.toFixed(2)} %`],
+        ['Số đầu phun tối thiểu sơ bộ (SRI)', `Cao ${H}m (${nozzleLayers} lớp) • Phủ ≤ 98.4 m²/đầu`, `${totalMinNozzles} đầu phun`]
       ];
 
-      document.getElementById('rep-detail-table').innerHTML = detailRows.map(r => `
-        <tr class="hover:bg-slate-50">
-          <td class="py-2.5 px-4 text-xs font-semibold text-slate-800">${r.step}</td>
-          <td class="py-2.5 px-4 text-[11px] font-mono text-slate-500">${r.formula}</td>
-          <td class="py-2.5 px-4 text-xs font-mono font-bold text-navy-900 text-right">${r.result}</td>
+      document.getElementById('calcDetailBody').innerHTML = detailRows.map(r => `
+        <tr>
+          <td class="px-4 py-2 font-medium text-slate-800">${r[0]}</td>
+          <td class="px-4 py-2 text-xs text-slate-500 mono">${r[1]}</td>
+          <td class="px-4 py-2 text-right font-bold text-slate-900 mono">${r[2]}</td>
         </tr>
       `).join('');
 
-      // Nozzle & Layout Check Cards
-      document.getElementById('rep-nozzle-check').innerHTML = `
-        <div class="bg-white p-3 rounded-xl border border-slate-200">
-          <span class="text-[11px] text-slate-500 block">Số lớp đầu phun theo cao độ</span>
-          <span class="text-base font-mono font-bold text-navy-900 mt-0.5 block">${nozzleLayers} lớp đầu phun</span>
-          <span class="text-[11px] ${roomHeight > 4.7 ? 'text-amber-600 font-semibold' : 'text-emerald-600'}">
-            ${roomHeight > 4.7 ? `Cao ${roomHeight}m > 4.7m (Cần chia ${nozzleLayers} lớp)` : `Cao ${roomHeight}m ≤ 4.7m (Đạt 1 lớp)`}
-          </span>
-        </div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200">
-          <span class="text-[11px] text-slate-500 block">Số đầu phun tối thiểu ước tính</span>
-          <span class="text-base font-mono font-bold text-navy-900 mt-0.5 block">${totalNozzlesMin} đầu phun</span>
-          <span class="text-[11px] text-slate-500">Độ phủ chuẩn ≤ 98.4 m²/đầu; Khoảng cách ≤ 10.22m</span>
-        </div>
-        <div class="bg-white p-3 rounded-xl border border-slate-200">
-          <span class="text-[11px] text-slate-500 block">Giới hạn ống góp & thủy lực</span>
-          <span class="text-base font-mono font-bold text-navy-900 mt-0.5 block">${finalCylCount <= 51 ? 'Đạt (≤ 51 bình)' : 'Cần chia 2 hệ thống'}</span>
-          <span class="text-[11px] text-slate-500">Từ van bình đến Tee đầu tiên ≥ 1.3m</span>
-        </div>
-      `;
-
-      lucide.createIcons();
-    }
-
-    function copyCalculationSummary() {
-      const roomName = document.getElementById('rep-room-title').textContent;
-      const vol = document.getElementById('kpi-volume').textContent;
-      const kg = document.getElementById('kpi-gas-kg').textContent;
-      const m3 = document.getElementById('kpi-gas-m3').textContent;
-      const cyl = document.getElementById('kpi-cyl-count').textContent;
-      const spec = document.getElementById('kpi-cyl-spec').textContent;
-      const conc = document.getElementById('kpi-actual-conc').textContent;
-      const o2 = document.getElementById('kpi-o2-remain').textContent;
-
-      const summary = [
-        `BẢNG TÍNH NHANH HỆ THỐNG CHỮA CHÁY KHÍ IG-100`,
-        `- Khu vực bảo vệ: ${roomName}`,
-        `- Thể tích tính toán: ${vol}`,
-        `- Lượng khí yêu cầu: ${kg} (${m3})`,
-        `- Cấu hình bình chọn: ${cyl} (${spec})`,
-        `- Nồng độ thực tế đạt được: ${conc} (${o2})`
-      ].join('\n');
-
-      // Use fallback textarea + execCommand('copy') for iframe compatibility
-      const textarea = document.createElement('textarea');
-      textarea.value = summary;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        showToast('Đã sao chép tóm tắt kết quả tính toán vào Clipboard!', 'success');
-      } catch (err) {
-        showToast('Không thể sao chép tự động.', 'error');
+      // Alerts
+      let alertsHtml = '';
+      if (C_actual_max > 52) {
+        alertsHtml += `<div class="p-3 rounded-lg bg-red-100 border border-red-300 text-red-800 text-xs font-medium">⚠️ CẢNH BÁO NGUY HIỂM: Nồng độ thực tế tại ${tMaxValid}°C đạt <strong>${C_actual_max.toFixed(2)}%</strong>, vượt ngưỡng <strong>LOAEL (52%)</strong>! Không an toàn cho khu vực có người.</div>`;
+      } else if (C_actual_max > 43) {
+        alertsHtml += `<div class="p-3 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 text-xs font-medium">⚠️ LƯU Ý AN TOÀN: Nồng độ thực tế tại ${tMaxValid}°C đạt <strong>${C_actual_max.toFixed(2)}%</strong>, vượt ngưỡng <strong>NOAEL (43% — tương đương 12% O₂)</strong>. Cần khóa liên động/cảnh báo sơ tán nghiêm ngặt theo NFPA 2001.</div>`;
+      } else {
+        alertsHtml += `<div class="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-medium">✅ ĐẠT AN TOÀN CON NGƯỜI: Nồng độ thực tế tại ${tMaxValid}°C là <strong>${C_actual_max.toFixed(2)}% ≤ 43% (NOAEL)</strong>.</div>`;
       }
-      document.body.removeChild(textarea);
+
+      if (H > 4.7) {
+        alertsHtml += `<div class="p-3 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 text-xs font-medium">ℹ️ LƯU Ý CAO ĐỘ ĐẦU PHUN: Chiều cao phòng ${H} m &gt; 4.7 m (giới hạn 1 lớp đầu phun của SRI). Cần bố trí tối thiểu <strong>${nozzleLayers} lớp đầu phun</strong> theo chiều cao.</div>`;
+      }
+
+      document.getElementById('calcAlerts').innerHTML = alertsHtml;
+
+      lastCalcSnapshot = { roomName, L, W, H, V, tMinValid, tMaxValid, C, Falt, S0, S_min, Q_req, X_req, cyl, cylCount, Q_sup, X_sup, C_actual_min, C_actual_max, totalMinNozzles };
     }
 
-    // =========================================================================
-    // IMPORT / EXPORT / RESET UTILITIES
-    // =========================================================================
-    function exportDataJSON() {
-      const dataStr = JSON.stringify(brandsData, null, 2);
-      const blob = new Blob([dataStr], { type: 'application/json;charset=utf-8' });
+    function exportCalcCSV() {
+      if (!lastCalcSnapshot) return;
+      const s = lastCalcSnapshot;
+      const rows = [
+        ['BANG TINH NHANH HE THONG CHUA CHAY KHI IG-100', ''],
+        ['Khu vuc bao ve', s.roomName],
+        ['Kich thuoc phong (L x W x H)', `${s.L} x ${s.W} x ${s.H} m`],
+        ['The tich bao ve thuc V (m3)', s.V.toFixed(2)],
+        ['Nhiet do thiet ke T_min / T_max (oC)', `${s.tMinValid} / ${s.tMaxValid}`],
+        ['Nong do thiet ke C (%)', s.C],
+        ['He so do cao F_alt', s.Falt],
+        ['The tich rieng S tai T_min (m3/kg)', s.S_min.toFixed(4)],
+        ['Khoi luong khi yeu cau Q_req (kg)', s.Q_req.toFixed(2)],
+        ['The tich khi yeu cau quy doi X_req (m3)', s.X_req.toFixed(2)],
+        ['Loai binh chon', s.cyl.label],
+        ['So luong binh (binh)', s.cylCount],
+        ['Tong khoi luong khi cung cap (kg)', s.Q_sup.toFixed(2)],
+        ['Tong the tich khi cung cap (m3)', s.X_sup.toFixed(2)],
+        ['Nong do thuc te tai T_min (%)', s.C_actual_min.toFixed(2)],
+        ['Nong do thuc te tai T_max (%)', s.C_actual_max.toFixed(2)],
+        ['So dau phun toi thieu so bo', s.totalMinNozzles]
+      ];
+      const csv = '﻿' + rows.map(r => r.map(v => `"${v}"`).join(',')).join('
+');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `IG100_PCCC_Spec_Database_${new Date().toISOString().slice(0, 10)}.json`;
-      document.body.appendChild(a);
+      a.download = `Tinh_Toan_IG100_${s.roomName.replace(/\s+/g, '_')}.csv`;
       a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      showToast('Đã xuất dữ liệu cơ sở kỹ thuật ra file JSON.', 'success');
     }
 
-    function exportDataCSV() {
-      const headers = ['Hãng', 'Hệ thống', 'Tài liệu', 'Chứng nhận', 'Loại khí', 'Áp suất làm việc', 'Áp suất điều áp', 'Đĩa nổ', 'Công tắc áp thấp', 'Nồng độ TCVN', 'Nồng độ UL/FM', 'NOAEL/LOAEL', 'Đầu phun', 'Độ phủ tối đa', 'Cao độ tối đa', 'Khoảng cách đầu phun', 'Thời gian xả', 'Ghi chú'];
-      const rows = brandsData.map(b => [
-        b.name, b.systemName, b.manualCode, b.certifications, (b.gases || []).join('; '),
-        b.workingPressure, b.regulatedPressure, b.burstDisc, b.lowPressureSwitch,
-        b.concTCVN, b.concULFM, b.noaelLoael, b.nozzleSizes, b.maxCoverageArea,
-        b.maxHeight, b.nozzleSpacing, b.dischargeTime, b.notes
-      ].map(val => `"${String(val || '').replace(/"/g, '""')}"`).join(','));
+    // ==================== TAB 4: DATA MANAGEMENT ====================
+    function renderManageList() {
+      const list = document.getElementById('manageList');
+      list.innerHTML = specData.map(item => `
+        <div class="border border-slate-200 rounded-xl p-4 flex flex-col justify-between bg-slate-50/60">
+          <div>
+            <div class="flex items-center justify-between gap-2">
+              <span class="px-2 py-0.5 bg-slate-800 text-white text-xs font-bold rounded">${item.brand}</span>
+              <span class="text-xs font-mono text-slate-500">${item.pressure}</span>
+            </div>
+            <h4 class="font-bold text-slate-900 mt-2">${item.system}</h4>
+            <p class="text-xs text-red-700 font-semibold mt-0.5">${item.agent}</p>
+            <p class="text-xs text-slate-500 mt-1">Số cỡ bình cấu hình: <strong>${(item.cylinders || []).length}</strong></p>
+          </div>
+          <div class="flex gap-2 mt-4 pt-3 border-t border-slate-200">
+            <button onclick="openEntryModal('${item.id}', false)" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg">Sửa</button>
+            <button onclick="openEntryModal('${item.id}', true)" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-lg">Nhân bản</button>
+            <button onclick="deleteEntry('${item.id}')" class="px-3 py-1.5 bg-red-100 hover:bg-red-200 text-red-700 text-xs font-semibold rounded-lg ml-auto">Xóa</button>
+          </div>
+        </div>
+      `).join('');
+    }
 
-      const csvContent = '\uFEFF' + [headers.join(','), ...rows].join('\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    function openEntryModal(id = null, isDuplicate = false) {
+      const modal = document.getElementById('entryModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+
+      if (!id) {
+        document.getElementById('modalTitle').textContent = 'Thêm Cấu Hình Hãng Mới';
+        document.getElementById('editId').value = '';
+        document.getElementById('entryForm').reset();
+        return;
+      }
+
+      const item = specData.find(d => d.id === id);
+      if (!item) return;
+
+      document.getElementById('modalTitle').textContent = isDuplicate ? 'Nhân Bản Cấu Hình Mới' : 'Chỉnh Sửa Thông Số Hãng';
+      document.getElementById('editId').value = isDuplicate ? '' : item.id;
+      document.getElementById('fBrand').value = isDuplicate ? item.brand + ' (Bản sao)' : item.brand;
+      document.getElementById('fSystem').value = item.system;
+      document.getElementById('fAgent').value = item.agent;
+      document.getElementById('fPressure').value = item.pressure;
+      document.getElementById('fStandards').value = item.standards;
+      document.getElementById('fSource').value = item.source;
+      document.getElementById('fSafety').value = item.safety;
+      document.getElementById('fRegulator').value = item.regulator;
+      document.getElementById('fConcentration').value = item.concentration;
+      document.getElementById('fNozzleLimits').value = item.nozzleLimits;
+      document.getElementById('fCylinders').value = (item.cylinders || [])
+        .map(c => `${c.label} | ${c.pressureBar} | ${c.volM3} | ${c.massKg} | ${c.dim || ''}`)
+        .join('
+');
+      document.getElementById('fNotes').value = item.notes;
+    }
+
+    function closeEntryModal() {
+      const modal = document.getElementById('entryModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function saveEntry(e) {
+      e.preventDefault();
+      const id = document.getElementById('editId').value || ('custom-' + Date.now());
+      const cylLines = document.getElementById('fCylinders').value.split('
+').map(l => l.trim()).filter(Boolean);
+      const cylinders = cylLines.map(line => {
+        const parts = line.split('|').map(p => p.trim());
+        return {
+          label: parts[0] || 'Bình chuẩn',
+          pressureBar: parseFloat(parts[1]) || 300,
+          volM3: parseFloat(parts[2]) || 20.8,
+          massKg: parseFloat(parts[3]) || 24.15,
+          dim: parts[4] || ''
+        };
+      });
+
+      const obj = {
+        id,
+        brand: document.getElementById('fBrand').value.trim(),
+        system: document.getElementById('fSystem').value.trim(),
+        agent: document.getElementById('fAgent').value.trim(),
+        pressure: document.getElementById('fPressure').value.trim(),
+        standards: document.getElementById('fStandards').value.trim(),
+        source: document.getElementById('fSource').value.trim(),
+        safety: document.getElementById('fSafety').value.trim(),
+        regulator: document.getElementById('fRegulator').value.trim(),
+        concentration: document.getElementById('fConcentration').value.trim(),
+        nozzleLimits: document.getElementById('fNozzleLimits').value.trim(),
+        cylinders,
+        notes: document.getElementById('fNotes').value.trim()
+      };
+
+      const idx = specData.findIndex(d => d.id === id);
+      if (idx >= 0) specData[idx] = obj;
+      else specData.push(obj);
+
+      saveDataToStorage();
+      closeEntryModal();
+    }
+
+    function deleteEntry(id) {
+      if (!confirm('Bạn có chắc muốn xóa cấu hình này?')) return;
+      specData = specData.filter(d => d.id !== id);
+      saveDataToStorage();
+    }
+
+    function exportJSON() {
+      const blob = new Blob([JSON.stringify(specData, null, 2)], { type: 'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Bang_So_Sanh_IG100_PCCC_${new Date().toISOString().slice(0, 10)}.csv`;
-      document.body.appendChild(a);
+      a.download = `Du_Lieu_Chua_Chay_Khi_${new Date().toISOString().slice(0, 10)}.json`;
       a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      showToast('Đã xuất bảng so sánh ra file CSV (mở được bằng Excel).', 'success');
     }
 
-    function importDataJSON(event) {
+    function importJSON(event) {
       const file = event.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = function(e) {
         try {
-          const imported = JSON.parse(e.target.result);
-          if (!Array.isArray(imported) || imported.length === 0 || !imported[0].name) {
-            throw new Error('Cấu trúc file JSON không hợp lệ.');
+          const parsed = JSON.parse(e.target.result);
+          if (Array.isArray(parsed)) {
+            specData = parsed;
+            saveDataToStorage();
+            alert('Nhập dữ liệu JSON thành công!');
+          } else {
+            alert('File JSON không đúng định dạng danh sách.');
           }
-          brandsData = imported;
-          selectedBrandIds = new Set(brandsData.map(b => b.id));
-          saveToStorage();
-          renderBrandChips();
-          renderMatrix();
-          renderManageBrandList();
-          loadBrandIntoForm(brandsData[0].id);
-          populateCalculatorCylinders();
-          runCalculation();
-          showToast(`Đã nhập thành công ${brandsData.length} hãng từ file JSON!`, 'success');
         } catch (err) {
-          showToast('Lỗi đọc file JSON: ' + err.message, 'error');
+          alert('Lỗi đọc file JSON: ' + err.message);
         }
-        event.target.value = '';
       };
       reader.readAsText(file);
     }
 
-    function confirmResetDefault() {
-      openConfirmModal(
-        'Khôi phục dữ liệu gốc (SRI & NAFFCO)',
-        'Thao tác này sẽ đặt lại toàn bộ dữ liệu về thông số chuẩn ban đầu của hãng SRI và NAFFCO. Các hãng bạn tự thêm sẽ bị xóa (nên Xuất JSON trước nếu cần lưu).',
-        () => {
-          brandsData = JSON.parse(JSON.stringify(DEFAULT_BRANDS));
-          selectedBrandIds = new Set(brandsData.map(b => b.id));
-          saveToStorage();
-          renderBrandChips();
-          renderMatrix();
-          renderManageBrandList();
-          loadBrandIntoForm(brandsData[0].id);
-          populateCalculatorCylinders();
-          runCalculation();
-          showToast('Đã khôi phục dữ liệu kỹ thuật gốc SRI & NAFFCO.', 'info');
-        }
-      );
+    function resetDefaultData() {
+      if (!confirm('Khôi phục toàn bộ dữ liệu về mặc định ban đầu (SRI & NAFFCO)?')) return;
+      specData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+      saveDataToStorage();
     }
 
-    // =========================================================================
-    // UI HELPERS (TOAST, MODAL, XSS ESCAPE)
-    // =========================================================================
-    function escapeHTML(str) {
-      if (str === null || str === undefined) return '';
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
-    }
-
-    function showToast(message, type = 'info') {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-      const styles = {
-        success: 'bg-emerald-900 text-white border-emerald-700',
-        error: 'bg-fire-700 text-white border-fire-500',
-        warning: 'bg-amber-600 text-white border-amber-400',
-        info: 'bg-navy-900 text-white border-navy-700'
-      };
-      toast.className = `pointer-events-auto px-4 py-3 rounded-xl shadow-xl border text-xs font-medium flex items-center gap-2.5 max-w-sm transition-all ${styles[type] || styles.info}`;
-      toast.innerHTML = `<span>${escapeHTML(message)}</span>`;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(8px)';
-        setTimeout(() => toast.remove(), 300);
-      }, 3200);
-    }
-
-    function openConfirmModal(title, message, onConfirm) {
-      const modal = document.getElementById('confirm-modal');
-      document.getElementById('confirm-title').textContent = title;
-      document.getElementById('confirm-message').textContent = message;
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-
-      const cancelBtn = document.getElementById('confirm-cancel-btn');
-      const okBtn = document.getElementById('confirm-ok-btn');
-
-      const cleanup = () => {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      };
-
-      cancelBtn.onclick = cleanup;
-      okBtn.onclick = () => {
-        cleanup();
-        onConfirm();
-      };
-    }
-
-    // Boot application
     window.addEventListener('DOMContentLoaded', initApp);
   </script>
 </body>
