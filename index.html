@@ -574,25 +574,40 @@
       {
         id: "naffco_inert",
         name: "NAFFCO (NAFFCOInert®)",
-        badge: "UL / FM / BSI / ISO 14520",
+        badge: "UL / FM / VdS / ISO 14520",
         specs: {
-          origin: "Dubai, UAE (Brochure U1218C)",
-          cert: "UL Listed, FM Approved, BSI, NFPA 2001, ISO 14520",
+          origin: "Dubai, UAE (NF-DIOMM-NAFFCOINERT-2015-11 & Brochure U1218C)",
+          cert: "UL Listed, FM Approved, VdS, BSI, NFPA 2001, ISO 14520",
           agent: "Hỗ trợ 4 loại khí trơ trên cùng 1 hệ thống: IG-100, IG-01, IG-55, IG-541",
           pressure: "200 Bar & 300 Bar (Công nghệ điều áp Pressure Regulator duy trì 40 - 60 bar trên đường ống)",
-          cylinders: "67 Lít, 80 Lít và 140 Lít (200 Bar / 300 Bar)",
+          cylinders: "67 Lít, 68 Lít, 80 Lít và 140 Lít (200 Bar / 300 Bar)",
           valve: "Kích hoạt điện từ (Solenoid), khí nén (Pneumatic) hoặc kích hoạt tay cơ khí",
           conc: "Thiết kế theo NFPA 2001 / ISO 14520 cho đám cháy Class A, Class B & Class C",
-          safety: "NOAEL = 43% | LOAEL = 52% (theo NFPA 2001)",
+          safety: "NOAEL = 43% (O₂ ≥ 12%) | LOAEL = 52% (O₂ ≥ 10%)",
           constants: "IG-100: K₁ = 0.7997, K₂ = 0.00293 | S = K₁ + K₂ × T (°C)",
-          nozzleSize: "Đầu phun cố định góc 360° và 180°, lỗ tiết lưu khoan theo tính toán thủy lực",
-          nozzleArea: "Theo hồ sơ thẩm duyệt UL/FM của NAFFCOInert®",
-          nozzleHeight: "Theo hồ sơ thẩm duyệt UL/FM của NAFFCOInert®",
-          nozzleDist: "Theo hồ sơ thẩm duyệt UL/FM của NAFFCOInert®",
-          nozzlePress: "Áp suất vận hành tuyến ống sau bộ điều áp: 40 - 60 bar",
-          dischargeTime: "Đạt nồng độ thiết kế trong vòng 60 giây (theo NFPA 2001)",
-          pipeLimit: "Cho phép sử dụng ống áp suất thấp sau bộ điều áp giúp giảm chi phí lắp đặt và diện tích cửa xả áp"
-        }
+          nozzleSize: "Đầu phun góc 360° và 180°, ren NPT (ANSI/ASME B1.20.1), lỗ tiết lưu tính theo phần mềm VdS",
+          nozzleArea: "≤ 100 m² / đầu phun (Mục 4.4.3.1 Manual)",
+          nozzleHeight: "Tối đa ≤ 5.0 m cho 1 lớp đầu phun (vượt 5 m phải bố trí nhiều lớp). Tối thiểu ≥ 0.3 m (sàn nâng/trần giả)",
+          nozzleDist: "Khoảng cách tối đa giữa 2 đầu phun ≤ 10.0 m. Lắp thẳng đứng vuông góc với trần hoặc mặt dưới sàn",
+          nozzlePress: "Theo Bảng 4-16 & phần mềm thủy lực VdS. Áp suất tuyến ống sau bộ điều áp: 40 - 60 bar",
+          dischargeTime: "Đạt nồng độ thiết kế trong vòng 60 giây (theo NFPA 2001 & giới hạn chênh lệch thời gian truyền VdS)",
+          pipeLimit: "Giá đỡ ống đặt cách đầu phun 300 mm. Dùng ống Sch.40 áp suất thấp sau bộ điều áp"
+        },
+        nozzleKpi: {
+          areaVal: "≤ 100 m² / đầu",
+          areaSub: "Cao độ 1 lớp: ≤ 5.0 m (vượt 5 m bố trí thêm lớp). Cao độ tối thiểu: ≥ 0.3 m (sàn nâng/trần giả).",
+          distVal: "≤ 10.0 m (2 đầu)",
+          distSub: "Lắp thẳng đứng vuông góc với trần/sàn. Giá đỡ ống cách đầu phun 300 mm.",
+          pressVal: "40 – 60 bar (tuyến ống)",
+          pressSub: "Áp suất đầu phun tối thiểu theo Bảng 4-16 & phần mềm thủy lực VdS của hãng.",
+          timeVal: "≤ 60 giây (NFPA 2001)",
+          timeSub: "Kiểm soát chênh lệch thời gian phun/tắt giữa các đầu phun theo phần mềm VdS.",
+          tableSub: "Vật liệu: Đồng thau / Thép không gỉ | Ren NPT | Lỗ tiết lưu khoan theo phần mềm thủy lực VdS",
+          pipeSub: "Ống Sch.40 áp suất thấp sau bộ điều áp Pressure Regulator (40 - 60 bar)"
+        },
+        nozzles: NAFFCO_NOZZLES,
+        pipes: NAFFCO_PIPES
+      }
       }
     ];
 
