@@ -5,8 +5,2436 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tra Cứu & Tính Toán Chữa Cháy Khí (IG-100 / Clean Agent)</title>
   <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=S3yZ-WIMgftlRlPPZyI0VOQHQCVbEMAw4g7rBE2ddZ4GLT-OYJQ25Nnb9Okx1F_5KMwYF7q8zARv2zvny1iUc_SOK3LaoBpct-xhu_MP0fmDA72VfL-3iUXwGIMWrxnJDRXtLO_c-YxDIzPD_ki9gvpeQEAbR3jupnlSDicTMgVvTvyDM6XkJ7rtSUIoRlpBTCBhQKltAi5sYuH0fAdFO0mhjTRUhJS9Y2jwVJgjsXaOUuHLOrOQv50WeldH5KA0K-4OkCF3KpND26jjJy60gtlBth6P7NPhUpOu48yxkEOqq_I5u-GaOdvURzOe-hxW" charset="UTF-8"></script><script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="ht<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IG-100 & Clean Agent Engineering Suite</title>
+  <!-- Tailwind CSS -->
+  <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=x4eDfyBdHNE-OZk4fR5fGuyLhS0HY39N5aevp1sZ1qzClS1W0sQgSwH8EYe_aw7NPoN1KaXjyPLIMBoj1p011uOad88rtVEoH5a8X2YyeF3lpABTsOjtDMNEhmv7yF0o4aeSj3L_v2rwKdhT26fjeahJ6J_E3CdNHZJ9AKLN2-rd-Lh05ten89rKO9nI3TuZepQXSIJFFpYWdRFiqiplW25ou6M_t7WHXp3affgb91M15gWiaHmA6EwgU21i9Pzft3nWWBrQ5MLl1SjqOiM86pRpWWolAprRY5ZXO-STF_fRHJZwP4iqmnKepPCuQ0av" charset="UTF-8"></script><script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- SheetJS (XLSX) for Multi-Sheet Excel Export -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Custom scrollbar for wide Excel-like table */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .calc-input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 4px 6px;
+      font-size: 12px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .calc-input:focus {
+      outline: none;
+      border-color: #ea580c;
+      box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.15);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30 shadow-md">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-500/20 shrink-0">
+          <i data-lucide="flame" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-white">IG-100 & CLEAN AGENT ENGINEERING SUITE</h1>
+            <span class="px-2 py-0.5 text-[11px] font-mono-tech font-semibold bg-blue-950 text-blue-300 border border-blue-800 rounded">
+              TCVN 7161-13 | UL 2127 | NFPA 2001
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Hệ thống Quản lý Tri thức Kỹ thuật, Ma trận Thiết bị & Tính toán Thiết kế Chữa cháy Khí Sạch</p>
+        </div>
+      </div>
+
+      <!-- Global Quick Actions -->
+      <div class="flex items-center gap-2">
+        <button onclick="exportJsonData()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-sky-400"></i> Xuất JSON
+        </button>
+        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition cursor-pointer">
+          <i data-lucide="upload" class="w-3.5 h-3.5 text-emerald-400"></i> Nhập JSON
+          <input type="file" id="jsonImportInput" accept=".json" class="hidden" onchange="importJsonData(event)" />
+        </label>
+        <button onclick="resetAllData()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-rose-950/70 text-slate-300 hover:text-rose-200 text-xs font-medium border border-slate-700 transition" title="Khôi phục dữ liệu mặc định">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Dữ liệu gốc
+        </button>
+      </div>
+    </div>
+
+    <!-- NAVIGATION TABS -->
+    <div class="bg-slate-950/60 border-t border-slate-800/80">
+      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 flex overflow-x-auto gap-1 py-1.5">
+        <button id="tab-btn-matrix" onclick="switchTab('matrix')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-amber-500/15 text-amber-400 border border-amber-500/30">
+          <i data-lucide="table-2" class="w-4 h-4"></i>
+          1. Bảng So Sánh & Tra Cứu (Spec Matrix)
+          <span id="vendorCountBadge" class="px-1.5 py-0.2 text-[11px] font-mono-tech bg-amber-500/20 text-amber-300 rounded-full">2</span>
+        </button>
+        <button id="tab-btn-nozzle" onclick="switchTab('nozzle')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition whitespace-nowrap">
+          <i data-lucide="crosshair" class="w-4 h-4"></i>
+          2. Giới Hạn Đầu Phun & Đường Ống (Nozzle & Pipe)
+        </button>
+        <button id="tab-btn-calc" onclick="switchTab('calc')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition whitespace-nowrap">
+          <i data-lucide="calculator" class="w-4 h-4"></i>
+          3. Bảng Tính Nhiều Khu Vực (Excel Multi-Zone)
+        </button>
+        <button id="tab-btn-manage" onclick="switchTab('manage')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition whitespace-nowrap">
+          <i data-lucide="database" class="w-4 h-4"></i>
+          4. Quản Lý & Cập Nhật Dữ Liệu Hãng
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-6">
+
+    <!-- ===================================================================== -->
+    <!-- TAB 1: SPEC MATRIX -->
+    <!-- ===================================================================== -->
+    <section id="tab-matrix" class="tab-section space-y-5">
+      <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-base font-bold text-slate-800">Ma trận So sánh Thông số Kỹ thuật Hãng</h2>
+          <p class="text-xs text-slate-500">Đối chiếu thông số kỹ thuật giữa SRI (Inertec UL/FM) và NAFFCO (NAFFCOInert®)</p>
+        </div>
+        <div class="relative w-full sm:w-80">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+          <input type="text" id="matrixSearchInput" oninput="renderSpecMatrix()" placeholder="Tìm kiếm thông số (VD: 300 bar, NOAEL, 37.1%...)" class="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-orange-500" />
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse" id="specMatrixTable">
+            <!-- Rendered by JS -->
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 2: NOZZLE & PIPE LIMITS (WITH MIN/MAX KG CHARGE TABLES) -->
+    <!-- ===================================================================== -->
+    <section id="tab-nozzle" class="tab-section hidden space-y-6">
+      <!-- Top Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-orange-600 font-semibold text-xs uppercase tracking-wider mb-1">
+            <i data-lucide="maximize-2" class="w-4 h-4"></i> Diện tích & Cao độ
+          </div>
+          <div class="text-lg font-bold text-slate-800 font-mono-tech">≤ 98.4 m² / đầu</div>
+          <p class="text-xs text-slate-500 mt-1">Cao độ tối đa 1 lớp: <strong>≤ 4.7 m</strong> (cao hơn phải bố trí thêm lớp).</p>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs uppercase tracking-wider mb-1">
+            <i data-lucide="move-horizontal" class="w-4 h-4"></i> Khoảng cách bố trí
+          </div>
+          <div class="text-lg font-bold text-slate-800 font-mono-tech">≤ 10.22 m (2 đầu)</div>
+          <p class="text-xs text-slate-500 mt-1">Đến tường: <strong>7.02 m</strong> (loại 360°) | <strong>10.4 m</strong> (loại 180°).</p>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-emerald-600 font-semibold text-xs uppercase tracking-wider mb-1">
+            <i data-lucide="gauge" class="w-4 h-4"></i> Áp suất tối thiểu tại đầu phun
+          </div>
+          <div class="text-lg font-bold text-slate-800 font-mono-tech">≥ 13.6 / 14.3 bar</div>
+          <p class="text-xs text-slate-500 mt-1">360° ≥ 13.6 bar | 180° ≥ 14.3 bar. Chênh áp giữa các đầu ≤ 4.9 bar.</p>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-purple-600 font-semibold text-xs uppercase tracking-wider mb-1">
+            <i data-lucide="timer" class="w-4 h-4"></i> Thời gian xả & Chênh cao
+          </div>
+          <div class="text-lg font-bold text-slate-800 font-mono-tech">52 – 139 giây</div>
+          <p class="text-xs text-slate-500 mt-1">Chênh cao ống tối đa: <strong>6.6 m</strong>. Van đầu bình đến Tee 1: <strong>≥ 1.3 m</strong>.</p>
+        </div>
+      </div>
+
+      <!-- Interactive Discharge Time Selector for Table Calculation -->
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-start gap-3">
+          <i data-lucide="info" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+          <div>
+            <h3 class="text-sm font-bold text-amber-900">Bảng Phân Loại Kích Thước, Góc Đầu Phun & Giới Hạn Khối Lượng Nạp (kg)</h3>
+            <p class="text-xs text-amber-800 mt-0.5">
+              Đối chiếu <strong>Table 2-3</strong> & <strong>Table 3-10</strong> (INERTEC UL/FM Manual) và sheet <code>Database</code> của bạn. Quy đổi khối lượng nạp: <code>M (kg) = Lưu lượng (kg/s) × Thời gian xả (s)</code>.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-amber-300 shadow-xs">
+          <label for="nozzleDischargeTime" class="text-xs font-semibold text-slate-700">Thời gian xả quy đổi (s):</label>
+          <input type="number" id="nozzleDischargeTime" value="60" min="30" max="139" onchange="renderNozzleTables()" class="w-16 text-center font-mono-tech font-bold text-sm text-orange-600 border border-slate-300 rounded px-1.5 py-0.5 focus:outline-none focus:border-orange-500" />
+          <span class="text-xs text-slate-500">(Chuẩn = 60s)</span>
+        </div>
+      </div>
+
+      <!-- TABLE 1: NOZZLES DN15 - DN50 -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="bg-slate-800 text-white px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 text-xs font-mono-tech font-bold bg-orange-500 text-white rounded">BẢNG 1</span>
+            <h3 class="text-sm font-bold">Thông số Đầu Phun (Nozzle DN15 – DN50) — Áp dụng chung hệ 200 Bar & 300 Bar</h3>
+          </div>
+          <span class="text-xs text-slate-300 font-mono-tech">Vật liệu: Đồng thau (Brass) | Kết nối: Ren BSP</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-semibold">
+                <th class="py-3 px-3 border-r border-slate-200">Kích thước (DN)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-center">Hệ Inch</th>
+                <th class="py-3 px-3 border-r border-slate-200">Góc phun 360° (Part No.)</th>
+                <th class="py-3 px-3 border-r border-slate-200">Góc phun 180° (Part No.)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-center">Lỗ tiết lưu cho phép (mm)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-blue-50/60">Lưu lượng Min (kg/s)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-blue-50/60">Lưu lượng Max (kg/s)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-orange-50/70 text-orange-900">Khối lượng nạp Min / 1 đầu (kg)</th>
+                <th class="py-3 px-3 text-right bg-orange-50/70 text-orange-900">Khối lượng nạp Max / 1 đầu (kg)</th>
+              </tr>
+            </thead>
+            <tbody id="nozzleTableBody" class="divide-y divide-slate-200">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TABLE 2: PIPE & SELECTOR VALVE DN65 - DN150 -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="bg-slate-800 text-white px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 text-xs font-mono-tech font-bold bg-sky-500 text-white rounded">BẢNG 2</span>
+            <h3 class="text-sm font-bold">Giới hạn Đường Ống Chính (Pipe Sch.40) & Van Chọn Vùng (Selector Valve DN65 – DN150)</h3>
+          </div>
+          <span class="text-xs text-amber-300 font-medium">Lưu ý: Từ DN65 trở lên không có đầu phun (Nozzle = OVER)</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-semibold">
+                <th class="py-3 px-3 border-r border-slate-200">Kích thước (DN)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-center">Hệ Inch</th>
+                <th class="py-3 px-3 border-r border-slate-200">Phạm vi thiết bị áp dụng</th>
+                <th class="py-3 px-3 border-r border-slate-200">Mã Van Chọn Vùng (Selector Valve)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-blue-50/60">Lưu lượng Min (kg/s)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-blue-50/60">Lưu lượng Max (kg/s)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-emerald-50/60 text-emerald-900">Khối lượng Min toàn tuyến (kg)</th>
+                <th class="py-3 px-3 text-right bg-emerald-50/60 text-emerald-900">Khối lượng Max toàn tuyến (kg)</th>
+              </tr>
+            </thead>
+            <tbody id="pipeTableBody" class="divide-y divide-slate-200">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 3: MULTI-ZONE EXCEL CALCULATOR & EXPORT XLSX -->
+    <!-- ===================================================================== -->
+    <section id="tab-calc" class="tab-section hidden space-y-5">
+      <!-- Project Metadata & Global Controls -->
+      <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          <div>
+            <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+              <i data-lucide="file-spreadsheet" class="w-5 h-5 text-emerald-600"></i>
+              Bảng Tính Thiết Kế Hệ Thống Chữa Cháy Khí IG-100 (Multi-Zone)
+            </h2>
+            <p class="text-xs text-slate-500">Tự động tính thể tích, khối lượng khí, chọn số bình, kiểm tra NOAEL/LOAEL, lưu lượng và cỡ đầu phun</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="addCalcRow()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition shadow-xs">
+              <i data-lucide="plus" class="w-4 h-4"></i> Thêm khu vực / phòng
+            </button>
+            <button onclick="exportExcelWorkbook()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-sm">
+              <i data-lucide="download" class="w-4 h-4"></i> Xuất File Excel (.xlsx 3 Sheets)
+            </button>
+          </div>
+        </div>
+
+        <!-- Settings Bar -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Tên Dự Án (Project)</label>
+            <input type="text" id="projName" value="Dự án Hệ thống Chữa cháy Khí IG-100" class="calc-input font-medium" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Địa điểm (Location)</label>
+            <input type="text" id="projLocation" value="TP. Hồ Chí Minh, Việt Nam" class="calc-input" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Chuẩn thông số bình nạp</label>
+            <select id="cylinderStandard" onchange="recalculateAll()" class="calc-input font-semibold text-slate-800">
+              <option value="SRI_21C" selected>SRI Bảng 3-9 (@21°C, Vs = 0.8612 m³/kg)</option>
+              <option value="STD_15C">Chuẩn nạp khí nén (@15°C)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Phương pháp chia số bình</label>
+            <select id="calcBasis" onchange="recalculateAll()" class="calc-input font-semibold text-slate-800">
+              <option value="BY_M3" selected>Theo Thể tích khí X (m³) / Bình</option>
+              <option value="BY_KG">Theo Khối lượng khí Q (kg) / Bình</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Cấu hình cụm bình (Manifold)</label>
+            <select id="systemTopology" onchange="recalculateAll()" class="calc-input font-semibold text-slate-800">
+              <option value="INDEPENDENT" selected>Độc lập từng phòng (Tổng = SUM)</option>
+              <option value="SELECTOR_VCV">Dùng Van chọn vùng VCV (Tổng = MAX cụm)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN EXCEL-LIKE TABLE -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs whitespace-nowrap" id="calcTable">
+            <thead>
+              <tr class="bg-slate-800 text-white font-semibold">
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center w-10">STT</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 min-w-[110px]">Vị trí / Tầng</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 min-w-[140px]">Tên phòng / Khu vực</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center w-20">Cấp cháy</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">Diện tích<br><span class="text-[10px] font-normal text-slate-300">(m²)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">Cao độ<br><span class="text-[10px] font-normal text-slate-300">(m)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-slate-700/70">Thể tích V<br><span class="text-[10px] font-normal text-slate-300">(m³)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">Nồng độ C<br><span class="text-[10px] font-normal text-slate-300">(%)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">Nhiệt độ T<br><span class="text-[10px] font-normal text-slate-300">(°C)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-slate-700/70">Vs (S)<br><span class="text-[10px] font-normal text-slate-300">(m³/kg)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-blue-950 text-blue-200">Khối lượng Q<br><span class="text-[10px] font-normal text-blue-300">(kg)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-blue-950 text-blue-200">Thể tích X<br><span class="text-[10px] font-normal text-blue-300">(m³)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 min-w-[130px]">Loại bình chọn</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center bg-emerald-950 text-emerald-200">Số bình<br><span class="text-[10px] font-normal text-emerald-300">(Bình)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-slate-700/70">Nồng độ thực<br><span class="text-[10px] font-normal text-slate-300">(%)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">T/g xả<br><span class="text-[10px] font-normal text-slate-300">(s)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center w-20">Số đầu<br><span class="text-[10px] font-normal text-slate-300">(Cái)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-slate-700/70">Q / 1 đầu<br><span class="text-[10px] font-normal text-slate-300">(kg/s)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center bg-orange-950 text-orange-200">Cỡ Đầu Phun<br><span class="text-[10px] font-normal text-orange-300">(DN)</span></th>
+                <th class="py-2.5 px-2.5 text-center w-10">Xóa</th>
+              </tr>
+            </thead>
+            <tbody id="calcTableBody" class="divide-y divide-slate-200">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SUMMARY SECTION (LIKE SHEET SUMMARY) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <!-- Summary Bottles -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="bg-slate-800 text-white px-4 py-2.5 flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider">1. Tổng hợp Bình Khí IG-100</span>
+            <span id="summaryModeLabel" class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono-tech">SUM (Độc lập)</span>
+          </div>
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-100 text-slate-600 border-b border-slate-200">
+              <tr>
+                <th class="py-2 px-3">Thông số bình (Lt - Bar)</th>
+                <th class="py-2 px-3 text-right">Nạp / bình</th>
+                <th class="py-2 px-3 text-right">Tổng số bình</th>
+              </tr>
+            </thead>
+            <tbody id="summaryBottlesBody" class="divide-y divide-slate-100 font-mono-tech"></tbody>
+          </table>
+        </div>
+
+        <!-- Summary Nozzles -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="bg-slate-800 text-white px-4 py-2.5 flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider">2. Tổng hợp Đầu Phun (Nozzle)</span>
+            <span class="text-[11px] text-slate-300">200 / 300 Bar</span>
+          </div>
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-100 text-slate-600 border-b border-slate-200">
+              <tr>
+                <th class="py-2 px-3">Kích thước đầu phun</th>
+                <th class="py-2 px-3">Dải lưu lượng (kg/s)</th>
+                <th class="py-2 px-3 text-right">Tổng số lượng</th>
+              </tr>
+            </thead>
+            <tbody id="summaryNozzlesBody" class="divide-y divide-slate-100 font-mono-tech"></tbody>
+          </table>
+        </div>
+
+        <!-- Safety & Hydraulic Notes -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between space-y-3">
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-2 flex items-center gap-1.5">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-orange-600"></i> Kiểm soát An toàn & Thiết kế
+            </h3>
+            <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+              <li class="flex items-start gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0"></span>
+                <span><strong>Nồng độ ≤ 43% (NOAEL):</strong> An toàn cho khu vực có người làm việc thường xuyên.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-500 mt-1.5 shrink-0"></span>
+                <span><strong>43% < Nồng độ < 52% (LOAEL):</strong> Cần trang bị trễ xả khí và cảnh báo sơ tán trước khi phun.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="w-2 h-2 rounded-full bg-rose-500 mt-1.5 shrink-0"></span>
+                <span><strong>Nồng độ ≥ 52%:</strong> Bắt buộc lắp <strong>công tắc khóa ngắt (Disable Switch)</strong> khi có người vào phòng theo TCVN 7161-13 / NFPA 2001.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0"></span>
+                <span>Nếu cột <strong>Cỡ Đầu Phun</strong> báo <span class="px-1.5 py-0.2 bg-rose-100 text-rose-700 font-bold rounded">OVER</span> (&gt; 13.61 kg/s), hãy tăng <strong>Số đầu phun</strong> của phòng đó lên 2 hoặc nhiều hơn.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono-tech">
+            Công thức: Q = (V / S) × ln(100 / (100 - C)) | S = 0.7997 + 0.00293 × T
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 4: DATA MANAGEMENT -->
+    <!-- ===================================================================== -->
+    <section id="tab-manage" class="tab-section hidden space-y-5">
+      <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <h2 class="text-base font-bold text-slate-800">Quản lý Dữ liệu Hãng Thiết bị (Vendor Database)</h2>
+            <p class="text-xs text-slate-500">Thêm hãng mới (ví dụ: Kidde, Tyco, Viking, Fike...) hoặc chỉnh sửa thông số trực tiếp. Dữ liệu tự động lưu vào trình duyệt.</p>
+          </div>
+          <button onclick="openAddVendorModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold transition">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i> Thêm hãng mới
+          </button>
+        </div>
+
+        <div id="vendorCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ADD VENDOR MODAL -->
+  <div id="addVendorModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-base font-bold text-slate-800">Thêm Hãng Thiết Bị Mới</h3>
+        <button onclick="closeAddVendorModal()" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Tên hãng / Hệ thống</label>
+          <input type="text" id="newVendorName" placeholder="VD: KIDDE / FIREPRO IG-100" class="calc-input" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Xuất xứ & Chứng nhận</label>
+          <input type="text" id="newVendorOrigin" placeholder="VD: USA / UL Listed, FM Approved" class="calc-input" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Sao chép cấu trúc thông số từ</label>
+          <select id="cloneFromVendor" class="calc-input"></select>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeAddVendorModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-600 hover:bg-slate-50">Hủy</button>
+        <button onclick="createNewVendor()" class="px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold">Tạo hãng mới</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION LOGIC -->
+  <script>
+    // =========================================================================
+    // 1. DEFAULT ENGINEERING DATA (ALIGNED WITH INERTEC MANUAL & EXCEL DATABASE)
+    // =========================================================================
+    const K1 = 0.7997;
+    const K2 = 0.00293;
+    const VS_21C = +(K1 + K2 * 21).toFixed(4); // 0.8612 m3/kg
+
+    const CYLINDER_SPECS = {
+      "80L - 200Bar":  { label: "80L - 200Bar",  volL: 80,  bar: 200, m3_21C: 15.0, kg_21C: +(15.0 / VS_21C).toFixed(2), kg_15C: 17.90 },
+      "80L - 300Bar":  { label: "80L - 300Bar",  volL: 80,  bar: 300, m3_21C: 20.8, kg_21C: +(20.8 / VS_21C).toFixed(2), kg_15C: 24.88 },
+      "140L - 200Bar": { label: "140L - 200Bar", volL: 140, bar: 200, m3_21C: 26.2, kg_21C: +(26.2 / VS_21C).toFixed(2), kg_15C: 31.33 },
+      "140L - 300Bar": { label: "140L - 300Bar", volL: 140, bar: 300, m3_21C: 36.3, kg_21C: +(36.3 / VS_21C).toFixed(2), kg_15C: 43.53 }
+    };
+
+    // Table 2-3 & Table 3-10 (Nozzles DN15 - DN50)
+    const NOZZLE_DB = [
+      { dn: "DN15", inch: '1/2"',   part360: "IG-009-BR-360-DN15", part180: "IG-010-BR-180-DN15", orifice: "3 – 12",  minFlow: 0.454, maxFlow: 1.361 },
+      { dn: "DN20", inch: '3/4"',   part360: "IG-009-BR-360-DN20", part180: "IG-010-BR-180-DN20", orifice: "4 – 16",  minFlow: 0.907, maxFlow: 2.495 },
+      { dn: "DN25", inch: '1"',     part360: "IG-009-BR-360-DN25", part180: "IG-010-BR-180-DN25", orifice: "6 – 20",  minFlow: 1.588, maxFlow: 3.855 },
+      { dn: "DN32", inch: '1-1/4"', part360: "IG-009-BR-360-DN32", part180: "IG-010-BR-180-DN32", orifice: "8 – 25",  minFlow: 2.722, maxFlow: 5.670 },
+      { dn: "DN40", inch: '1-1/2"', part360: "IG-009-BR-360-DN40", part180: "IG-010-BR-180-DN40", orifice: "10 – 32", minFlow: 4.082, maxFlow: 9.072 },
+      { dn: "DN50", inch: '2"',     part360: "IG-009-BR-360-DN50", part180: "IG-010-BR-180-DN50", orifice: "12 – 40", minFlow: 6.350, maxFlow: 13.610 }
+    ];
+
+    // Table 3-10 & Section 2.19 (Pipes & Selector Valves DN65 - DN150)
+    const PIPE_SV_DB = [
+      { dn: "DN65",  inch: '2-1/2"', scope: "Đường ống & Van chọn vùng", svPart: "SPS-SV-DN65-UL", minFlow: 9.072,  maxFlow: 24.950 },
+      { dn: "DN80",  inch: '3"',     scope: "Đường ống & Van chọn vùng", svPart: "SPS-SV-DN80-UL", minFlow: 13.610, maxFlow: 40.820 },
+      { dn: "DN100", inch: '4"',     scope: "Đường ống & Van chọn vùng", svPart: "SPS-SV-DN100-UL", minFlow: 24.950, maxFlow: 56.700 },
+      { dn: "DN125", inch: '5"',     scope: "Chỉ áp dụng cho Đường ống (SV: OVER)", svPart: "OVER", minFlow: 40.820, maxFlow: 90.720 },
+      { dn: "DN150", inch: '6"',     scope: "Chỉ áp dụng cho Đường ống (SV: OVER)", svPart: "OVER", minFlow: 54.430, maxFlow: 136.100 }
+    ];
+
+    const SPEC_CATEGORIES = [
+      {
+        category: "I. THÔNG TIN CHUNG & CHỨNG NHẬN",
+        rows: [
+          { key: "origin", label: "Xuất xứ & Thương hiệu" },
+          { key: "cert", label: "Chứng nhận & Tiêu chuẩn" },
+          { key: "agent", label: "Chất chữa cháy & Đặc tính" }
+        ]
+      },
+      {
+        category: "II. BÌNH CHỨA & ÁP SUẤT LÀM VIỆC",
+        rows: [
+          { key: "pressure", label: "Áp suất làm việc & Van điều áp" },
+          { key: "cylinders", label: "Dung tích bình & Khối lượng nạp" },
+          { key: "valve", label: "Van đầu bình & Kích hoạt" }
+        ]
+      },
+      {
+        category: "III. NỒNG ĐỘ THIẾT KẾ & HẰNG SỐ KHÍ",
+        rows: [
+          { key: "conc", label: "Nồng độ thiết kế tối thiểu (Class A / B / C)" },
+          { key: "safety", label: "Giới hạn an toàn sinh lý (NOAEL / LOAEL)" },
+          { key: "constants", label: "Hằng số khí & Thể tích riêng S" }
+        ]
+      },
+      {
+        category: "IV. GIỚI HẠN ĐẦU PHUN (NOZZLE) & ĐƯỜNG ỐNG",
+        rows: [
+          { key: "nozzleSize", label: "Kích thước & Góc phun đầu phun" },
+          { key: "nozzleArea", label: "Diện tích bao phủ tối đa / đầu phun" },
+          { key: "nozzleHeight", label: "Cao độ tối đa 1 lớp đầu phun" },
+          { key: "nozzleDist", label: "Khoảng cách đầu phun (giữa 2 đầu / tường)" },
+          { key: "nozzlePress", label: "Áp suất tối thiểu tại đầu phun" },
+          { key: "dischargeTime", label: "Thời gian phun xả (Discharge Time)" },
+          { key: "pipeLimit", label: "Giới hạn cao độ ống & Khoảng cách Tee" }
+        ]
+      }
+    ];
+
+    const DEFAULT_VENDORS = [
+      {
+        id: "sri_inertec",
+        name: "SRI / INERTEC (IG-100)",
+        badge: "UL 2127 / FM 5600 / VdS",
+        specs: {
+          origin: "Malaysia / Singapore (SPS-UL-IG-MNL)",
+          cert: "UL Listed (UL 2127), FM Approved (FM 5600), TCVN 7161-13, NFPA 2001",
+          agent: "IG-100 (100% Nitrogen - N₂), ODP = 0, GWP = 0, không dẫn điện",
+          pressure: "200 Bar & 300 Bar (Hệ van điều áp PRU giảm áp đầu ra ổn định)",
+          cylinders: "80L (15 m³ / 17.42 kg @200 bar; 20.8 m³ / 24.15 kg @300 bar) | 140L (26.2 m³ / 30.42 kg @200 bar; 36.3 m³ / 42.15 kg @300 bar)",
+          valve: "Đồng thau (Brass), tích hợp đồng hồ giám sát áp suất thấp (250±12 bar / 270±7 bar)",
+          conc: "UL/FM: Class A = 37.1% | Class B = 42.4% | Class C = 41.7% (TCVN 7161-13: Class A = 40.3% | A+ = 41.5% | B = 43.7%)",
+          safety: "NOAEL = 43% (O₂ ≥ 12%) | LOAEL = 52% (O₂ ≥ 10%)",
+          constants: "S = 0.7997 + 0.00293 × T (°C) | S₀ = 0.858 m³/kg (@20°C) | S₀ = 0.8612 m³/kg (@21°C)",
+          nozzleSize: '1/2" - 2" (DN15, DN20, DN25, DN32, DN40, DN50), ren BSP, lỗ tiết lưu 3 - 40 mm. Hai loại 360° và 180°',
+          nozzleArea: "≤ 98.4 m² / đầu phun",
+          nozzleHeight: "≤ 4.7 m cho 1 lớp đầu phun (cao hơn 4.7 m phải bố trí thêm lớp)",
+          nozzleDist: "Giữa 2 đầu phun ≤ 10.22 m (khung tối đa 9.63m × 10.22m). Đến tường: 7.02 m (loại 360°); 10.4 m (loại 180°)",
+          nozzlePress: "Loại 360° ≥ 13.6 bar; Loại 180° ≥ 14.3 bar. Chênh lệch áp suất giữa các đầu phun ≤ 4.9 bar",
+          dischargeTime: "52 - 139 giây (theo phần mềm tính toán thủy lực VdS)",
+          pipeLimit: "Chênh lệch cao độ đường ống tối đa: 6.6 m. Khoảng cách từ van đầu bình đến Tee đầu tiên: tối thiểu 1.3 m"
+        }
+      },
+      {
+        id: "naffco_inert",
+        name: "NAFFCO (NAFFCOInert®)",
+        badge: "UL / FM / BSI / ISO 14520",
+        specs: {
+          origin: "Dubai, UAE (Brochure U1218C)",
+          cert: "UL Listed, FM Approved, BSI, NFPA 2001, ISO 14520",
+          agent: "Hỗ trợ 4 loại khí trơ trên cùng 1 hệ thống: IG-100, IG-01, IG-55, IG-541",
+          pressure: "200 Bar & 300 Bar (Công nghệ điều áp Pressure Regulator duy trì 40 - 60 bar trên đường ống)",
+          cylinders: "67 Lít, 80 Lít và 140 Lít (200 Bar / 300 Bar)",
+          valve: "Kích hoạt điện từ (Solenoid), khí nén (Pneumatic) hoặc kích hoạt tay cơ khí",
+          conc: "Thiết kế theo NFPA 2001 / ISO 14520 cho đám cháy Class A, Class B & Class C",
+          safety: "NOAEL = 43% | LOAEL = 52% (theo NFPA 2001)",
+          constants: "IG-100: K₁ = 0.7997, K₂ = 0.00293 | S = K₁ + K₂ × T (°C)",
+          nozzleSize: "Đầu phun cố định góc 360° và 180°, lỗ tiết lưu khoan theo tính toán thủy lực",
+          nozzleArea: "Theo hồ sơ thẩm duyệt UL/FM của NAFFCOInert®",
+          nozzleHeight: "Theo hồ sơ thẩm duyệt UL/FM của NAFFCOInert®",
+          nozzleDist: "Theo hồ sơ thẩm duyệt UL/FM của NAFFCOInert®",
+          nozzlePress: "Áp suất vận hành tuyến ống sau bộ điều áp: 40 - 60 bar",
+          dischargeTime: "Đạt nồng độ thiết kế trong vòng 60 giây (theo NFPA 2001)",
+          pipeLimit: "Cho phép sử dụng ống áp suất thấp sau bộ điều áp giúp giảm chi phí lắp đặt và diện tích cửa xả áp"
+        }
+      }
+    ];
+
+    // Default 5 rooms matching user's Excel file 261119_FF-CP_IG100_SRI_m3.xlsx
+    const DEFAULT_CALC_ROWS = [
+      { id: 1, floor: "MB tổng thể", room: "Phòng LPG",        hazard: "B",  area: 25, height: 4.5, conc: 43.7, temp: 20, cyl: "140L - 300Bar", time: 60, nozQty: 1 },
+      { id: 2, floor: "MB tổng thể", room: "Phòng MDB",        hazard: "A+", area: 25, height: 4.5, conc: 41.5, temp: 20, cyl: "140L - 300Bar", time: 60, nozQty: 1 },
+      { id: 3, floor: "Tầng 2",      room: "Phòng điều khiển", hazard: "A+", area: 34, height: 3.3, conc: 41.5, temp: 20, cyl: "140L - 300Bar", time: 60, nozQty: 1 },
+      { id: 4, floor: "Tầng 2",      room: "Phòng tủ điện",    hazard: "A+", area: 35, height: 3.3, conc: 41.5, temp: 20, cyl: "140L - 300Bar", time: 60, nozQty: 1 },
+      { id: 5, floor: "Tầng 2",      room: "Phòng máy chủ",    hazard: "A+", area: 11, height: 3.3, conc: 41.5, temp: 20, cyl: "80L - 300Bar",  time: 60, nozQty: 1 }
+    ];
+
+    let vendors = JSON.parse(localStorage.getItem("ig100_vendors_v2")) || JSON.parse(JSON.stringify(DEFAULT_VENDORS));
+    let calcRows = JSON.parse(localStorage.getItem("ig100_calc_rows_v2")) || JSON.parse(JSON.stringify(DEFAULT_CALC_ROWS));
+
+    function saveState() {
+      localStorage.setItem("ig100_vendors_v2", JSON.stringify(vendors));
+      localStorage.setItem("ig100_calc_rows_v2", JSON.stringify(calcRows));
+    }
+
+    // =========================================================================
+    // 2. TAB SWITCHING
+    // =========================================================================
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-section").forEach(el => el.classList.add("hidden"));
+      document.getElementById("tab-" + tabId).classList.remove("hidden");
+
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.className = "tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition whitespace-nowrap";
+      });
+      const activeBtn = document.getElementById("tab-btn-" + tabId);
+      activeBtn.className = "tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-amber-500/15 text-amber-400 border border-amber-500/30";
+    }
+
+    // =========================================================================
+    // 3. RENDER SPEC MATRIX (TAB 1)
+    // =========================================================================
+    function renderSpecMatrix() {
+      document.getElementById("vendorCountBadge").textContent = vendors.length;
+      const query = (document.getElementById("matrixSearchInput")?.value || "").toLowerCase().trim();
+      const table = document.getElementById("specMatrixTable");
+
+      let thead = `
+        <thead>
+          <tr class="bg-slate-800 text-white text-xs">
+            <th class="py-3 px-4 border-r border-slate-700 w-72 font-semibold">Tiêu chí / Thông số kỹ thuật</th>
+            ${vendors.map(v => `
+              <th class="py-3 px-4 border-r border-slate-700 min-w-[280px]">
+                <div class="font-bold text-amber-400 text-sm">${v.name}</div>
+                <div class="text-[11px] font-mono-tech text-slate-300 font-normal mt-0.5">${v.badge}</div>
+              </th>
+            `).join("")}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 text-xs">
+      `;
+
+      let tbody = "";
+      SPEC_CATEGORIES.forEach(cat => {
+        const matchedRows = cat.rows.filter(r => {
+          if (!query) return true;
+          if (r.label.toLowerCase().includes(query)) return true;
+          return vendors.some(v => (v.specs[r.key] || "").toLowerCase().includes(query));
+        });
+
+        if (matchedRows.length === 0) return;
+
+        tbody += `
+          <tr class="bg-slate-100/90">
+            <td colspan="${vendors.length + 1}" class="py-2 px-4 font-bold text-slate-800 tracking-wide text-[11px] uppercase">
+              ${cat.category}
+            </td>
+          </tr>
+        `;
+
+        matchedRows.forEach(r => {
+          tbody += `
+            <tr class="hover:bg-orange-50/30 transition">
+              <td class="py-3 px-4 font-semibold text-slate-700 border-r border-slate-200 bg-slate-50/50 align-top">${r.label}</td>
+              ${vendors.map(v => `
+                <td class="py-3 px-4 text-slate-700 border-r border-slate-200 align-top leading-relaxed">
+                  ${v.specs[r.key] || "<span class='text-slate-400 italic'>Chưa cập nhật</span>"}
+                </td>
+              `).join("")}
+            </tr>
+          `;
+        });
+      });
+
+      table.innerHTML = thead + tbody + "</tbody>";
+    }
+
+    // =========================================================================
+    // 4. RENDER NOZZLE & PIPE TABLES (TAB 2)
+    // =========================================================================
+    function renderNozzleTables() {
+      const tSec = Math.max(1, parseFloat(document.getElementById("nozzleDischargeTime").value) || 60);
+
+      // Table 1: Nozzles DN15 - DN50
+      const nozBody = document.getElementById("nozzleTableBody");
+      nozBody.innerHTML = NOZZLE_DB.map(item => {
+        const minKg = (item.minFlow * tSec).toFixed(2);
+        const maxKg = (item.maxFlow * tSec).toFixed(2);
+        return `
+          <tr class="hover:bg-orange-50/40 transition">
+            <td class="py-2.5 px-3 font-bold font-mono-tech text-slate-900 border-r border-slate-200">${item.dn}</td>
+            <td class="py-2.5 px-3 text-center font-mono-tech text-slate-600 border-r border-slate-200">${item.inch}</td>
+            <td class="py-2.5 px-3 font-mono-tech text-slate-700 border-r border-slate-200">
+              <span class="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 font-semibold">${item.part360}</span>
+            </td>
+            <td class="py-2.5 px-3 font-mono-tech text-slate-700 border-r border-slate-200">
+              <span class="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 font-semibold">${item.part180}</span>
+            </td>
+            <td class="py-2.5 px-3 text-center font-mono-tech text-slate-700 border-r border-slate-200">${item.orifice} mm</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech text-blue-700 bg-blue-50/30 border-r border-slate-200">${item.minFlow.toFixed(3)}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-semibold text-blue-800 bg-blue-50/30 border-r border-slate-200">${item.maxFlow.toFixed(3)}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-semibold text-orange-700 bg-orange-50/40 border-r border-slate-200">${Number(minKg).toLocaleString("en-US", {minimumFractionDigits: 2})} kg</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-bold text-orange-800 bg-orange-50/40">${Number(maxKg).toLocaleString("en-US", {minimumFractionDigits: 2})} kg</td>
+          </tr>
+        `;
+      }).join("");
+
+      // Table 2: Pipes & Selector Valves DN65 - DN150
+      const pipeBody = document.getElementById("pipeTableBody");
+      pipeBody.innerHTML = PIPE_SV_DB.map(item => {
+        const minKg = (item.minFlow * tSec).toFixed(2);
+        const maxKg = (item.maxFlow * tSec).toFixed(2);
+        const svBadge = item.svPart === "OVER"
+          ? `<span class="px-2 py-0.5 rounded bg-rose-100 text-rose-700 font-bold">OVER (Chỉ dùng ống)</span>`
+          : `<span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-semibold">${item.svPart}</span>`;
+        return `
+          <tr class="hover:bg-sky-50/40 transition">
+            <td class="py-2.5 px-3 font-bold font-mono-tech text-slate-900 border-r border-slate-200">${item.dn}</td>
+            <td class="py-2.5 px-3 text-center font-mono-tech text-slate-600 border-r border-slate-200">${item.inch}</td>
+            <td class="py-2.5 px-3 text-slate-700 border-r border-slate-200">${item.scope}</td>
+            <td class="py-2.5 px-3 font-mono-tech border-r border-slate-200">${svBadge}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech text-blue-700 bg-blue-50/30 border-r border-slate-200">${item.minFlow.toFixed(3)}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-semibold text-blue-800 bg-blue-50/30 border-r border-slate-200">${item.maxFlow.toFixed(3)}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-semibold text-emerald-700 bg-emerald-50/30 border-r border-slate-200">${Number(minKg).toLocaleString("en-US", {minimumFractionDigits: 2})} kg</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-bold text-emerald-800 bg-emerald-50/30">${Number(maxKg).toLocaleString("en-US", {minimumFractionDigits: 2})} kg</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    // =========================================================================
+    // 5. MULTI-ZONE CALCULATOR ENGINE (TAB 3)
+    // =========================================================================
+    function selectNozzleDN(flowPerNozzle) {
+      for (let i = 0; i < NOZZLE_DB.length; i++) {
+        if (flowPerNozzle <= NOZZLE_DB[i].maxFlow) {
+          return NOZZLE_DB[i].dn;
+        }
+      }
+      return "OVER";
+    }
+
+    function computeRowMetrics(row) {
+      const std = document.getElementById("cylinderStandard")?.value || "SRI_21C";
+      const basis = document.getElementById("calcBasis")?.value || "BY_M3";
+
+      const V = +(row.area * row.height).toFixed(3);
+      const S = +(K1 + K2 * row.temp).toFixed(5);
+      // Q = ROUNDUP((V/S) * LN(100/(100-C)), 2)
+      const rawQ = (V / S) * Math.log(100 / (100 - row.conc));
+      const Q = Math.ceil(rawQ * 100) / 100;
+      const X = +(Q * VS_21C).toFixed(2);
+
+      const spec = CYLINDER_SPECS[row.cyl] || CYLINDER_SPECS["140L - 300Bar"];
+      const kgPerCyl = std === "SRI_21C" ? spec.kg_21C : spec.kg_15C;
+      const m3PerCyl = spec.m3_21C;
+
+      let cylCount = 1;
+      if (std === "SRI_21C" && basis === "BY_M3") {
+        cylCount = Math.max(1, Math.ceil(Q / (m3PerCyl / VS_21C)));
+      } else {
+        cylCount = Math.max(1, Math.ceil(Q / kgPerCyl));
+      }
+
+      const actualKg = cylCount * kgPerCyl;
+      const actualConc = +(100 * (1 - 1 / Math.exp((actualKg * S) / V))).toFixed(2);
+      const mainFlow = +(actualKg / row.time).toFixed(3);
+      const flowPerNoz = +(mainFlow / Math.max(1, row.nozQty)).toFixed(3);
+      const nozzleDN = selectNozzleDN(flowPerNoz);
+
+      return { V, S, Q, X, kgPerCyl, m3PerCyl, cylCount, actualKg, actualConc, mainFlow, flowPerNoz, nozzleDN };
+    }
+
+    function updateCalcField(id, field, value) {
+      const row = calcRows.find(r => r.id === id);
+      if (!row) return;
+
+      if (field === "hazard") {
+        row.hazard = value;
+        if (value === "A") row.conc = 40.3;
+        else if (value === "A+") row.conc = 41.5;
+        else if (value === "B") row.conc = 43.7;
+        else if (value === "UL-A") row.conc = 37.1;
+      } else if (["area", "height", "conc", "temp", "time", "nozQty"].includes(field)) {
+        row[field] = parseFloat(value) || 0;
+      } else {
+        row[field] = value;
+      }
+      saveState();
+      recalculateAll();
+    }
+
+    function addCalcRow() {
+      const nextId = calcRows.length ? Math.max(...calcRows.map(r => r.id)) + 1 : 1;
+      calcRows.push({
+        id: nextId,
+        floor: "Tầng mới",
+        room: "Phòng kỹ thuật " + nextId,
+        hazard: "A+",
+        area: 30,
+        height: 3.5,
+        conc: 41.5,
+        temp: 20,
+        cyl: "140L - 300Bar",
+        time: 60,
+        nozQty: 1
+      });
+      saveState();
+      recalculateAll();
+    }
+
+    function removeCalcRow(id) {
+      if (calcRows.length <= 1) {
+        alert("Cần giữ lại ít nhất 1 khu vực trong bảng tính.");
+        return;
+      }
+      calcRows = calcRows.filter(r => r.id !== id);
+      saveState();
+      recalculateAll();
+    }
+
+    function recalculateAll() {
+      const tbody = document.getElementById("calcTableBody");
+      const topology = document.getElementById("systemTopology")?.value || "INDEPENDENT";
+      const std = document.getElementById("cylinderStandard")?.value || "SRI_21C";
+
+      const bottleTotals = {
+        "80L - 200Bar": 0,
+        "80L - 300Bar": 0,
+        "140L - 200Bar": 0,
+        "140L - 300Bar": 0
+      };
+      const nozzleTotals = {
+        "DN15": 0, "DN20": 0, "DN25": 0, "DN32": 0, "DN40": 0, "DN50": 0, "OVER": 0
+      };
+
+      tbody.innerHTML = calcRows.map((row, idx) => {
+        const m = computeRowMetrics(row);
+
+        // Aggregate bottles
+        if (topology === "INDEPENDENT") {
+          bottleTotals[row.cyl] = (bottleTotals[row.cyl] || 0) + m.cylCount;
+        } else {
+          bottleTotals[row.cyl] = Math.max(bottleTotals[row.cyl] || 0, m.cylCount);
+        }
+
+        // Aggregate nozzles
+        nozzleTotals[m.nozzleDN] = (nozzleTotals[m.nozzleDN] || 0) + row.nozQty;
+
+        // Concentration safety color
+        let concClass = "text-emerald-700 bg-emerald-50 font-bold";
+        if (m.actualConc >= 52) concClass = "text-rose-700 bg-rose-100 font-bold";
+        else if (m.actualConc > 43) concClass = "text-amber-700 bg-amber-100 font-bold";
+
+        // Nozzle badge
+        const nozBadge = m.nozzleDN === "OVER"
+          ? `<span class="px-2 py-0.5 rounded bg-rose-600 text-white font-bold">OVER</span>`
+          : `<span class="px-2 py-0.5 rounded bg-orange-100 text-orange-800 font-bold">${m.nozzleDN}</span>`;
+
+        return `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="py-2 px-2 border-r border-slate-200 text-center font-mono-tech text-slate-500">${idx + 1}</td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="text" value="${row.floor}" onchange="updateCalcField(${row.id}, 'floor', this.value)" class="calc-input" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="text" value="${row.room}" onchange="updateCalcField(${row.id}, 'room', this.value)" class="calc-input font-medium" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <select onchange="updateCalcField(${row.id}, 'hazard', this.value)" class="calc-input text-center font-semibold">
+                <option value="A" ${row.hazard === "A" ? "selected" : ""}>A (40.3%)</option>
+                <option value="A+" ${row.hazard === "A+" ? "selected" : ""}>A+ (41.5%)</option>
+                <option value="B" ${row.hazard === "B" ? "selected" : ""}>B (43.7%)</option>
+                <option value="UL-A" ${row.hazard === "UL-A" ? "selected" : ""}>UL-A (37.1%)</option>
+              </select>
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="0.1" value="${row.area}" onchange="updateCalcField(${row.id}, 'area', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="0.1" value="${row.height}" onchange="updateCalcField(${row.id}, 'height', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech bg-slate-50 font-semibold">${m.V.toFixed(2)}</td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="0.1" value="${row.conc}" onchange="updateCalcField(${row.id}, 'conc', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="1" value="${row.temp}" onchange="updateCalcField(${row.id}, 'temp', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech bg-slate-50 text-slate-600">${m.S.toFixed(4)}</td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech font-bold text-blue-800 bg-blue-50/40">${m.Q.toFixed(2)}</td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech font-semibold text-blue-700 bg-blue-50/40">${m.X.toFixed(2)}</td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <select onchange="updateCalcField(${row.id}, 'cyl', this.value)" class="calc-input font-mono-tech font-semibold">
+                ${Object.keys(CYLINDER_SPECS).map(k => `<option value="${k}" ${row.cyl === k ? "selected" : ""}>${k}</option>`).join("")}
+              </select>
+            </td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-center font-mono-tech font-bold text-sm text-emerald-800 bg-emerald-50/60">${m.cylCount}</td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech ${concClass}">${m.actualConc.toFixed(2)}%</td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="1" value="${row.time}" onchange="updateCalcField(${row.id}, 'time', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" min="1" step="1" value="${row.nozQty}" onchange="updateCalcField(${row.id}, 'nozQty', this.value)" class="calc-input text-center font-mono-tech font-bold" />
+            </td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech bg-slate-50">${m.flowPerNoz.toFixed(3)}</td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-center font-mono-tech bg-orange-50/30">${nozBadge}</td>
+            <td class="py-2 px-2 text-center">
+              <button onclick="removeCalcRow(${row.id})" class="text-slate-400 hover:text-rose-600 p-1 rounded transition" title="Xóa dòng">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      // Update Summary Bottles Table
+      document.getElementById("summaryModeLabel").textContent = topology === "INDEPENDENT" ? "SUM (Độc lập)" : "MAX (Cụm VCV)";
+      const sumBottlesBody = document.getElementById("summaryBottlesBody");
+      let totalCyls = 0;
+      sumBottlesBody.innerHTML = Object.keys(CYLINDER_SPECS).map(k => {
+        const sp = CYLINDER_SPECS[k];
+        const qty = bottleTotals[k] || 0;
+        totalCyls += qty;
+        const chargeText = std === "SRI_21C" ? `${sp.m3_21C} m³ (${sp.kg_21C} kg)` : `${sp.kg_15C} kg (@15°C)`;
+        return `
+          <tr>
+            <td class="py-2 px-3 font-semibold text-slate-700">${k}</td>
+            <td class="py-2 px-3 text-right text-slate-500">${chargeText}</td>
+            <td class="py-2 px-3 text-right font-bold ${qty > 0 ? "text-emerald-700" : "text-slate-400"}">${qty}</td>
+          </tr>
+        `;
+      }).join("") + `
+        <tr class="bg-slate-100 font-bold text-slate-900">
+          <td colspan="2" class="py-2 px-3">TỔNG CỘNG BÌNH KHÍ</td>
+          <td class="py-2 px-3 text-right text-emerald-800">${totalCyls} bình</td>
+        </tr>
+      `;
+
+      // Update Summary Nozzles Table
+      const sumNozBody = document.getElementById("summaryNozzlesBody");
+      let totalNoz = 0;
+      sumNozBody.innerHTML = NOZZLE_DB.map(n => {
+        const qty = nozzleTotals[n.dn] || 0;
+        totalNoz += qty;
+        return `
+          <tr>
+            <td class="py-2 px-3 font-semibold text-slate-700">${n.dn} (${n.inch})</td>
+            <td class="py-2 px-3 text-slate-500">${n.minFlow.toFixed(3)} – ${n.maxFlow.toFixed(3)}</td>
+            <td class="py-2 px-3 text-right font-bold ${qty > 0 ? "text-orange-700" : "text-slate-400"}">${qty}</td>
+          </tr>
+        `;
+      }).join("") + `
+        <tr class="bg-slate-100 font-bold text-slate-900">
+          <td colspan="2" class="py-2 px-3">TỔNG CỘNG ĐẦU PHUN</td>
+          <td class="py-2 px-3 text-right text-orange-800">${totalNoz} đầu</td>
+        </tr>
+      `;
+
+      lucide.createIcons();
+    }
+
+    // =========================================================================
+    // 6. EXPORT 3-SHEET EXCEL WORKBOOK (.XLSX) LIKE USER'S TEMPLATE
+    // =========================================================================
+    function exportExcelWorkbook() {
+      const wb = XLSX.utils.book_new();
+      const projName = document.getElementById("projName").value || "Dự án IG-100";
+      const projLoc = document.getElementById("projLocation").value || "";
+      const std = document.getElementById("cylinderStandard").value;
+      const topology = document.getElementById("systemTopology").value;
+
+      // --- SHEET 1: CALCULATION ---
+      const calcSheetData = [
+        ["BẢNG TÍNH HỆ THỐNG CHỮA CHÁY BẰNG KHÍ IG-100 / FIRE SUPPRESSION SYSTEM CALCULATION"],
+        ["Dự án / Project:", projName],
+        ["Địa điểm / Location:", projLoc],
+        ["Tiêu chuẩn tham khảo:", "TCVN 7161-13 | ISO 14520-13 | NFPA 2001 | UL 2127"],
+        [],
+        [
+          "STT", "Vị trí / Tầng", "Tên phòng / Khu vực", "Cấp nguy hiểm",
+          "Diện tích (m²)", "Chiều cao (m)", "Thể tích V (m³)",
+          "Nồng độ TK (%)", "Nhiệt độ TK (°C)", "Thể tích riêng S (m³/kg)",
+          "Khối lượng yêu cầu Q (kg)", "Thể tích khí yêu cầu X (m³)",
+          "Thông số bình (Lt-Bar)", "Khối lượng nạp/bình (kg)", "Thể tích nạp/bình (m³)",
+          "Số lượng bình (Bình)", "Nồng độ dự kiến (%)", "Thời gian xả (s)",
+          "Lưu lượng ống chính (kg/s)", "Số đầu phun (Cái)", "Lưu lượng / 1 đầu (kg/s)", "Cỡ đầu phun (DN)"
+        ]
+      ];
+
+      const bottleTotals = { "80L - 200Bar": 0, "80L - 300Bar": 0, "140L - 200Bar": 0, "140L - 300Bar": 0 };
+      const nozzleTotals = { "DN15": 0, "DN20": 0, "DN25": 0, "DN32": 0, "DN40": 0, "DN50": 0, "OVER": 0 };
+
+      calcRows.forEach((row, i) => {
+        const m = computeRowMetrics(row);
+        if (topology === "INDEPENDENT") bottleTotals[row.cyl] += m.cylCount;
+        else bottleTotals[row.cyl] = Math.max(bottleTotals[row.cyl], m.cylCount);
+        nozzleTotals[m.nozzleDN] += row.nozQty;
+
+        calcSheetData.push([
+          i + 1, row.floor, row.room, row.hazard,
+          row.area, row.height, m.V,
+          row.conc, row.temp, m.S,
+          m.Q, m.X,
+          row.cyl, m.kgPerCyl, m.m3PerCyl,
+          m.cylCount, m.actualConc, row.time,
+          m.mainFlow, row.nozQty, m.flowPerNoz, m.nozzleDN
+        ]);
+      });
+
+      calcSheetData.push([]);
+      calcSheetData.push(["Ghi chú / Notes:"]);
+      calcSheetData.push(["1. Các phòng có nồng độ sau xả >= 52% (LOAEL) bắt buộc có công tắc khóa ngắt (Disable Switch)."]);
+      calcSheetData.push(["2. Các phòng bảo vệ phải đảm bảo độ kín và bố trí cửa xả áp quá áp (PRD) phù hợp."]);
+
+      const wsCalc = XLSX.utils.aoa_to_sheet(calcSheetData);
+      wsCalc["!cols"] = [
+        {wch: 6}, {wch: 16}, {wch: 22}, {wch: 12},
+        {wch: 14}, {wch: 14}, {wch: 16},
+        {wch: 14}, {wch: 14}, {wch: 18},
+        {wch: 20}, {wch: 20},
+        {wch: 18}, {wch: 18}, {wch: 18},
+        {wch: 16}, {wch: 16}, {wch: 14},
+        {wch: 20}, {wch: 16}, {wch: 20}, {wch: 16}
+      ];
+      XLSX.utils.book_append_sheet(wb, wsCalc, "Calculation");
+
+      // --- SHEET 2: SUMMARY ---
+      const summaryData = [
+        ["BẢNG TỔNG HỢP KHỐI LƯỢNG THIẾT BỊ HỆ THỐNG IG-100"],
+        ["Chế độ tính cụm bình:", topology === "INDEPENDENT" ? "Độc lập từng phòng (SUM)" : "Dùng Van chọn vùng VCV (MAX cụm)"],
+        [],
+        ["1. TỔNG HỢP BÌNH CHỨA KHÍ IG-100", "", "", "2. TỔNG HỢP ĐẦU PHUN (NOZZLE)", ""],
+        ["Loại bình (Lt - Bar)", "Khối lượng nạp/bình (kg)", "Số lượng (Bình)", "Kích thước đầu phun (DN)", "Số lượng (Cái)"]
+      ];
+
+      const cylKeys = Object.keys(CYLINDER_SPECS);
+      const maxLen = Math.max(cylKeys.length, NOZZLE_DB.length);
+      for (let i = 0; i < maxLen; i++) {
+        const cKey = cylKeys[i];
+        const nItem = NOZZLE_DB[i];
+        summaryData.push([
+          cKey || "",
+          cKey ? (std === "SRI_21C" ? CYLINDER_SPECS[cKey].kg_21C : CYLINDER_SPECS[cKey].kg_15C) : "",
+          cKey ? bottleTotals[cKey] : "",
+          nItem ? `${nItem.dn} (${nItem.inch})` : "",
+          nItem ? nozzleTotals[nItem.dn] : ""
+        ]);
+      }
+
+      const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
+      wsSummary["!cols"] = [{wch: 22}, {wch: 22}, {wch: 18}, {wch: 24}, {wch: 18}];
+      XLSX.utils.book_append_sheet(wb, wsSummary, "Summary");
+
+      // --- SHEET 3: DATABASE ---
+      const dbData = [
+        ["CƠ SỞ DỮ LIỆU KỸ THUẬT IG-100 (SRI / INERTEC UL-FM)"],
+        ["Hằng số K1 =", K1, "Hằng số K2 =", K2, "Vs @21°C =", VS_21C],
+        [],
+        ["BẢNG THÔNG SỐ BÌNH CHỨA (TANK)"],
+        ["Loại bình", "Thể tích khí @21°C (m³)", "Khối lượng nạp @21°C (kg)", "Khối lượng nạp @15°C (kg)"],
+        ...Object.values(CYLINDER_SPECS).map(s => [s.label, s.m3_21C, s.kg_21C, s.kg_15C]),
+        [],
+        ["BẢNG GIỚI HẠN ĐẦU PHUN (NOZZLE DN15 - DN50) & ĐƯỜNG ỐNG (PIPE DN65 - DN150)"],
+        ["Kích thước (DN)", "Hệ Inch", "Mã đầu phun 360°", "Mã đầu phun 180°", "Lỗ tiết lưu (mm)", "Lưu lượng Min (kg/s)", "Lưu lượng Max (kg/s)", "Nạp Min @60s (kg)", "Nạp Max @60s (kg)"],
+        ...NOZZLE_DB.map(n => [n.dn, n.inch, n.part360, n.part180, n.orifice, n.minFlow, n.maxFlow, +(n.minFlow*60).toFixed(2), +(n.maxFlow*60).toFixed(2)]),
+        ...PIPE_SV_DB.map(p => [p.dn, p.inch, p.scope, p.svPart, "-", p.minFlow, p.maxFlow, +(p.minFlow*60).toFixed(2), +(p.maxFlow*60).toFixed(2)])
+      ];
+
+      const wsDb = XLSX.utils.aoa_to_sheet(dbData);
+      wsDb["!cols"] = [{wch: 18}, {wch: 12}, {wch: 24}, {wch: 24}, {wch: 18}, {wch: 20}, {wch: 20}, {wch: 18}, {wch: 18}];
+      XLSX.utils.book_append_sheet(wb, wsDb, "Database");
+
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+      XLSX.writeFile(wb, `${dateStr}_IG100_Calculation_Suite.xlsx`);
+    }
+
+    // =========================================================================
+    // 7. VENDOR MANAGEMENT & JSON IMPORT/EXPORT (TAB 4)
+    // =========================================================================
+    function renderVendorCards() {
+      const container = document.getElementById("vendorCardsContainer");
+      container.innerHTML = vendors.map(v => `
+        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/60 flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="font-bold text-slate-800 text-sm">${v.name}</h3>
+                <span class="inline-block mt-1 px-2 py-0.5 text-[11px] font-mono-tech bg-blue-100 text-blue-800 rounded">${v.badge}</span>
+              </div>
+              ${vendors.length > 1 ? `
+                <button onclick="deleteVendor('${v.id}')" class="text-slate-400 hover:text-rose-600 p-1" title="Xóa hãng này">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+              ` : ""}
+            </div>
+            <p class="text-xs text-slate-600 mt-3 line-clamp-2"><strong>Xuất xứ:</strong> ${v.specs.origin}</p>
+            <p class="text-xs text-slate-600 mt-1 line-clamp-2"><strong>Áp suất:</strong> ${v.specs.pressure}</p>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex justify-end">
+            <button onclick="switchTab('matrix')" class="text-xs font-semibold text-orange-600 hover:text-orange-700">Xem trong ma trận →</button>
+          </div>
+        </div>
+      `).join("");
+      lucide.createIcons();
+    }
+
+    function openAddVendorModal() {
+      const select = document.getElementById("cloneFromVendor");
+      select.innerHTML = vendors.map(v => `<option value="${v.id}">${v.name}</option>`).join("");
+      document.getElementById("addVendorModal").classList.remove("hidden");
+      document.getElementById("addVendorModal").classList.add("flex");
+    }
+
+    function closeAddVendorModal() {
+      document.getElementById("addVendorModal").classList.add("hidden");
+      document.getElementById("addVendorModal").classList.remove("flex");
+    }
+
+    function createNewVendor() {
+      const name = document.getElementById("newVendorName").value.trim();
+      const origin = document.getElementById("newVendorOrigin").value.trim() || "UL / FM Approved";
+      const cloneId = document.getElementById("cloneFromVendor").value;
+      if (!name) return alert("Vui lòng nhập tên hãng!");
+
+      const base = vendors.find(v => v.id === cloneId) || vendors[0];
+      const newVendor = {
+        id: "vendor_" + Date.now(),
+        name: name,
+        badge: origin,
+        specs: { ...base.specs, origin: origin }
+      };
+      vendors.push(newVendor);
+      saveState();
+      renderSpecMatrix();
+      renderVendorCards();
+      closeAddVendorModal();
+      switchTab("matrix");
+    }
+
+    function deleteVendor(id) {
+      vendors = vendors.filter(v => v.id !== id);
+      saveState();
+      renderSpecMatrix();
+      renderVendorCards();
+    }
+
+    function exportJsonData() {
+      const payload = { vendors, calcRows, exportedAt: new Date().toISOString() };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "ig100-engineering-suite-backup.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importJsonData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.vendors) vendors = data.vendors;
+          if (data.calcRows) calcRows = data.calcRows;
+          saveState();
+          renderSpecMatrix();
+          renderNozzleTables();
+          recalculateAll();
+          renderVendorCards();
+          alert("Đã nhập dữ liệu JSON thành công!");
+        } catch (err) {
+          alert("File JSON không hợp lệ!");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetAllData() {
+      if (!confirm("Khôi phục toàn bộ dữ liệu hãng và bảng tính về mặc định ban đầu?")) return;
+      vendors = JSON.parse(JSON.stringify(DEFAULT_VENDORS));
+      calcRows = JSON.parse(JSON.stringify(DEFAULT_CALC_ROWS));
+      saveState();
+      renderSpecMatrix();
+      renderNozzleTables();
+      recalculateAll();
+      renderVendorCards();
+    }
+
+    // =========================================================================
+    // 8. INITIALIZE APP
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      renderSpecMatrix();
+      renderNozzleTables();
+      recalculateAll();
+      renderVendorCards();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
+tps://fonts.googleapis.com">
+  <link rel="preconnect" href<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IG-100 & Clean Agent Engineering Suite</title>
+  <!-- Tailwind CSS -->
+  <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=x4eDfyBdHNE-OZk4fR5fGuyLhS0HY39N5aevp1sZ1qzClS1W0sQgSwH8EYe_aw7NPoN1KaXjyPLIMBoj1p011uOad88rtVEoH5a8X2YyeF3lpABTsOjtDMNEhmv7yF0o4aeSj3L_v2rwKdhT26fjeahJ6J_E3CdNHZJ9AKLN2-rd-Lh05ten89rKO9nI3TuZepQXSIJFFpYWdRFiqiplW25ou6M_t7WHXp3affgb91M15gWiaHmA6EwgU21i9Pzft3nWWBrQ5MLl1SjqOiM86pRpWWolAprRY5ZXO-STF_fRHJZwP4iqmnKepPCuQ0av" charset="UTF-8"></script><script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- SheetJS (XLSX) for Multi-Sheet Excel Export -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .font-mono-tech {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Custom scrollbar for wide Excel-like table */
+    ::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .calc-input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 4px 6px;
+      font-size: 12px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .calc-input:focus {
+      outline: none;
+      border-color: #ea580c;
+      box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.15);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP HEADER -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30 shadow-md">
+    <div class="max-w-[1600px] mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center shadow-lg shadow-orange-500/20 shrink-0">
+          <i data-lucide="flame" class="w-5 h-5 text-white"></i>
+        </div>
+        <div>
+          <div class="flex flex-wrap items-center gap-2">
+            <h1 class="text-base sm:text-lg font-bold tracking-tight text-white">IG-100 & CLEAN AGENT ENGINEERING SUITE</h1>
+            <span class="px-2 py-0.5 text-[11px] font-mono-tech font-semibold bg-blue-950 text-blue-300 border border-blue-800 rounded">
+              TCVN 7161-13 | UL 2127 | NFPA 2001
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">Hệ thống Quản lý Tri thức Kỹ thuật, Ma trận Thiết bị & Tính toán Thiết kế Chữa cháy Khí Sạch</p>
+        </div>
+      </div>
+
+      <!-- Global Quick Actions -->
+      <div class="flex items-center gap-2">
+        <button onclick="exportJsonData()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition">
+          <i data-lucide="download" class="w-3.5 h-3.5 text-sky-400"></i> Xuất JSON
+        </button>
+        <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition cursor-pointer">
+          <i data-lucide="upload" class="w-3.5 h-3.5 text-emerald-400"></i> Nhập JSON
+          <input type="file" id="jsonImportInput" accept=".json" class="hidden" onchange="importJsonData(event)" />
+        </label>
+        <button onclick="resetAllData()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-rose-950/70 text-slate-300 hover:text-rose-200 text-xs font-medium border border-slate-700 transition" title="Khôi phục dữ liệu mặc định">
+          <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Dữ liệu gốc
+        </button>
+      </div>
+    </div>
+
+    <!-- NAVIGATION TABS -->
+    <div class="bg-slate-950/60 border-t border-slate-800/80">
+      <div class="max-w-[1600px] mx-auto px-4 sm:px-6 flex overflow-x-auto gap-1 py-1.5">
+        <button id="tab-btn-matrix" onclick="switchTab('matrix')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-amber-500/15 text-amber-400 border border-amber-500/30">
+          <i data-lucide="table-2" class="w-4 h-4"></i>
+          1. Bảng So Sánh & Tra Cứu (Spec Matrix)
+          <span id="vendorCountBadge" class="px-1.5 py-0.2 text-[11px] font-mono-tech bg-amber-500/20 text-amber-300 rounded-full">2</span>
+        </button>
+        <button id="tab-btn-nozzle" onclick="switchTab('nozzle')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition whitespace-nowrap">
+          <i data-lucide="crosshair" class="w-4 h-4"></i>
+          2. Giới Hạn Đầu Phun & Đường Ống (Nozzle & Pipe)
+        </button>
+        <button id="tab-btn-calc" onclick="switchTab('calc')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition whitespace-nowrap">
+          <i data-lucide="calculator" class="w-4 h-4"></i>
+          3. Bảng Tính Nhiều Khu Vực (Excel Multi-Zone)
+        </button>
+        <button id="tab-btn-manage" onclick="switchTab('manage')" class="tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition whitespace-nowrap">
+          <i data-lucide="database" class="w-4 h-4"></i>
+          4. Quản Lý & Cập Nhật Dữ Liệu Hãng
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="flex-1 max-w-[1600px] w-full mx-auto px-4 sm:px-6 py-6">
+
+    <!-- ===================================================================== -->
+    <!-- TAB 1: SPEC MATRIX -->
+    <!-- ===================================================================== -->
+    <section id="tab-matrix" class="tab-section space-y-5">
+      <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h2 class="text-base font-bold text-slate-800">Ma trận So sánh Thông số Kỹ thuật Hãng</h2>
+          <p class="text-xs text-slate-500">Đối chiếu thông số kỹ thuật giữa SRI (Inertec UL/FM) và NAFFCO (NAFFCOInert®)</p>
+        </div>
+        <div class="relative w-full sm:w-80">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+          <input type="text" id="matrixSearchInput" oninput="renderSpecMatrix()" placeholder="Tìm kiếm thông số (VD: 300 bar, NOAEL, 37.1%...)" class="w-full pl-9 pr-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:border-orange-500" />
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse" id="specMatrixTable">
+            <!-- Rendered by JS -->
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 2: NOZZLE & PIPE LIMITS (WITH MIN/MAX KG CHARGE TABLES) -->
+    <!-- ===================================================================== -->
+    <section id="tab-nozzle" class="tab-section hidden space-y-6">
+      <!-- Top Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-orange-600 font-semibold text-xs uppercase tracking-wider mb-1">
+            <i data-lucide="maximize-2" class="w-4 h-4"></i> Diện tích & Cao độ
+          </div>
+          <div class="text-lg font-bold text-slate-800 font-mono-tech">≤ 98.4 m² / đầu</div>
+          <p class="text-xs text-slate-500 mt-1">Cao độ tối đa 1 lớp: <strong>≤ 4.7 m</strong> (cao hơn phải bố trí thêm lớp).</p>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-blue-600 font-semibold text-xs uppercase tracking-wider mb-1">
+            <i data-lucide="move-horizontal" class="w-4 h-4"></i> Khoảng cách bố trí
+          </div>
+          <div class="text-lg font-bold text-slate-800 font-mono-tech">≤ 10.22 m (2 đầu)</div>
+          <p class="text-xs text-slate-500 mt-1">Đến tường: <strong>7.02 m</strong> (loại 360°) | <strong>10.4 m</strong> (loại 180°).</p>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-emerald-600 font-semibold text-xs uppercase tracking-wider mb-1">
+            <i data-lucide="gauge" class="w-4 h-4"></i> Áp suất tối thiểu tại đầu phun
+          </div>
+          <div class="text-lg font-bold text-slate-800 font-mono-tech">≥ 13.6 / 14.3 bar</div>
+          <p class="text-xs text-slate-500 mt-1">360° ≥ 13.6 bar | 180° ≥ 14.3 bar. Chênh áp giữa các đầu ≤ 4.9 bar.</p>
+        </div>
+
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-2 text-purple-600 font-semibold text-xs uppercase tracking-wider mb-1">
+            <i data-lucide="timer" class="w-4 h-4"></i> Thời gian xả & Chênh cao
+          </div>
+          <div class="text-lg font-bold text-slate-800 font-mono-tech">52 – 139 giây</div>
+          <p class="text-xs text-slate-500 mt-1">Chênh cao ống tối đa: <strong>6.6 m</strong>. Van đầu bình đến Tee 1: <strong>≥ 1.3 m</strong>.</p>
+        </div>
+      </div>
+
+      <!-- Interactive Discharge Time Selector for Table Calculation -->
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-start gap-3">
+          <i data-lucide="info" class="w-5 h-5 text-amber-600 shrink-0 mt-0.5"></i>
+          <div>
+            <h3 class="text-sm font-bold text-amber-900">Bảng Phân Loại Kích Thước, Góc Đầu Phun & Giới Hạn Khối Lượng Nạp (kg)</h3>
+            <p class="text-xs text-amber-800 mt-0.5">
+              Đối chiếu <strong>Table 2-3</strong> & <strong>Table 3-10</strong> (INERTEC UL/FM Manual) và sheet <code>Database</code> của bạn. Quy đổi khối lượng nạp: <code>M (kg) = Lưu lượng (kg/s) × Thời gian xả (s)</code>.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-lg border border-amber-300 shadow-xs">
+          <label for="nozzleDischargeTime" class="text-xs font-semibold text-slate-700">Thời gian xả quy đổi (s):</label>
+          <input type="number" id="nozzleDischargeTime" value="60" min="30" max="139" onchange="renderNozzleTables()" class="w-16 text-center font-mono-tech font-bold text-sm text-orange-600 border border-slate-300 rounded px-1.5 py-0.5 focus:outline-none focus:border-orange-500" />
+          <span class="text-xs text-slate-500">(Chuẩn = 60s)</span>
+        </div>
+      </div>
+
+      <!-- TABLE 1: NOZZLES DN15 - DN50 -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="bg-slate-800 text-white px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 text-xs font-mono-tech font-bold bg-orange-500 text-white rounded">BẢNG 1</span>
+            <h3 class="text-sm font-bold">Thông số Đầu Phun (Nozzle DN15 – DN50) — Áp dụng chung hệ 200 Bar & 300 Bar</h3>
+          </div>
+          <span class="text-xs text-slate-300 font-mono-tech">Vật liệu: Đồng thau (Brass) | Kết nối: Ren BSP</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-semibold">
+                <th class="py-3 px-3 border-r border-slate-200">Kích thước (DN)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-center">Hệ Inch</th>
+                <th class="py-3 px-3 border-r border-slate-200">Góc phun 360° (Part No.)</th>
+                <th class="py-3 px-3 border-r border-slate-200">Góc phun 180° (Part No.)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-center">Lỗ tiết lưu cho phép (mm)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-blue-50/60">Lưu lượng Min (kg/s)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-blue-50/60">Lưu lượng Max (kg/s)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-orange-50/70 text-orange-900">Khối lượng nạp Min / 1 đầu (kg)</th>
+                <th class="py-3 px-3 text-right bg-orange-50/70 text-orange-900">Khối lượng nạp Max / 1 đầu (kg)</th>
+              </tr>
+            </thead>
+            <tbody id="nozzleTableBody" class="divide-y divide-slate-200">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TABLE 2: PIPE & SELECTOR VALVE DN65 - DN150 -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="bg-slate-800 text-white px-4 py-3 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 text-xs font-mono-tech font-bold bg-sky-500 text-white rounded">BẢNG 2</span>
+            <h3 class="text-sm font-bold">Giới hạn Đường Ống Chính (Pipe Sch.40) & Van Chọn Vùng (Selector Valve DN65 – DN150)</h3>
+          </div>
+          <span class="text-xs text-amber-300 font-medium">Lưu ý: Từ DN65 trở lên không có đầu phun (Nozzle = OVER)</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-100 text-slate-700 border-b border-slate-200 font-semibold">
+                <th class="py-3 px-3 border-r border-slate-200">Kích thước (DN)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-center">Hệ Inch</th>
+                <th class="py-3 px-3 border-r border-slate-200">Phạm vi thiết bị áp dụng</th>
+                <th class="py-3 px-3 border-r border-slate-200">Mã Van Chọn Vùng (Selector Valve)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-blue-50/60">Lưu lượng Min (kg/s)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-blue-50/60">Lưu lượng Max (kg/s)</th>
+                <th class="py-3 px-3 border-r border-slate-200 text-right bg-emerald-50/60 text-emerald-900">Khối lượng Min toàn tuyến (kg)</th>
+                <th class="py-3 px-3 text-right bg-emerald-50/60 text-emerald-900">Khối lượng Max toàn tuyến (kg)</th>
+              </tr>
+            </thead>
+            <tbody id="pipeTableBody" class="divide-y divide-slate-200">
+              <!-- Populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 3: MULTI-ZONE EXCEL CALCULATOR & EXPORT XLSX -->
+    <!-- ===================================================================== -->
+    <section id="tab-calc" class="tab-section hidden space-y-5">
+      <!-- Project Metadata & Global Controls -->
+      <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          <div>
+            <h2 class="text-base font-bold text-slate-800 flex items-center gap-2">
+              <i data-lucide="file-spreadsheet" class="w-5 h-5 text-emerald-600"></i>
+              Bảng Tính Thiết Kế Hệ Thống Chữa Cháy Khí IG-100 (Multi-Zone)
+            </h2>
+            <p class="text-xs text-slate-500">Tự động tính thể tích, khối lượng khí, chọn số bình, kiểm tra NOAEL/LOAEL, lưu lượng và cỡ đầu phun</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="addCalcRow()" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition shadow-xs">
+              <i data-lucide="plus" class="w-4 h-4"></i> Thêm khu vực / phòng
+            </button>
+            <button onclick="exportExcelWorkbook()" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition shadow-sm">
+              <i data-lucide="download" class="w-4 h-4"></i> Xuất File Excel (.xlsx 3 Sheets)
+            </button>
+          </div>
+        </div>
+
+        <!-- Settings Bar -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Tên Dự Án (Project)</label>
+            <input type="text" id="projName" value="Dự án Hệ thống Chữa cháy Khí IG-100" class="calc-input font-medium" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Địa điểm (Location)</label>
+            <input type="text" id="projLocation" value="TP. Hồ Chí Minh, Việt Nam" class="calc-input" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Chuẩn thông số bình nạp</label>
+            <select id="cylinderStandard" onchange="recalculateAll()" class="calc-input font-semibold text-slate-800">
+              <option value="SRI_21C" selected>SRI Bảng 3-9 (@21°C, Vs = 0.8612 m³/kg)</option>
+              <option value="STD_15C">Chuẩn nạp khí nén (@15°C)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Phương pháp chia số bình</label>
+            <select id="calcBasis" onchange="recalculateAll()" class="calc-input font-semibold text-slate-800">
+              <option value="BY_M3" selected>Theo Thể tích khí X (m³) / Bình</option>
+              <option value="BY_KG">Theo Khối lượng khí Q (kg) / Bình</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-1">Cấu hình cụm bình (Manifold)</label>
+            <select id="systemTopology" onchange="recalculateAll()" class="calc-input font-semibold text-slate-800">
+              <option value="INDEPENDENT" selected>Độc lập từng phòng (Tổng = SUM)</option>
+              <option value="SELECTOR_VCV">Dùng Van chọn vùng VCV (Tổng = MAX cụm)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN EXCEL-LIKE TABLE -->
+      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs whitespace-nowrap" id="calcTable">
+            <thead>
+              <tr class="bg-slate-800 text-white font-semibold">
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center w-10">STT</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 min-w-[110px]">Vị trí / Tầng</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 min-w-[140px]">Tên phòng / Khu vực</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center w-20">Cấp cháy</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">Diện tích<br><span class="text-[10px] font-normal text-slate-300">(m²)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">Cao độ<br><span class="text-[10px] font-normal text-slate-300">(m)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-slate-700/70">Thể tích V<br><span class="text-[10px] font-normal text-slate-300">(m³)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">Nồng độ C<br><span class="text-[10px] font-normal text-slate-300">(%)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">Nhiệt độ T<br><span class="text-[10px] font-normal text-slate-300">(°C)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-slate-700/70">Vs (S)<br><span class="text-[10px] font-normal text-slate-300">(m³/kg)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-blue-950 text-blue-200">Khối lượng Q<br><span class="text-[10px] font-normal text-blue-300">(kg)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-blue-950 text-blue-200">Thể tích X<br><span class="text-[10px] font-normal text-blue-300">(m³)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 min-w-[130px]">Loại bình chọn</th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center bg-emerald-950 text-emerald-200">Số bình<br><span class="text-[10px] font-normal text-emerald-300">(Bình)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-slate-700/70">Nồng độ thực<br><span class="text-[10px] font-normal text-slate-300">(%)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right w-20">T/g xả<br><span class="text-[10px] font-normal text-slate-300">(s)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center w-20">Số đầu<br><span class="text-[10px] font-normal text-slate-300">(Cái)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-right bg-slate-700/70">Q / 1 đầu<br><span class="text-[10px] font-normal text-slate-300">(kg/s)</span></th>
+                <th class="py-2.5 px-2.5 border-r border-slate-700 text-center bg-orange-950 text-orange-200">Cỡ Đầu Phun<br><span class="text-[10px] font-normal text-orange-300">(DN)</span></th>
+                <th class="py-2.5 px-2.5 text-center w-10">Xóa</th>
+              </tr>
+            </thead>
+            <tbody id="calcTableBody" class="divide-y divide-slate-200">
+              <!-- Rendered by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SUMMARY SECTION (LIKE SHEET SUMMARY) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <!-- Summary Bottles -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="bg-slate-800 text-white px-4 py-2.5 flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider">1. Tổng hợp Bình Khí IG-100</span>
+            <span id="summaryModeLabel" class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-mono-tech">SUM (Độc lập)</span>
+          </div>
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-100 text-slate-600 border-b border-slate-200">
+              <tr>
+                <th class="py-2 px-3">Thông số bình (Lt - Bar)</th>
+                <th class="py-2 px-3 text-right">Nạp / bình</th>
+                <th class="py-2 px-3 text-right">Tổng số bình</th>
+              </tr>
+            </thead>
+            <tbody id="summaryBottlesBody" class="divide-y divide-slate-100 font-mono-tech"></tbody>
+          </table>
+        </div>
+
+        <!-- Summary Nozzles -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="bg-slate-800 text-white px-4 py-2.5 flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider">2. Tổng hợp Đầu Phun (Nozzle)</span>
+            <span class="text-[11px] text-slate-300">200 / 300 Bar</span>
+          </div>
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-100 text-slate-600 border-b border-slate-200">
+              <tr>
+                <th class="py-2 px-3">Kích thước đầu phun</th>
+                <th class="py-2 px-3">Dải lưu lượng (kg/s)</th>
+                <th class="py-2 px-3 text-right">Tổng số lượng</th>
+              </tr>
+            </thead>
+            <tbody id="summaryNozzlesBody" class="divide-y divide-slate-100 font-mono-tech"></tbody>
+          </table>
+        </div>
+
+        <!-- Safety & Hydraulic Notes -->
+        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col justify-between space-y-3">
+          <div>
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-800 mb-2 flex items-center gap-1.5">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-orange-600"></i> Kiểm soát An toàn & Thiết kế
+            </h3>
+            <ul class="text-xs text-slate-600 space-y-2 leading-relaxed">
+              <li class="flex items-start gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 mt-1.5 shrink-0"></span>
+                <span><strong>Nồng độ ≤ 43% (NOAEL):</strong> An toàn cho khu vực có người làm việc thường xuyên.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="w-2 h-2 rounded-full bg-amber-500 mt-1.5 shrink-0"></span>
+                <span><strong>43% < Nồng độ < 52% (LOAEL):</strong> Cần trang bị trễ xả khí và cảnh báo sơ tán trước khi phun.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="w-2 h-2 rounded-full bg-rose-500 mt-1.5 shrink-0"></span>
+                <span><strong>Nồng độ ≥ 52%:</strong> Bắt buộc lắp <strong>công tắc khóa ngắt (Disable Switch)</strong> khi có người vào phòng theo TCVN 7161-13 / NFPA 2001.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0"></span>
+                <span>Nếu cột <strong>Cỡ Đầu Phun</strong> báo <span class="px-1.5 py-0.2 bg-rose-100 text-rose-700 font-bold rounded">OVER</span> (&gt; 13.61 kg/s), hãy tăng <strong>Số đầu phun</strong> của phòng đó lên 2 hoặc nhiều hơn.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="pt-2 border-t border-slate-100 text-[11px] text-slate-400 font-mono-tech">
+            Công thức: Q = (V / S) × ln(100 / (100 - C)) | S = 0.7997 + 0.00293 × T
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- TAB 4: DATA MANAGEMENT -->
+    <!-- ===================================================================== -->
+    <section id="tab-manage" class="tab-section hidden space-y-5">
+      <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div>
+            <h2 class="text-base font-bold text-slate-800">Quản lý Dữ liệu Hãng Thiết bị (Vendor Database)</h2>
+            <p class="text-xs text-slate-500">Thêm hãng mới (ví dụ: Kidde, Tyco, Viking, Fike...) hoặc chỉnh sửa thông số trực tiếp. Dữ liệu tự động lưu vào trình duyệt.</p>
+          </div>
+          <button onclick="openAddVendorModal()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold transition">
+            <i data-lucide="plus-circle" class="w-4 h-4"></i> Thêm hãng mới
+          </button>
+        </div>
+
+        <div id="vendorCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ADD VENDOR MODAL -->
+  <div id="addVendorModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-base font-bold text-slate-800">Thêm Hãng Thiết Bị Mới</h3>
+        <button onclick="closeAddVendorModal()" class="text-slate-400 hover:text-slate-600">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Tên hãng / Hệ thống</label>
+          <input type="text" id="newVendorName" placeholder="VD: KIDDE / FIREPRO IG-100" class="calc-input" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Xuất xứ & Chứng nhận</label>
+          <input type="text" id="newVendorOrigin" placeholder="VD: USA / UL Listed, FM Approved" class="calc-input" />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Sao chép cấu trúc thông số từ</label>
+          <select id="cloneFromVendor" class="calc-input"></select>
+        </div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeAddVendorModal()" class="px-4 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-600 hover:bg-slate-50">Hủy</button>
+        <button onclick="createNewVendor()" class="px-4 py-2 rounded-lg bg-orange-600 hover:bg-orange-700 text-white text-xs font-semibold">Tạo hãng mới</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION LOGIC -->
+  <script>
+    // =========================================================================
+    // 1. DEFAULT ENGINEERING DATA (ALIGNED WITH INERTEC MANUAL & EXCEL DATABASE)
+    // =========================================================================
+    const K1 = 0.7997;
+    const K2 = 0.00293;
+    const VS_21C = +(K1 + K2 * 21).toFixed(4); // 0.8612 m3/kg
+
+    const CYLINDER_SPECS = {
+      "80L - 200Bar":  { label: "80L - 200Bar",  volL: 80,  bar: 200, m3_21C: 15.0, kg_21C: +(15.0 / VS_21C).toFixed(2), kg_15C: 17.90 },
+      "80L - 300Bar":  { label: "80L - 300Bar",  volL: 80,  bar: 300, m3_21C: 20.8, kg_21C: +(20.8 / VS_21C).toFixed(2), kg_15C: 24.88 },
+      "140L - 200Bar": { label: "140L - 200Bar", volL: 140, bar: 200, m3_21C: 26.2, kg_21C: +(26.2 / VS_21C).toFixed(2), kg_15C: 31.33 },
+      "140L - 300Bar": { label: "140L - 300Bar", volL: 140, bar: 300, m3_21C: 36.3, kg_21C: +(36.3 / VS_21C).toFixed(2), kg_15C: 43.53 }
+    };
+
+    // Table 2-3 & Table 3-10 (Nozzles DN15 - DN50)
+    const NOZZLE_DB = [
+      { dn: "DN15", inch: '1/2"',   part360: "IG-009-BR-360-DN15", part180: "IG-010-BR-180-DN15", orifice: "3 – 12",  minFlow: 0.454, maxFlow: 1.361 },
+      { dn: "DN20", inch: '3/4"',   part360: "IG-009-BR-360-DN20", part180: "IG-010-BR-180-DN20", orifice: "4 – 16",  minFlow: 0.907, maxFlow: 2.495 },
+      { dn: "DN25", inch: '1"',     part360: "IG-009-BR-360-DN25", part180: "IG-010-BR-180-DN25", orifice: "6 – 20",  minFlow: 1.588, maxFlow: 3.855 },
+      { dn: "DN32", inch: '1-1/4"', part360: "IG-009-BR-360-DN32", part180: "IG-010-BR-180-DN32", orifice: "8 – 25",  minFlow: 2.722, maxFlow: 5.670 },
+      { dn: "DN40", inch: '1-1/2"', part360: "IG-009-BR-360-DN40", part180: "IG-010-BR-180-DN40", orifice: "10 – 32", minFlow: 4.082, maxFlow: 9.072 },
+      { dn: "DN50", inch: '2"',     part360: "IG-009-BR-360-DN50", part180: "IG-010-BR-180-DN50", orifice: "12 – 40", minFlow: 6.350, maxFlow: 13.610 }
+    ];
+
+    // Table 3-10 & Section 2.19 (Pipes & Selector Valves DN65 - DN150)
+    const PIPE_SV_DB = [
+      { dn: "DN65",  inch: '2-1/2"', scope: "Đường ống & Van chọn vùng", svPart: "SPS-SV-DN65-UL", minFlow: 9.072,  maxFlow: 24.950 },
+      { dn: "DN80",  inch: '3"',     scope: "Đường ống & Van chọn vùng", svPart: "SPS-SV-DN80-UL", minFlow: 13.610, maxFlow: 40.820 },
+      { dn: "DN100", inch: '4"',     scope: "Đường ống & Van chọn vùng", svPart: "SPS-SV-DN100-UL", minFlow: 24.950, maxFlow: 56.700 },
+      { dn: "DN125", inch: '5"',     scope: "Chỉ áp dụng cho Đường ống (SV: OVER)", svPart: "OVER", minFlow: 40.820, maxFlow: 90.720 },
+      { dn: "DN150", inch: '6"',     scope: "Chỉ áp dụng cho Đường ống (SV: OVER)", svPart: "OVER", minFlow: 54.430, maxFlow: 136.100 }
+    ];
+
+    const SPEC_CATEGORIES = [
+      {
+        category: "I. THÔNG TIN CHUNG & CHỨNG NHẬN",
+        rows: [
+          { key: "origin", label: "Xuất xứ & Thương hiệu" },
+          { key: "cert", label: "Chứng nhận & Tiêu chuẩn" },
+          { key: "agent", label: "Chất chữa cháy & Đặc tính" }
+        ]
+      },
+      {
+        category: "II. BÌNH CHỨA & ÁP SUẤT LÀM VIỆC",
+        rows: [
+          { key: "pressure", label: "Áp suất làm việc & Van điều áp" },
+          { key: "cylinders", label: "Dung tích bình & Khối lượng nạp" },
+          { key: "valve", label: "Van đầu bình & Kích hoạt" }
+        ]
+      },
+      {
+        category: "III. NỒNG ĐỘ THIẾT KẾ & HẰNG SỐ KHÍ",
+        rows: [
+          { key: "conc", label: "Nồng độ thiết kế tối thiểu (Class A / B / C)" },
+          { key: "safety", label: "Giới hạn an toàn sinh lý (NOAEL / LOAEL)" },
+          { key: "constants", label: "Hằng số khí & Thể tích riêng S" }
+        ]
+      },
+      {
+        category: "IV. GIỚI HẠN ĐẦU PHUN (NOZZLE) & ĐƯỜNG ỐNG",
+        rows: [
+          { key: "nozzleSize", label: "Kích thước & Góc phun đầu phun" },
+          { key: "nozzleArea", label: "Diện tích bao phủ tối đa / đầu phun" },
+          { key: "nozzleHeight", label: "Cao độ tối đa 1 lớp đầu phun" },
+          { key: "nozzleDist", label: "Khoảng cách đầu phun (giữa 2 đầu / tường)" },
+          { key: "nozzlePress", label: "Áp suất tối thiểu tại đầu phun" },
+          { key: "dischargeTime", label: "Thời gian phun xả (Discharge Time)" },
+          { key: "pipeLimit", label: "Giới hạn cao độ ống & Khoảng cách Tee" }
+        ]
+      }
+    ];
+
+    const DEFAULT_VENDORS = [
+      {
+        id: "sri_inertec",
+        name: "SRI / INERTEC (IG-100)",
+        badge: "UL 2127 / FM 5600 / VdS",
+        specs: {
+          origin: "Malaysia / Singapore (SPS-UL-IG-MNL)",
+          cert: "UL Listed (UL 2127), FM Approved (FM 5600), TCVN 7161-13, NFPA 2001",
+          agent: "IG-100 (100% Nitrogen - N₂), ODP = 0, GWP = 0, không dẫn điện",
+          pressure: "200 Bar & 300 Bar (Hệ van điều áp PRU giảm áp đầu ra ổn định)",
+          cylinders: "80L (15 m³ / 17.42 kg @200 bar; 20.8 m³ / 24.15 kg @300 bar) | 140L (26.2 m³ / 30.42 kg @200 bar; 36.3 m³ / 42.15 kg @300 bar)",
+          valve: "Đồng thau (Brass), tích hợp đồng hồ giám sát áp suất thấp (250±12 bar / 270±7 bar)",
+          conc: "UL/FM: Class A = 37.1% | Class B = 42.4% | Class C = 41.7% (TCVN 7161-13: Class A = 40.3% | A+ = 41.5% | B = 43.7%)",
+          safety: "NOAEL = 43% (O₂ ≥ 12%) | LOAEL = 52% (O₂ ≥ 10%)",
+          constants: "S = 0.7997 + 0.00293 × T (°C) | S₀ = 0.858 m³/kg (@20°C) | S₀ = 0.8612 m³/kg (@21°C)",
+          nozzleSize: '1/2" - 2" (DN15, DN20, DN25, DN32, DN40, DN50), ren BSP, lỗ tiết lưu 3 - 40 mm. Hai loại 360° và 180°',
+          nozzleArea: "≤ 98.4 m² / đầu phun",
+          nozzleHeight: "≤ 4.7 m cho 1 lớp đầu phun (cao hơn 4.7 m phải bố trí thêm lớp)",
+          nozzleDist: "Giữa 2 đầu phun ≤ 10.22 m (khung tối đa 9.63m × 10.22m). Đến tường: 7.02 m (loại 360°); 10.4 m (loại 180°)",
+          nozzlePress: "Loại 360° ≥ 13.6 bar; Loại 180° ≥ 14.3 bar. Chênh lệch áp suất giữa các đầu phun ≤ 4.9 bar",
+          dischargeTime: "52 - 139 giây (theo phần mềm tính toán thủy lực VdS)",
+          pipeLimit: "Chênh lệch cao độ đường ống tối đa: 6.6 m. Khoảng cách từ van đầu bình đến Tee đầu tiên: tối thiểu 1.3 m"
+        }
+      },
+      {
+        id: "naffco_inert",
+        name: "NAFFCO (NAFFCOInert®)",
+        badge: "UL / FM / BSI / ISO 14520",
+        specs: {
+          origin: "Dubai, UAE (Brochure U1218C)",
+          cert: "UL Listed, FM Approved, BSI, NFPA 2001, ISO 14520",
+          agent: "Hỗ trợ 4 loại khí trơ trên cùng 1 hệ thống: IG-100, IG-01, IG-55, IG-541",
+          pressure: "200 Bar & 300 Bar (Công nghệ điều áp Pressure Regulator duy trì 40 - 60 bar trên đường ống)",
+          cylinders: "67 Lít, 80 Lít và 140 Lít (200 Bar / 300 Bar)",
+          valve: "Kích hoạt điện từ (Solenoid), khí nén (Pneumatic) hoặc kích hoạt tay cơ khí",
+          conc: "Thiết kế theo NFPA 2001 / ISO 14520 cho đám cháy Class A, Class B & Class C",
+          safety: "NOAEL = 43% | LOAEL = 52% (theo NFPA 2001)",
+          constants: "IG-100: K₁ = 0.7997, K₂ = 0.00293 | S = K₁ + K₂ × T (°C)",
+          nozzleSize: "Đầu phun cố định góc 360° và 180°, lỗ tiết lưu khoan theo tính toán thủy lực",
+          nozzleArea: "Theo hồ sơ thẩm duyệt UL/FM của NAFFCOInert®",
+          nozzleHeight: "Theo hồ sơ thẩm duyệt UL/FM của NAFFCOInert®",
+          nozzleDist: "Theo hồ sơ thẩm duyệt UL/FM của NAFFCOInert®",
+          nozzlePress: "Áp suất vận hành tuyến ống sau bộ điều áp: 40 - 60 bar",
+          dischargeTime: "Đạt nồng độ thiết kế trong vòng 60 giây (theo NFPA 2001)",
+          pipeLimit: "Cho phép sử dụng ống áp suất thấp sau bộ điều áp giúp giảm chi phí lắp đặt và diện tích cửa xả áp"
+        }
+      }
+    ];
+
+    // Default 5 rooms matching user's Excel file 261119_FF-CP_IG100_SRI_m3.xlsx
+    const DEFAULT_CALC_ROWS = [
+      { id: 1, floor: "MB tổng thể", room: "Phòng LPG",        hazard: "B",  area: 25, height: 4.5, conc: 43.7, temp: 20, cyl: "140L - 300Bar", time: 60, nozQty: 1 },
+      { id: 2, floor: "MB tổng thể", room: "Phòng MDB",        hazard: "A+", area: 25, height: 4.5, conc: 41.5, temp: 20, cyl: "140L - 300Bar", time: 60, nozQty: 1 },
+      { id: 3, floor: "Tầng 2",      room: "Phòng điều khiển", hazard: "A+", area: 34, height: 3.3, conc: 41.5, temp: 20, cyl: "140L - 300Bar", time: 60, nozQty: 1 },
+      { id: 4, floor: "Tầng 2",      room: "Phòng tủ điện",    hazard: "A+", area: 35, height: 3.3, conc: 41.5, temp: 20, cyl: "140L - 300Bar", time: 60, nozQty: 1 },
+      { id: 5, floor: "Tầng 2",      room: "Phòng máy chủ",    hazard: "A+", area: 11, height: 3.3, conc: 41.5, temp: 20, cyl: "80L - 300Bar",  time: 60, nozQty: 1 }
+    ];
+
+    let vendors = JSON.parse(localStorage.getItem("ig100_vendors_v2")) || JSON.parse(JSON.stringify(DEFAULT_VENDORS));
+    let calcRows = JSON.parse(localStorage.getItem("ig100_calc_rows_v2")) || JSON.parse(JSON.stringify(DEFAULT_CALC_ROWS));
+
+    function saveState() {
+      localStorage.setItem("ig100_vendors_v2", JSON.stringify(vendors));
+      localStorage.setItem("ig100_calc_rows_v2", JSON.stringify(calcRows));
+    }
+
+    // =========================================================================
+    // 2. TAB SWITCHING
+    // =========================================================================
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-section").forEach(el => el.classList.add("hidden"));
+      document.getElementById("tab-" + tabId).classList.remove("hidden");
+
+      document.querySelectorAll(".tab-btn").forEach(btn => {
+        btn.className = "tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800/60 transition whitespace-nowrap";
+      });
+      const activeBtn = document.getElementById("tab-btn-" + tabId);
+      activeBtn.className = "tab-btn flex items-center gap-2 px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-amber-500/15 text-amber-400 border border-amber-500/30";
+    }
+
+    // =========================================================================
+    // 3. RENDER SPEC MATRIX (TAB 1)
+    // =========================================================================
+    function renderSpecMatrix() {
+      document.getElementById("vendorCountBadge").textContent = vendors.length;
+      const query = (document.getElementById("matrixSearchInput")?.value || "").toLowerCase().trim();
+      const table = document.getElementById("specMatrixTable");
+
+      let thead = `
+        <thead>
+          <tr class="bg-slate-800 text-white text-xs">
+            <th class="py-3 px-4 border-r border-slate-700 w-72 font-semibold">Tiêu chí / Thông số kỹ thuật</th>
+            ${vendors.map(v => `
+              <th class="py-3 px-4 border-r border-slate-700 min-w-[280px]">
+                <div class="font-bold text-amber-400 text-sm">${v.name}</div>
+                <div class="text-[11px] font-mono-tech text-slate-300 font-normal mt-0.5">${v.badge}</div>
+              </th>
+            `).join("")}
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-200 text-xs">
+      `;
+
+      let tbody = "";
+      SPEC_CATEGORIES.forEach(cat => {
+        const matchedRows = cat.rows.filter(r => {
+          if (!query) return true;
+          if (r.label.toLowerCase().includes(query)) return true;
+          return vendors.some(v => (v.specs[r.key] || "").toLowerCase().includes(query));
+        });
+
+        if (matchedRows.length === 0) return;
+
+        tbody += `
+          <tr class="bg-slate-100/90">
+            <td colspan="${vendors.length + 1}" class="py-2 px-4 font-bold text-slate-800 tracking-wide text-[11px] uppercase">
+              ${cat.category}
+            </td>
+          </tr>
+        `;
+
+        matchedRows.forEach(r => {
+          tbody += `
+            <tr class="hover:bg-orange-50/30 transition">
+              <td class="py-3 px-4 font-semibold text-slate-700 border-r border-slate-200 bg-slate-50/50 align-top">${r.label}</td>
+              ${vendors.map(v => `
+                <td class="py-3 px-4 text-slate-700 border-r border-slate-200 align-top leading-relaxed">
+                  ${v.specs[r.key] || "<span class='text-slate-400 italic'>Chưa cập nhật</span>"}
+                </td>
+              `).join("")}
+            </tr>
+          `;
+        });
+      });
+
+      table.innerHTML = thead + tbody + "</tbody>";
+    }
+
+    // =========================================================================
+    // 4. RENDER NOZZLE & PIPE TABLES (TAB 2)
+    // =========================================================================
+    function renderNozzleTables() {
+      const tSec = Math.max(1, parseFloat(document.getElementById("nozzleDischargeTime").value) || 60);
+
+      // Table 1: Nozzles DN15 - DN50
+      const nozBody = document.getElementById("nozzleTableBody");
+      nozBody.innerHTML = NOZZLE_DB.map(item => {
+        const minKg = (item.minFlow * tSec).toFixed(2);
+        const maxKg = (item.maxFlow * tSec).toFixed(2);
+        return `
+          <tr class="hover:bg-orange-50/40 transition">
+            <td class="py-2.5 px-3 font-bold font-mono-tech text-slate-900 border-r border-slate-200">${item.dn}</td>
+            <td class="py-2.5 px-3 text-center font-mono-tech text-slate-600 border-r border-slate-200">${item.inch}</td>
+            <td class="py-2.5 px-3 font-mono-tech text-slate-700 border-r border-slate-200">
+              <span class="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 font-semibold">${item.part360}</span>
+            </td>
+            <td class="py-2.5 px-3 font-mono-tech text-slate-700 border-r border-slate-200">
+              <span class="inline-block px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 font-semibold">${item.part180}</span>
+            </td>
+            <td class="py-2.5 px-3 text-center font-mono-tech text-slate-700 border-r border-slate-200">${item.orifice} mm</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech text-blue-700 bg-blue-50/30 border-r border-slate-200">${item.minFlow.toFixed(3)}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-semibold text-blue-800 bg-blue-50/30 border-r border-slate-200">${item.maxFlow.toFixed(3)}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-semibold text-orange-700 bg-orange-50/40 border-r border-slate-200">${Number(minKg).toLocaleString("en-US", {minimumFractionDigits: 2})} kg</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-bold text-orange-800 bg-orange-50/40">${Number(maxKg).toLocaleString("en-US", {minimumFractionDigits: 2})} kg</td>
+          </tr>
+        `;
+      }).join("");
+
+      // Table 2: Pipes & Selector Valves DN65 - DN150
+      const pipeBody = document.getElementById("pipeTableBody");
+      pipeBody.innerHTML = PIPE_SV_DB.map(item => {
+        const minKg = (item.minFlow * tSec).toFixed(2);
+        const maxKg = (item.maxFlow * tSec).toFixed(2);
+        const svBadge = item.svPart === "OVER"
+          ? `<span class="px-2 py-0.5 rounded bg-rose-100 text-rose-700 font-bold">OVER (Chỉ dùng ống)</span>`
+          : `<span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-semibold">${item.svPart}</span>`;
+        return `
+          <tr class="hover:bg-sky-50/40 transition">
+            <td class="py-2.5 px-3 font-bold font-mono-tech text-slate-900 border-r border-slate-200">${item.dn}</td>
+            <td class="py-2.5 px-3 text-center font-mono-tech text-slate-600 border-r border-slate-200">${item.inch}</td>
+            <td class="py-2.5 px-3 text-slate-700 border-r border-slate-200">${item.scope}</td>
+            <td class="py-2.5 px-3 font-mono-tech border-r border-slate-200">${svBadge}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech text-blue-700 bg-blue-50/30 border-r border-slate-200">${item.minFlow.toFixed(3)}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-semibold text-blue-800 bg-blue-50/30 border-r border-slate-200">${item.maxFlow.toFixed(3)}</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-semibold text-emerald-700 bg-emerald-50/30 border-r border-slate-200">${Number(minKg).toLocaleString("en-US", {minimumFractionDigits: 2})} kg</td>
+            <td class="py-2.5 px-3 text-right font-mono-tech font-bold text-emerald-800 bg-emerald-50/30">${Number(maxKg).toLocaleString("en-US", {minimumFractionDigits: 2})} kg</td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    // =========================================================================
+    // 5. MULTI-ZONE CALCULATOR ENGINE (TAB 3)
+    // =========================================================================
+    function selectNozzleDN(flowPerNozzle) {
+      for (let i = 0; i < NOZZLE_DB.length; i++) {
+        if (flowPerNozzle <= NOZZLE_DB[i].maxFlow) {
+          return NOZZLE_DB[i].dn;
+        }
+      }
+      return "OVER";
+    }
+
+    function computeRowMetrics(row) {
+      const std = document.getElementById("cylinderStandard")?.value || "SRI_21C";
+      const basis = document.getElementById("calcBasis")?.value || "BY_M3";
+
+      const V = +(row.area * row.height).toFixed(3);
+      const S = +(K1 + K2 * row.temp).toFixed(5);
+      // Q = ROUNDUP((V/S) * LN(100/(100-C)), 2)
+      const rawQ = (V / S) * Math.log(100 / (100 - row.conc));
+      const Q = Math.ceil(rawQ * 100) / 100;
+      const X = +(Q * VS_21C).toFixed(2);
+
+      const spec = CYLINDER_SPECS[row.cyl] || CYLINDER_SPECS["140L - 300Bar"];
+      const kgPerCyl = std === "SRI_21C" ? spec.kg_21C : spec.kg_15C;
+      const m3PerCyl = spec.m3_21C;
+
+      let cylCount = 1;
+      if (std === "SRI_21C" && basis === "BY_M3") {
+        cylCount = Math.max(1, Math.ceil(Q / (m3PerCyl / VS_21C)));
+      } else {
+        cylCount = Math.max(1, Math.ceil(Q / kgPerCyl));
+      }
+
+      const actualKg = cylCount * kgPerCyl;
+      const actualConc = +(100 * (1 - 1 / Math.exp((actualKg * S) / V))).toFixed(2);
+      const mainFlow = +(actualKg / row.time).toFixed(3);
+      const flowPerNoz = +(mainFlow / Math.max(1, row.nozQty)).toFixed(3);
+      const nozzleDN = selectNozzleDN(flowPerNoz);
+
+      return { V, S, Q, X, kgPerCyl, m3PerCyl, cylCount, actualKg, actualConc, mainFlow, flowPerNoz, nozzleDN };
+    }
+
+    function updateCalcField(id, field, value) {
+      const row = calcRows.find(r => r.id === id);
+      if (!row) return;
+
+      if (field === "hazard") {
+        row.hazard = value;
+        if (value === "A") row.conc = 40.3;
+        else if (value === "A+") row.conc = 41.5;
+        else if (value === "B") row.conc = 43.7;
+        else if (value === "UL-A") row.conc = 37.1;
+      } else if (["area", "height", "conc", "temp", "time", "nozQty"].includes(field)) {
+        row[field] = parseFloat(value) || 0;
+      } else {
+        row[field] = value;
+      }
+      saveState();
+      recalculateAll();
+    }
+
+    function addCalcRow() {
+      const nextId = calcRows.length ? Math.max(...calcRows.map(r => r.id)) + 1 : 1;
+      calcRows.push({
+        id: nextId,
+        floor: "Tầng mới",
+        room: "Phòng kỹ thuật " + nextId,
+        hazard: "A+",
+        area: 30,
+        height: 3.5,
+        conc: 41.5,
+        temp: 20,
+        cyl: "140L - 300Bar",
+        time: 60,
+        nozQty: 1
+      });
+      saveState();
+      recalculateAll();
+    }
+
+    function removeCalcRow(id) {
+      if (calcRows.length <= 1) {
+        alert("Cần giữ lại ít nhất 1 khu vực trong bảng tính.");
+        return;
+      }
+      calcRows = calcRows.filter(r => r.id !== id);
+      saveState();
+      recalculateAll();
+    }
+
+    function recalculateAll() {
+      const tbody = document.getElementById("calcTableBody");
+      const topology = document.getElementById("systemTopology")?.value || "INDEPENDENT";
+      const std = document.getElementById("cylinderStandard")?.value || "SRI_21C";
+
+      const bottleTotals = {
+        "80L - 200Bar": 0,
+        "80L - 300Bar": 0,
+        "140L - 200Bar": 0,
+        "140L - 300Bar": 0
+      };
+      const nozzleTotals = {
+        "DN15": 0, "DN20": 0, "DN25": 0, "DN32": 0, "DN40": 0, "DN50": 0, "OVER": 0
+      };
+
+      tbody.innerHTML = calcRows.map((row, idx) => {
+        const m = computeRowMetrics(row);
+
+        // Aggregate bottles
+        if (topology === "INDEPENDENT") {
+          bottleTotals[row.cyl] = (bottleTotals[row.cyl] || 0) + m.cylCount;
+        } else {
+          bottleTotals[row.cyl] = Math.max(bottleTotals[row.cyl] || 0, m.cylCount);
+        }
+
+        // Aggregate nozzles
+        nozzleTotals[m.nozzleDN] = (nozzleTotals[m.nozzleDN] || 0) + row.nozQty;
+
+        // Concentration safety color
+        let concClass = "text-emerald-700 bg-emerald-50 font-bold";
+        if (m.actualConc >= 52) concClass = "text-rose-700 bg-rose-100 font-bold";
+        else if (m.actualConc > 43) concClass = "text-amber-700 bg-amber-100 font-bold";
+
+        // Nozzle badge
+        const nozBadge = m.nozzleDN === "OVER"
+          ? `<span class="px-2 py-0.5 rounded bg-rose-600 text-white font-bold">OVER</span>`
+          : `<span class="px-2 py-0.5 rounded bg-orange-100 text-orange-800 font-bold">${m.nozzleDN}</span>`;
+
+        return `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="py-2 px-2 border-r border-slate-200 text-center font-mono-tech text-slate-500">${idx + 1}</td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="text" value="${row.floor}" onchange="updateCalcField(${row.id}, 'floor', this.value)" class="calc-input" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="text" value="${row.room}" onchange="updateCalcField(${row.id}, 'room', this.value)" class="calc-input font-medium" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <select onchange="updateCalcField(${row.id}, 'hazard', this.value)" class="calc-input text-center font-semibold">
+                <option value="A" ${row.hazard === "A" ? "selected" : ""}>A (40.3%)</option>
+                <option value="A+" ${row.hazard === "A+" ? "selected" : ""}>A+ (41.5%)</option>
+                <option value="B" ${row.hazard === "B" ? "selected" : ""}>B (43.7%)</option>
+                <option value="UL-A" ${row.hazard === "UL-A" ? "selected" : ""}>UL-A (37.1%)</option>
+              </select>
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="0.1" value="${row.area}" onchange="updateCalcField(${row.id}, 'area', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="0.1" value="${row.height}" onchange="updateCalcField(${row.id}, 'height', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech bg-slate-50 font-semibold">${m.V.toFixed(2)}</td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="0.1" value="${row.conc}" onchange="updateCalcField(${row.id}, 'conc', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="1" value="${row.temp}" onchange="updateCalcField(${row.id}, 'temp', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech bg-slate-50 text-slate-600">${m.S.toFixed(4)}</td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech font-bold text-blue-800 bg-blue-50/40">${m.Q.toFixed(2)}</td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech font-semibold text-blue-700 bg-blue-50/40">${m.X.toFixed(2)}</td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <select onchange="updateCalcField(${row.id}, 'cyl', this.value)" class="calc-input font-mono-tech font-semibold">
+                ${Object.keys(CYLINDER_SPECS).map(k => `<option value="${k}" ${row.cyl === k ? "selected" : ""}>${k}</option>`).join("")}
+              </select>
+            </td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-center font-mono-tech font-bold text-sm text-emerald-800 bg-emerald-50/60">${m.cylCount}</td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech ${concClass}">${m.actualConc.toFixed(2)}%</td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" step="1" value="${row.time}" onchange="updateCalcField(${row.id}, 'time', this.value)" class="calc-input text-right font-mono-tech" />
+            </td>
+            <td class="py-2 px-2 border-r border-slate-200">
+              <input type="number" min="1" step="1" value="${row.nozQty}" onchange="updateCalcField(${row.id}, 'nozQty', this.value)" class="calc-input text-center font-mono-tech font-bold" />
+            </td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-right font-mono-tech bg-slate-50">${m.flowPerNoz.toFixed(3)}</td>
+            <td class="py-2 px-2.5 border-r border-slate-200 text-center font-mono-tech bg-orange-50/30">${nozBadge}</td>
+            <td class="py-2 px-2 text-center">
+              <button onclick="removeCalcRow(${row.id})" class="text-slate-400 hover:text-rose-600 p-1 rounded transition" title="Xóa dòng">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+
+      // Update Summary Bottles Table
+      document.getElementById("summaryModeLabel").textContent = topology === "INDEPENDENT" ? "SUM (Độc lập)" : "MAX (Cụm VCV)";
+      const sumBottlesBody = document.getElementById("summaryBottlesBody");
+      let totalCyls = 0;
+      sumBottlesBody.innerHTML = Object.keys(CYLINDER_SPECS).map(k => {
+        const sp = CYLINDER_SPECS[k];
+        const qty = bottleTotals[k] || 0;
+        totalCyls += qty;
+        const chargeText = std === "SRI_21C" ? `${sp.m3_21C} m³ (${sp.kg_21C} kg)` : `${sp.kg_15C} kg (@15°C)`;
+        return `
+          <tr>
+            <td class="py-2 px-3 font-semibold text-slate-700">${k}</td>
+            <td class="py-2 px-3 text-right text-slate-500">${chargeText}</td>
+            <td class="py-2 px-3 text-right font-bold ${qty > 0 ? "text-emerald-700" : "text-slate-400"}">${qty}</td>
+          </tr>
+        `;
+      }).join("") + `
+        <tr class="bg-slate-100 font-bold text-slate-900">
+          <td colspan="2" class="py-2 px-3">TỔNG CỘNG BÌNH KHÍ</td>
+          <td class="py-2 px-3 text-right text-emerald-800">${totalCyls} bình</td>
+        </tr>
+      `;
+
+      // Update Summary Nozzles Table
+      const sumNozBody = document.getElementById("summaryNozzlesBody");
+      let totalNoz = 0;
+      sumNozBody.innerHTML = NOZZLE_DB.map(n => {
+        const qty = nozzleTotals[n.dn] || 0;
+        totalNoz += qty;
+        return `
+          <tr>
+            <td class="py-2 px-3 font-semibold text-slate-700">${n.dn} (${n.inch})</td>
+            <td class="py-2 px-3 text-slate-500">${n.minFlow.toFixed(3)} – ${n.maxFlow.toFixed(3)}</td>
+            <td class="py-2 px-3 text-right font-bold ${qty > 0 ? "text-orange-700" : "text-slate-400"}">${qty}</td>
+          </tr>
+        `;
+      }).join("") + `
+        <tr class="bg-slate-100 font-bold text-slate-900">
+          <td colspan="2" class="py-2 px-3">TỔNG CỘNG ĐẦU PHUN</td>
+          <td class="py-2 px-3 text-right text-orange-800">${totalNoz} đầu</td>
+        </tr>
+      `;
+
+      lucide.createIcons();
+    }
+
+    // =========================================================================
+    // 6. EXPORT 3-SHEET EXCEL WORKBOOK (.XLSX) LIKE USER'S TEMPLATE
+    // =========================================================================
+    function exportExcelWorkbook() {
+      const wb = XLSX.utils.book_new();
+      const projName = document.getElementById("projName").value || "Dự án IG-100";
+      const projLoc = document.getElementById("projLocation").value || "";
+      const std = document.getElementById("cylinderStandard").value;
+      const topology = document.getElementById("systemTopology").value;
+
+      // --- SHEET 1: CALCULATION ---
+      const calcSheetData = [
+        ["BẢNG TÍNH HỆ THỐNG CHỮA CHÁY BẰNG KHÍ IG-100 / FIRE SUPPRESSION SYSTEM CALCULATION"],
+        ["Dự án / Project:", projName],
+        ["Địa điểm / Location:", projLoc],
+        ["Tiêu chuẩn tham khảo:", "TCVN 7161-13 | ISO 14520-13 | NFPA 2001 | UL 2127"],
+        [],
+        [
+          "STT", "Vị trí / Tầng", "Tên phòng / Khu vực", "Cấp nguy hiểm",
+          "Diện tích (m²)", "Chiều cao (m)", "Thể tích V (m³)",
+          "Nồng độ TK (%)", "Nhiệt độ TK (°C)", "Thể tích riêng S (m³/kg)",
+          "Khối lượng yêu cầu Q (kg)", "Thể tích khí yêu cầu X (m³)",
+          "Thông số bình (Lt-Bar)", "Khối lượng nạp/bình (kg)", "Thể tích nạp/bình (m³)",
+          "Số lượng bình (Bình)", "Nồng độ dự kiến (%)", "Thời gian xả (s)",
+          "Lưu lượng ống chính (kg/s)", "Số đầu phun (Cái)", "Lưu lượng / 1 đầu (kg/s)", "Cỡ đầu phun (DN)"
+        ]
+      ];
+
+      const bottleTotals = { "80L - 200Bar": 0, "80L - 300Bar": 0, "140L - 200Bar": 0, "140L - 300Bar": 0 };
+      const nozzleTotals = { "DN15": 0, "DN20": 0, "DN25": 0, "DN32": 0, "DN40": 0, "DN50": 0, "OVER": 0 };
+
+      calcRows.forEach((row, i) => {
+        const m = computeRowMetrics(row);
+        if (topology === "INDEPENDENT") bottleTotals[row.cyl] += m.cylCount;
+        else bottleTotals[row.cyl] = Math.max(bottleTotals[row.cyl], m.cylCount);
+        nozzleTotals[m.nozzleDN] += row.nozQty;
+
+        calcSheetData.push([
+          i + 1, row.floor, row.room, row.hazard,
+          row.area, row.height, m.V,
+          row.conc, row.temp, m.S,
+          m.Q, m.X,
+          row.cyl, m.kgPerCyl, m.m3PerCyl,
+          m.cylCount, m.actualConc, row.time,
+          m.mainFlow, row.nozQty, m.flowPerNoz, m.nozzleDN
+        ]);
+      });
+
+      calcSheetData.push([]);
+      calcSheetData.push(["Ghi chú / Notes:"]);
+      calcSheetData.push(["1. Các phòng có nồng độ sau xả >= 52% (LOAEL) bắt buộc có công tắc khóa ngắt (Disable Switch)."]);
+      calcSheetData.push(["2. Các phòng bảo vệ phải đảm bảo độ kín và bố trí cửa xả áp quá áp (PRD) phù hợp."]);
+
+      const wsCalc = XLSX.utils.aoa_to_sheet(calcSheetData);
+      wsCalc["!cols"] = [
+        {wch: 6}, {wch: 16}, {wch: 22}, {wch: 12},
+        {wch: 14}, {wch: 14}, {wch: 16},
+        {wch: 14}, {wch: 14}, {wch: 18},
+        {wch: 20}, {wch: 20},
+        {wch: 18}, {wch: 18}, {wch: 18},
+        {wch: 16}, {wch: 16}, {wch: 14},
+        {wch: 20}, {wch: 16}, {wch: 20}, {wch: 16}
+      ];
+      XLSX.utils.book_append_sheet(wb, wsCalc, "Calculation");
+
+      // --- SHEET 2: SUMMARY ---
+      const summaryData = [
+        ["BẢNG TỔNG HỢP KHỐI LƯỢNG THIẾT BỊ HỆ THỐNG IG-100"],
+        ["Chế độ tính cụm bình:", topology === "INDEPENDENT" ? "Độc lập từng phòng (SUM)" : "Dùng Van chọn vùng VCV (MAX cụm)"],
+        [],
+        ["1. TỔNG HỢP BÌNH CHỨA KHÍ IG-100", "", "", "2. TỔNG HỢP ĐẦU PHUN (NOZZLE)", ""],
+        ["Loại bình (Lt - Bar)", "Khối lượng nạp/bình (kg)", "Số lượng (Bình)", "Kích thước đầu phun (DN)", "Số lượng (Cái)"]
+      ];
+
+      const cylKeys = Object.keys(CYLINDER_SPECS);
+      const maxLen = Math.max(cylKeys.length, NOZZLE_DB.length);
+      for (let i = 0; i < maxLen; i++) {
+        const cKey = cylKeys[i];
+        const nItem = NOZZLE_DB[i];
+        summaryData.push([
+          cKey || "",
+          cKey ? (std === "SRI_21C" ? CYLINDER_SPECS[cKey].kg_21C : CYLINDER_SPECS[cKey].kg_15C) : "",
+          cKey ? bottleTotals[cKey] : "",
+          nItem ? `${nItem.dn} (${nItem.inch})` : "",
+          nItem ? nozzleTotals[nItem.dn] : ""
+        ]);
+      }
+
+      const wsSummary = XLSX.utils.aoa_to_sheet(summaryData);
+      wsSummary["!cols"] = [{wch: 22}, {wch: 22}, {wch: 18}, {wch: 24}, {wch: 18}];
+      XLSX.utils.book_append_sheet(wb, wsSummary, "Summary");
+
+      // --- SHEET 3: DATABASE ---
+      const dbData = [
+        ["CƠ SỞ DỮ LIỆU KỸ THUẬT IG-100 (SRI / INERTEC UL-FM)"],
+        ["Hằng số K1 =", K1, "Hằng số K2 =", K2, "Vs @21°C =", VS_21C],
+        [],
+        ["BẢNG THÔNG SỐ BÌNH CHỨA (TANK)"],
+        ["Loại bình", "Thể tích khí @21°C (m³)", "Khối lượng nạp @21°C (kg)", "Khối lượng nạp @15°C (kg)"],
+        ...Object.values(CYLINDER_SPECS).map(s => [s.label, s.m3_21C, s.kg_21C, s.kg_15C]),
+        [],
+        ["BẢNG GIỚI HẠN ĐẦU PHUN (NOZZLE DN15 - DN50) & ĐƯỜNG ỐNG (PIPE DN65 - DN150)"],
+        ["Kích thước (DN)", "Hệ Inch", "Mã đầu phun 360°", "Mã đầu phun 180°", "Lỗ tiết lưu (mm)", "Lưu lượng Min (kg/s)", "Lưu lượng Max (kg/s)", "Nạp Min @60s (kg)", "Nạp Max @60s (kg)"],
+        ...NOZZLE_DB.map(n => [n.dn, n.inch, n.part360, n.part180, n.orifice, n.minFlow, n.maxFlow, +(n.minFlow*60).toFixed(2), +(n.maxFlow*60).toFixed(2)]),
+        ...PIPE_SV_DB.map(p => [p.dn, p.inch, p.scope, p.svPart, "-", p.minFlow, p.maxFlow, +(p.minFlow*60).toFixed(2), +(p.maxFlow*60).toFixed(2)])
+      ];
+
+      const wsDb = XLSX.utils.aoa_to_sheet(dbData);
+      wsDb["!cols"] = [{wch: 18}, {wch: 12}, {wch: 24}, {wch: 24}, {wch: 18}, {wch: 20}, {wch: 20}, {wch: 18}, {wch: 18}];
+      XLSX.utils.book_append_sheet(wb, wsDb, "Database");
+
+      const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+      XLSX.writeFile(wb, `${dateStr}_IG100_Calculation_Suite.xlsx`);
+    }
+
+    // =========================================================================
+    // 7. VENDOR MANAGEMENT & JSON IMPORT/EXPORT (TAB 4)
+    // =========================================================================
+    function renderVendorCards() {
+      const container = document.getElementById("vendorCardsContainer");
+      container.innerHTML = vendors.map(v => `
+        <div class="border border-slate-200 rounded-xl p-4 bg-slate-50/60 flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <h3 class="font-bold text-slate-800 text-sm">${v.name}</h3>
+                <span class="inline-block mt-1 px-2 py-0.5 text-[11px] font-mono-tech bg-blue-100 text-blue-800 rounded">${v.badge}</span>
+              </div>
+              ${vendors.length > 1 ? `
+                <button onclick="deleteVendor('${v.id}')" class="text-slate-400 hover:text-rose-600 p-1" title="Xóa hãng này">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+              ` : ""}
+            </div>
+            <p class="text-xs text-slate-600 mt-3 line-clamp-2"><strong>Xuất xứ:</strong> ${v.specs.origin}</p>
+            <p class="text-xs text-slate-600 mt-1 line-clamp-2"><strong>Áp suất:</strong> ${v.specs.pressure}</p>
+          </div>
+          <div class="pt-2 border-t border-slate-200 flex justify-end">
+            <button onclick="switchTab('matrix')" class="text-xs font-semibold text-orange-600 hover:text-orange-700">Xem trong ma trận →</button>
+          </div>
+        </div>
+      `).join("");
+      lucide.createIcons();
+    }
+
+    function openAddVendorModal() {
+      const select = document.getElementById("cloneFromVendor");
+      select.innerHTML = vendors.map(v => `<option value="${v.id}">${v.name}</option>`).join("");
+      document.getElementById("addVendorModal").classList.remove("hidden");
+      document.getElementById("addVendorModal").classList.add("flex");
+    }
+
+    function closeAddVendorModal() {
+      document.getElementById("addVendorModal").classList.add("hidden");
+      document.getElementById("addVendorModal").classList.remove("flex");
+    }
+
+    function createNewVendor() {
+      const name = document.getElementById("newVendorName").value.trim();
+      const origin = document.getElementById("newVendorOrigin").value.trim() || "UL / FM Approved";
+      const cloneId = document.getElementById("cloneFromVendor").value;
+      if (!name) return alert("Vui lòng nhập tên hãng!");
+
+      const base = vendors.find(v => v.id === cloneId) || vendors[0];
+      const newVendor = {
+        id: "vendor_" + Date.now(),
+        name: name,
+        badge: origin,
+        specs: { ...base.specs, origin: origin }
+      };
+      vendors.push(newVendor);
+      saveState();
+      renderSpecMatrix();
+      renderVendorCards();
+      closeAddVendorModal();
+      switchTab("matrix");
+    }
+
+    function deleteVendor(id) {
+      vendors = vendors.filter(v => v.id !== id);
+      saveState();
+      renderSpecMatrix();
+      renderVendorCards();
+    }
+
+    function exportJsonData() {
+      const payload = { vendors, calcRows, exportedAt: new Date().toISOString() };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "ig100-engineering-suite-backup.json";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importJsonData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.vendors) vendors = data.vendors;
+          if (data.calcRows) calcRows = data.calcRows;
+          saveState();
+          renderSpecMatrix();
+          renderNozzleTables();
+          recalculateAll();
+          renderVendorCards();
+          alert("Đã nhập dữ liệu JSON thành công!");
+        } catch (err) {
+          alert("File JSON không hợp lệ!");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function resetAllData() {
+      if (!confirm("Khôi phục toàn bộ dữ liệu hãng và bảng tính về mặc định ban đầu?")) return;
+      vendors = JSON.parse(JSON.stringify(DEFAULT_VENDORS));
+      calcRows = JSON.parse(JSON.stringify(DEFAULT_CALC_ROWS));
+      saveState();
+      renderSpecMatrix();
+      renderNozzleTables();
+      recalculateAll();
+      renderVendorCards();
+    }
+
+    // =========================================================================
+    // 8. INITIALIZE APP
+    // =========================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      renderSpecMatrix();
+      renderNozzleTables();
+      recalculateAll();
+      renderVendorCards();
+      lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
+="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
